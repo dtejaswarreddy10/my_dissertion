@@ -8,6 +8,8 @@
 **Version:** v2 — Updated June 2026 (incorporates peer review feedback)
 
 > **What changed in v2:** 14 targeted updates across all sections based on expert reviewer feedback. Changes are marked with `[v2]` inline. Summary: FP8 design decisions locked upfront, novelty reframed away from "FP8 alone," CDC clarification added, stronger baselines added, FPGA power limitation addressed, Yosys ASIC flow added, Open MPW path documented, toolchain validation added as Week 1 deliverable, two new challenges added, abstract template added, FP8 decision record added as Appendix B.
+>
+> **What changed in v2.1 (technical-soundness pass):** Changes marked `[v2.1]` inline. (1) FP8 **accumulator strategy** specified (new Appendix B.3 — shared INT32 fixed-point accumulate with exponent alignment); (2) **power-claim mechanism** corrected — FPGA reports operand-isolation + clock-enable, true per-PE ICG moved to a new PE-level **ASIC power estimate** (Section 3.4), with explicit note that an FPGA cannot host 64 independently gated clocks; (3) **sparsity vs throughput** decoupled — sparsity = power, INT4×2 = throughput; (4) shared resource **renamed** from "Booth encoder" to "reduction tree + accumulator," with FP8 surrounding logic flagged as the area risk; (5) cross-node "×2.5" scaling constant **dropped** in favor of side-by-side node reporting; (6) FP8 ABFT exact-compare flaw fixed (tolerance threshold).
 
 ---
 
@@ -65,7 +67,7 @@ Standard systolic array architectures for DNN inference suffer from three compou
 
 You will design, implement in RTL (SystemVerilog), verify, and characterize a synthesizable systolic array that simultaneously addresses all three inefficiencies.
 
-**The core novelty is not any single component — it is the combination: a shared Booth encoder infrastructure that supports three precision modes unified with a 2:4 sparsity front-end and per-PE clock gating, characterized together with normalized pJ/MAC metrics enabling fair comparison against published baselines.**
+**The core novelty is not any single component — it is the combination *plus its characterization*: a shared partial-product reduction tree and accumulator that support three precision modes, unified with a 2:4 sparsity front-end and per-PE clock gating, and — critically — a quantified study of how precision mode, sparsity rate, and gating effectiveness interact. That interaction characterization (not the integration alone) is what separates this from prior single-axis work, and it is reported with normalized pJ/MAC metrics enabling fair comparison against published baselines.** `[v2.1 — novelty leans on interaction study; shared resource renamed]`
 
 ---
 
@@ -76,7 +78,9 @@ A single Processing Element that reconfigures its datapath at runtime to execute
 - `MODE_INT4x2`: two parallel 4-bit integer MACs packed into the INT8 datapath (doubling throughput)
 - `MODE_FP8`: 8-bit floating point MAC using NVIDIA E4M3 format (E4M3FNUZ variant as defined in `ml_dtypes`)
 
-The key novelty is sharing Radix-4 Booth encoders and Wallace tree adders across precision modes with minimal multiplexing overhead.
+The shared resource is the **partial-product reduction (Wallace/CSA) tree and the accumulator** — not the Booth encoder alone. FP8's mantissa multiply is only 4×4 (3 stored + 1 implicit), so Booth encoding buys little there; the value of sharing is reusing the reduction tree and accumulate path across all three modes via a pre-conditioning stage on the partial products. `[v2.1]`
+
+**Area-risk note:** `[v2.1]` The dominant area/timing cost of FP8 mode is *not* the multiplier but the **surrounding logic** — biased-exponent adder, normalization shifter, RTE rounding, and E4M3 special-case handling — plus the exponent-aligned accumulate path (Appendix B.3). The `< 20%` area target is most at risk from this non-shared FP8 logic, so it is budgeted and measured as a named sub-block in synthesis.
 
 **FP8 Implementation Specification (locked before RTL begins):** `[v2]`
 
@@ -87,15 +91,18 @@ The key novelty is sharing Radix-4 Booth encoders and Wallace tree adders across
 | Denormal numbers | Flush-to-zero (FTZ) | Standard inference hardware practice; simplifies normalization hardware significantly |
 | Overflow behavior | Saturate to max representable value | Prevents wrap-around errors in accumulation; standard for inference |
 | NaN encoding | NVIDIA E4M3 special encoding (no infinity representation) | Matches production hardware; all NaN inputs produce NaN output |
+| Accumulation | Fixed-point accumulate of FP8 products in the shared INT32 accumulator, with exponent-driven alignment shift (see Appendix B.3) | Reuses the integer accumulate path; avoids a second FP accumulator that would break the area budget `[v2.1]` |
 | Reference model | `ml_dtypes.float8_e4m3fn` Python library | Exhaustive 65,536-combination test against this reference before PE integration |
 
-These decisions are stated explicitly in the paper's Implementation section. Reviewers who ask about denormal handling are directed to this table.
+These decisions are stated explicitly in the paper's Implementation section. Reviewers who ask about denormal handling are directed to this table. The accumulator strategy — the single most consequential FP8 datapath decision — is specified in Appendix B.3.
 
 ---
 
 **Contribution 2 — 2:4 Structured sparsity front-end with metadata decoder.**
 
 A compact combinational front-end that decodes 2:4 sparsity metadata (2-bit indices per non-zero element), selects the two relevant operands from each group of four, and feeds only non-zero operand pairs to the MAC array. Zero operand pairs suppress the PE's compute and gating logic simultaneously. The decoder is purely combinational — no pipeline registers — to preserve the systolic timing contract.
+
+**Scope clarification (sparsity = power, not throughput):** `[v2.1]` Because the decoder is combinational and does not compact the schedule, 2:4 sparsity in this design reduces **dynamic power** (by gating zero-operand MACs) — it does **not** by itself deliver Ampere-style 2× *throughput*. Throughput gain in this work comes solely from INT4×2 packing (Contribution 1). Schedule-compaction / load-balancing for sparsity-driven throughput requires a controller that is explicitly out of scope (Section 1.5).
 
 ---
 
@@ -107,7 +114,7 @@ Each PE contains an ICG cell that suppresses its flip-flop clock when both opera
 
 ---
 
-**Combined claim:** The three contributions together — evaluated on a synthesized 8×8 array targeting Kintex-7 FPGA with SAIF-annotated power analysis and normalized to pJ/MAC for cross-platform comparison — demonstrate: (1) less than 20% area overhead vs a fixed INT8 array, (2) 30–45% dynamic power reduction at 50% sparsity, (3) 1.8–2.0× throughput improvement in INT4 mode, compared against a dense INT8 baseline, BitFusion published numbers, and SCNN published numbers.
+**Combined claim:** `[v2.1 — power mechanism and throughput source clarified]` The three contributions together — evaluated on a synthesized 8×8 array targeting Kintex-7 FPGA with SAIF-annotated power analysis and normalized to pJ/MAC for cross-platform comparison — demonstrate: (1) less than 20% area overhead vs a fixed INT8 array; (2) 30–45% dynamic power reduction at 50% sparsity from **operand isolation plus clock-enable gating** on the FPGA flow, with the true per-PE clock-gating (ICG) contribution reported separately from the ASIC flow (Section 3.4) — because an FPGA cannot host 64 independently gated PE clocks; and (3) 1.8–2.0× throughput improvement from **INT4×2 packing** (a precision-mode effect, independent of sparsity), compared against a dense INT8 baseline, BitFusion published numbers, and SCNN published numbers.
 
 ---
 
@@ -133,8 +140,10 @@ Each PE contains an ICG cell that suppresses its flip-flop clock when both opera
 - Unstructured sparsity (only 2:4 structured sparsity contract)
 - Multi-clock-domain designs or asynchronous interfaces
 
-**FPGA power limitation acknowledgment:** `[v2]`
+**FPGA power limitation acknowledgment:** `[v2 / expanded v2.1]`
 Vivado power estimates on Kintex-7 are dominated by routing capacitance and clock tree overhead not present in ASIC implementations. All power results are therefore reported as (1) absolute Vivado estimates for reproducibility, and (2) normalized pJ/MAC values that allow fair comparison against published ASIC results from BitFusion, SCNN, and Eyeriss v2. The Yosys + FreePDK45 synthesis provides gate-count and critical path data that are more directly comparable to ASIC published results.
+
+**Per-PE clock gating cannot be realized on FPGA — and the plan accounts for this.** `[v2.1]` A Kintex-7 has only ~32 global clock buffers (`BUFG`), so an 8×8 array of 64 PEs cannot be given 64 independently gated clocks. Vivado will instead map per-PE "gating" onto flip-flop **clock-enable (CE)** pins, which hold state but do **not** stop the clock and do **not** reduce clock-tree power. Therefore: (a) on the **FPGA flow**, the reported dynamic-power reduction comes from **operand isolation + clock-enable** (reduced datapath toggling), and is labeled as such; (b) the **true integrated clock gating (ICG)** mechanism is realized and reported in the **ASIC flow** (Section 3.4), where real ICG cells exist, using a gate-level activity (SAIF) power estimate at the PE level. This split is stated explicitly in the paper so no reviewer can read the FPGA number as an ICG result.
 
 ---
 
@@ -143,14 +152,15 @@ Vivado power estimates on Kintex-7 are dominated by routing capacitance and cloc
 | Metric | Target | Comparison Basis |
 |--------|--------|-----------------|
 | Area overhead: precision-adaptive PE vs fixed INT8 PE | < 20% | Your own baseline RTL |
-| Dynamic power reduction at 50% sparsity (INT8 mode, SAIF-annotated) | 30–45% vs dense baseline | Your own baseline RTL |
-| Energy efficiency (normalized) | Competitive pJ/MAC vs BitFusion published numbers | BitFusion ISCA 2018 Table 3 |
-| Throughput improvement at 50% sparsity (INT4 mode) | 1.8–2.0× vs INT8 dense | Your own baseline RTL |
+| Dynamic power reduction at 50% sparsity — FPGA flow (operand isolation + clock-enable, INT8 mode, SAIF-annotated) | 30–45% vs dense baseline | Your own baseline RTL `[v2.1]` |
+| Per-PE clock-gating (ICG) power benefit — ASIC flow (PE-level, gate-level SAIF) | Reported separately, mechanism-attributed | FreePDK45 gate-level power estimate `[v2.1]` |
+| Energy efficiency (normalized) | Competitive pJ/MAC vs BitFusion published numbers | BitFusion ISCA 2018 Table 4 |
+| Throughput improvement — INT4×2 packing (precision-mode effect, not sparsity) | 1.8–2.0× vs INT8 dense | Your own baseline RTL `[v2.1]` |
 | Fmax on Kintex-7 (post-implementation) | > 250 MHz | Vivado timing report |
 | FP8 golden model agreement | Zero mismatches on all 65,536 FP8×FP8 combinations | `ml_dtypes.float8_e4m3fn` |
 | FP8 inference accuracy vs FP32 baseline | < 0.5% relative MAE on ResNet-18 layer | PyTorch FP32 reference |
 | Testbench functional coverage | > 95% (covergroups per mode + transitions) | Coverage report |
-| PE-level gate count (Yosys + FreePDK45) | Documented with breakdown | ASIC synthesis report |
+| PE-level gate count + critical path (Yosys + FreePDK45) | Documented with breakdown | ASIC synthesis report |
 
 ---
 
@@ -339,7 +349,13 @@ Organized in reading order. Total: 20 papers across 4 tiers.
 
 **How to use:** Synthesize your PE module only (not the full array) with Yosys targeting FreePDK45. This produces: (1) gate count in NAND2 equivalents, (2) critical path in ns at 45nm, (3) estimated area in µm². Report these alongside Vivado numbers and label them clearly. This answers the "FPGA power ≠ ASIC power" reviewer objection directly.
 
-**Setup time:** 1 day to install and verify a working Yosys + FreePDK45 synthesis of a simple module. Do this in Week 4 of Month 1, not Month 4.
+**ASIC-flow power estimate (this is where the clock-gating claim actually lives):** `[v2.1]` Gate count alone does not substantiate the ICG power claim, so add a PE-level switching-activity power estimate to the ASIC flow:
+1. Synthesize the PE with Yosys to a FreePDK45 gate-level netlist, with real ICG cells inferred (or instantiated) for the per-PE gated clock.
+2. Run a gate-level simulation of that netlist with representative (ResNet-18 activation) stimuli at 0/25/50/75% sparsity to produce a VCD/SAIF.
+3. Compute dynamic power as Σ(½·C·V²·f·activity) using per-net switching activity from the SAIF and node capacitance from the FreePDK45 Liberty data (a small Python script, or OpenSTA `report_power` if a `.lib` with power arcs is available; OpenROAD gives a fuller flow if post-layout numbers are wanted).
+4. Report the **ICG-on vs ICG-off** delta at the PE level as the clock-gating contribution — the number the FPGA flow cannot produce.
+
+**Setup time:** 1 day to install and verify a working Yosys + FreePDK45 synthesis of a simple module. Do this in Week 4 of Month 1, not Month 4. Budget 2 additional days for the gate-level power-estimate script.
 
 ### 3.5 Post-Dissertation Path: ASIC Tapeout `[v2 — new subsection]`
 
@@ -388,8 +404,11 @@ After your dissertation is submitted and your first paper is under review, consi
 
 **Specific pitfall:** In INT4×2 mode, packing two 4-bit multiplications into an 8-bit operand path requires the upper and lower nibble partial products not to interfere. If mode-select MUX is placed after partial product generation, it creates a wide critical path through the mux tree.
 
+**Specific pitfall (the real area risk is FP8, not the encoder):** `[v2.1]` The shared resource is the partial-product reduction tree and accumulator, not the Booth encoder — FP8's 4×4 mantissa multiply barely uses Booth. The area/timing that threatens the `< 20%` budget is FP8's *surrounding* logic (exponent adder, normalization shifter, RTE rounding, special-case handling) and the exponent-aligned accumulate path (Appendix B.3). Budget and synthesize the FP8 surrounding logic as a named sub-block so its cost is visible, not buried in the multiplier.
+
 **Mitigation:**
-- Design precision mode decode as a pre-compute stage conditioning Booth encoder inputs before encoding, not after.
+- Design precision mode decode as a pre-compute stage conditioning the partial-product / encoder inputs before encoding, not after.
+- Lock the FP8 accumulation strategy (Appendix B.3) before drawing the datapath — it determines whether the accumulator is shared or duplicated, which dominates the area result.
 - Draw the complete datapath with bit-widths labelled before writing RTL. Non-negotiable. Saves you from rewriting the PE twice.
 - Run timing closure synthesis by end of Month 2 — do not defer timing analysis to Month 4.
 
@@ -463,7 +482,7 @@ This abstract leads with the gap (separate design concerns), states the combinat
 **Mitigation:**
 You do not re-implement BitFusion or SCNN. You extract their published numbers and normalize to your metric (pJ/MAC). Here is the exact process:
 
-1. BitFusion (ISCA 2018, Table 4): Extract energy-per-MAC at INT8 mode at 16nm. Normalize to 45nm using voltage/frequency scaling (standard: multiply by ~2.5× for 45nm vs 16nm) or note the node difference and report both.
+1. BitFusion (ISCA 2018, Table 4): Extract energy-per-MAC at INT8 mode at 16nm. **Do not collapse the node gap with a single fudge factor** — the earlier "×2.5 for 45nm vs 16nm" is exactly the kind of unjustified constant reviewers reject. `[v2.1]` Instead, report your FreePDK45 number and BitFusion's 16nm number **side-by-side with both nodes explicitly labeled**; if any scaling is shown at all, present it only as a clearly-stated V²·f model with its assumptions, alongside the raw unscaled values.
 2. SCNN (ISCA 2017, Table 3): Extract throughput and power numbers. Normalize to pJ/MAC.
 3. NVIDIA A100 (IEEE Micro 2021): Use published 312 TOPS at 400W → ~1.28 pJ/MAC as your "commercial baseline" reference.
 4. Build a comparison table: Your Design | BitFusion | SCNN | Dense INT8 Baseline | across: pJ/MAC, area (normalized), precision modes supported, sparsity support.
@@ -675,7 +694,7 @@ For matrix multiplication C = A × B:
 
 **Phase 3 (2 weeks):** Fault injection testbench — SystemVerilog `force`/`release` to inject single-bit and multi-bit flips into PE accumulator values during computation. Characterize: detection rate, false positive rate, detection latency in cycles.
 
-**Phase 4 (2 weeks):** Extend to INT4×2 and FP8 modes. FP8 checksums accumulate in INT32 to avoid FP8 overflow.
+**Phase 4 (2 weeks):** Extend to INT4×2 and FP8 modes. **FP8 ABFT is not exact-comparison.** `[v2.1]` Two issues must be handled: (1) summing FP8 *bit patterns* as integers is not a meaningful checksum — first define the fixed-point/INT accumulation of FP8 *products* (reuse the Appendix B.3 exponent-aligned INT32 accumulate), then checksum that; (2) floating-point addition is non-associative, so a recomputed FP checksum will **not** bit-match even with no fault — detection must use a **tolerance threshold**, and choosing that threshold to catch real faults without rounding-induced false positives is the actual research problem for this phase.
 
 ### 6.4 Publication Angle
 
@@ -730,7 +749,21 @@ This appendix is the source of truth for all FP8 implementation decisions. Lock 
 | NaN propagation | Any NaN input → NaN output | Quiet NaN only | Matches `ml_dtypes` reference behavior |
 | Underflow | Flush to zero | Denormal output | Consistent with FTZ decision above |
 
-### B.3 Validation Protocol
+### B.3 Product Accumulation Strategy `[v2.1 — new; the most consequential FP8 datapath decision]`
+
+The rounding mode gets the attention, but the **accumulator format is the decision that actually shapes the FP8 datapath and the area budget.** An FP8×FP8 product carries more bits of significance than FP8, and many products are summed per output — so "accumulate in what?" must be locked before any FP8 RTL.
+
+| Decision | Choice | Alternative Considered | Why This Choice |
+|----------|--------|----------------------|-----------------|
+| Accumulator format | Shared **INT32 fixed-point** accumulator (reuses the INT8/INT4 accumulate path) | Dedicated FP16/FP32 accumulator | A second FP accumulator is a whole extra datapath and breaks the `< 20%` area budget; reuse is the point of a *unified* PE |
+| FP8 product → accumulator | Convert each FP8×FP8 product to a fixed-point value via **exponent-driven alignment shift**, then add into INT32 | Keep products in FP and do an FP add | Fixed-point accumulation is associative and exact within range; avoids an FP adder and its rounding in the hot loop |
+| Alignment range | Shift covers the full E4M3 product exponent range; products below the accumulator LSB flush to zero | Unbounded shifter | Bounds the shifter width and accumulator dynamic range to a fixed, synthesizable size |
+| Saturation | Saturate the INT32 accumulator on overflow (consistent with §B.2) | Wrap-around | Prevents catastrophic error propagation across the tile |
+| Final output scaling | Apply a single exponent/scale factor when reading the accumulator out, per tile | Per-MAC renormalization | One scale per tile, not per MAC — keeps the PE hot loop integer-only |
+
+**Golden-model consequence:** the Python reference must model **exactly this** fixed-point-accumulate-of-FP8-products behavior (not `numpy` FP accumulation), or the array-level comparison shows spurious mismatches even when the PE is correct. The per-product FP8 multiply is still validated bit-exact against `ml_dtypes` (Appendix B.4); the *accumulation* is validated at the tile level against this fixed-point model.
+
+### B.4 Validation Protocol
 
 Before integrating the FP8 multiplier into the PE:
 
@@ -744,7 +777,7 @@ Before integrating the FP8 multiplier into the PE:
 
 This test must pass before Week 8 integration begins. If it fails after 3 days of debugging, invoke scope reduction and document it.
 
-### B.4 Scope Reduction Protocol
+### B.5 Scope Reduction Protocol
 
 If the full FP8 specification cannot be implemented within Week 7:
 
@@ -756,6 +789,6 @@ If the full FP8 specification cannot be implemented within Week 7:
 
 ---
 
-*Document version: v2 — Updated June 2026*
-*Changes from v1: 14 updates incorporating peer review feedback. See header summary.*
+*Document version: v2.1 — Updated June 2026*
+*Changes from v1: 14 updates incorporating peer review feedback. v2.1 adds a technical-soundness pass (FP8 accumulator spec, power-claim mechanism correction, sparsity/throughput decoupling, shared-resource renaming, node-reporting fix, FP ABFT tolerance). See header summary.*
 *Status: Active — ready for implementation*
