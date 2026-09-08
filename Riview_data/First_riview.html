@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Review — Mixed-Precision Sparsity-Aware Systolic Array</title>
+<style>
+  :root{
+    --bg:#0d1b2a; --bg2:#1b263b; --card:#22314a; --accent:#4cc9f0;
+    --accent2:#f72585; --accent3:#80ffdb; --text:#e6edf3; --muted:#9fb3c8;
+    --good:#52b788; --line:#33415c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#000;color:var(--text)}
+  #deck{width:100vw;height:100vh;overflow:hidden;position:relative}
+  .slide{
+    position:absolute;inset:0;display:none;flex-direction:column;
+    padding:5vh 7vw;background:linear-gradient(135deg,var(--bg),var(--bg2));
+    animation:fade .4s ease}
+  .slide.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  h1{font-size:3.1vw;line-height:1.15;margin-bottom:2vh}
+  h2{font-size:2.3vw;color:var(--accent);margin-bottom:2.5vh;border-left:6px solid var(--accent2);padding-left:16px}
+  h3{font-size:1.35vw;color:var(--accent3);margin:1.5vh 0 .8vh}
+  p,li{font-size:1.25vw;line-height:1.55;color:var(--text)}
+  ul{margin-left:1.4em;margin-top:.6vh}
+  li{margin-bottom:1vh}
+  li b{color:var(--accent)}
+  .muted{color:var(--muted)}
+  .accent{color:var(--accent2)}
+  .center{justify-content:center;align-items:center;text-align:center}
+  .tag{display:inline-block;background:var(--card);border:1px solid var(--line);
+    color:var(--accent3);padding:.5vh 1.1vw;border-radius:999px;font-size:1vw;margin:.4vh}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:3vw}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2vh 1.6vw}
+  .card h3{margin-top:0}
+  table{border-collapse:collapse;width:100%;font-size:1.05vw;margin-top:1vh}
+  th,td{border:1px solid var(--line);padding:1vh 1vw;text-align:left}
+  th{background:var(--card);color:var(--accent)}
+  td b{color:var(--accent3)}
+  .kpi{font-size:2.6vw;color:var(--accent3);font-weight:700}
+  .kpi small{display:block;font-size:1vw;color:var(--muted);font-weight:400;margin-top:.4vh}
+  .footer{position:absolute;bottom:2.4vh;left:7vw;right:7vw;display:flex;
+    justify-content:space-between;font-size:.9vw;color:var(--muted);border-top:1px solid var(--line);padding-top:1.2vh}
+  .pill{background:var(--accent2);color:#fff;padding:.4vh 1vw;border-radius:8px;font-size:1vw}
+  /* systolic array diagram */
+  .array{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:20vw;margin-top:2vh}
+  .pe{background:var(--card);border:1px solid var(--accent);border-radius:8px;
+    aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.8vw;color:var(--accent3)}
+  .pe.gated{border-color:var(--accent2);color:var(--accent2);opacity:.55}
+  .flow{font-size:1vw;color:var(--muted);margin-top:1vh}
+  .nav{position:fixed;bottom:14px;right:18px;z-index:10;display:flex;gap:8px}
+  .nav button{background:var(--card);color:var(--text);border:1px solid var(--line);
+    border-radius:8px;padding:6px 12px;cursor:pointer;font-size:14px}
+  .nav button:hover{border-color:var(--accent)}
+  .progress{position:fixed;top:0;left:0;height:4px;background:var(--accent2);z-index:10;transition:width .3s}
+  .titlewrap .tag{font-size:1.1vw}
+  .lead{font-size:1.5vw;color:var(--muted);margin-top:2vh;max-width:60vw}
+  .contrib{display:flex;align-items:flex-start;gap:1vw;margin-bottom:1.6vh}
+  .num{flex:0 0 auto;width:2.6vw;height:2.6vw;border-radius:50%;background:var(--accent2);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2vw}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div id="deck">
+
+  <!-- 1 TITLE -->
+  <section class="slide active center titlewrap">
+    <div class="tag">BITS Pilani · WILP · M.Tech VLSI Design & Microelectronics</div>
+    <h1 style="margin-top:3vh;max-width:80vw">Runtime-Adaptive Precision &amp; Sparsity-Aware Systolic Array<br>with Per-PE Power Gating</h1>
+    <p class="lead">A Unified RTL Architecture for Energy-Efficient DNN Inference</p>
+    <div style="margin-top:3vh">
+      <span class="tag">SystemVerilog RTL</span>
+      <span class="tag">INT8 / INT4×2</span>
+      <span class="tag">2:4 Sparsity</span>
+      <span class="tag">Per-PE Clock Gating</span>
+      <span class="tag">FPGA + ASIC PPA</span>
+    </div>
+    <p class="muted" style="margin-top:5vh;font-size:1.1vw">First Review — Dissertation Outline &nbsp;•&nbsp; <b style="color:var(--accent3)">Dudyala Tejeswara Reddy</b> &nbsp;·&nbsp; BITS ID: 2024HT08699</p>
+  </section>
+
+  <!-- 2 AGENDA -->
+  <section class="slide">
+    <h2>What I'll Cover Today</h2>
+    <div class="grid3">
+      <div class="card"><h3>The Problem</h3><p>Why DNN accelerators waste power and area — and the gap in open RTL.</p></div>
+      <div class="card"><h3>What I'm Building</h3><p>A single systolic array unifying three efficiency techniques.</p></div>
+      <div class="card"><h3>My Objectives</h3><p>Five concrete, measurable deliverables (O1–O5).</p></div>
+      <div class="card"><h3>Scope</h3><p>What is in, and what is deliberately out.</p></div>
+      <div class="card"><h3>Plan of Work</h3><p>6-month phase-by-phase execution.</p></div>
+      <div class="card"><h3>Early Results</h3><p>Baseline already built &amp; timing-closed.</p></div>
+    </div>
+    <div class="footer"><span>First Review</span><span>Mixed-Precision Sparsity-Aware Systolic Array</span></div>
+  </section>
+
+  <!-- 3 BROAD AREA -->
+  <section class="slide">
+    <h2>1 · Broad Area of Work</h2>
+    <p class="lead" style="margin-top:0">VLSI design of hardware accelerators for <b class="accent">deep-neural-network (DNN) inference</b> — where digital microarchitecture, computer arithmetic and low-power design meet.</p>
+    <p style="margin-top:2vh">I design, verify and characterize a synthesizable <b>systolic array</b> — the matrix-multiply engine at the heart of Google TPU, NVIDIA Tensor Cores and AMD CDNA — in <b>SystemVerilog RTL</b>.</p>
+    <div class="grid3" style="margin-top:3vh">
+      <div class="card"><h3>Architecture</h3><p>Output-stationary GEMM engine (the dominant CNN / transformer kernel).</p></div>
+      <div class="card"><h3>Arithmetic</h3><p>Reconfigurable PE: INT8 &amp; packed INT4×2 sharing one reduction tree.</p></div>
+      <div class="card"><h3>Low Power</h3><p>2:4 sparsity, operand isolation &amp; integrated clock gating.</p></div>
+    </div>
+    <div class="footer"><span>Broad Area</span><span>3</span></div>
+  </section>
+
+  <!-- 4 BACKGROUND / PROBLEM -->
+  <section class="slide">
+    <h2>2 · Background — The Tension</h2>
+    <p class="lead" style="margin-top:0">Models keep growing; deployment targets (edge, automotive, mobile) keep shrinking their power budget.</p>
+    <div class="grid3" style="margin-top:2.5vh">
+      <div class="card">
+        <div class="kpi">3+ <small>precision lanes</small></div>
+        <p style="margin-top:1vh"><b>Precision heterogeneity</b> — layers tolerate different quantization error; no fixed-precision array is optimal.</p>
+      </div>
+      <div class="card">
+        <div class="kpi">40–80% <small>activations are zero</small></div>
+        <p style="margin-top:1vh"><b>Structured sparsity</b> — Ampere's 2:4 contract gives ~2× compute saving with tiny metadata.</p>
+      </div>
+      <div class="card">
+        <div class="kpi">60–70% <small>power in the MAC datapath</small></div>
+        <p style="margin-top:1vh"><b>Dynamic power dominates</b> — operand isolation &amp; clock gating must live in the RTL.</p>
+      </div>
+    </div>
+    <div class="footer"><span>Background</span><span>4</span></div>
+  </section>
+
+  <!-- 5 THE GAP -->
+  <section class="slide">
+    <h2>The Research Gap</h2>
+    <p class="lead" style="margin-top:0">All three techniques are critical in production silicon — but prior work solves them <span class="accent">one axis at a time</span>.</p>
+    <table style="margin-top:2vh">
+      <tr><th>Prior Work</th><th>Precision Flexibility</th><th>Structured Sparsity</th><th>Per-PE Clock Gating</th><th>Open, Characterized RTL</th></tr>
+      <tr><td>BitFusion (ISCA'18)</td><td>✔</td><td>✗</td><td>✗</td><td>✗</td></tr>
+      <tr><td>SCNN (ISCA'17)</td><td>✗</td><td>✔</td><td>✗</td><td>✗</td></tr>
+      <tr><td>Eyeriss v2 (2019)</td><td>partial</td><td>✗</td><td>✗</td><td>✗</td></tr>
+      <tr style="background:rgba(76,201,240,.12)"><td><b>This Work</b></td><td><b>✔ INT8/INT4×2</b></td><td><b>✔ 2:4</b></td><td><b>✔ ICG</b></td><td><b>✔ FPGA + ASIC</b></td></tr>
+    </table>
+    <p style="margin-top:2.5vh"><b class="accent">My contribution:</b> the <b>combination</b> of all three in one synthesizable array — <i>plus</i> a quantified study of how precision × sparsity × gating interact, reported in normalized pJ/MAC.</p>
+    <div class="footer"><span>The Gap</span><span>5</span></div>
+  </section>
+
+  <!-- 6 OBJECTIVES -->
+  <section class="slide">
+    <h2>3 · Objectives — What I Will Achieve</h2>
+    <div class="contrib"><div class="num">O1</div><p><b>Baseline engine.</b> Verified parameterized INT8 8×8 (→16×16) systolic array vs a Python GEMM golden model — zero mismatches.</p></div>
+    <div class="contrib"><div class="num">O2</div><p><b>Precision-adaptive PE.</b> Runtime switch between INT8 and packed INT4×2 (throughput doubling) via a shared reduction tree &amp; accumulator.</p></div>
+    <div class="contrib"><div class="num">O3</div><p><b>Sparsity front-end.</b> Purely combinational 2:4 metadata decoder that suppresses zero-operand MACs without breaking systolic timing.</p></div>
+    <div class="contrib"><div class="num">O4</div><p><b>Per-PE power gating.</b> Operand isolation + integrated clock gating (ICG) that stops a PE's clock when both operands are zero — single clock domain, no CDC.</p></div>
+    <div class="contrib"><div class="num">O5</div><p><b>Characterize &amp; validate.</b> FPGA (SAIF power) + open ASIC flow, normalized pJ/MAC, ResNet-18/MobileNetV2 validation, open-source release.</p></div>
+    <div class="footer"><span>Objectives</span><span>6</span></div>
+  </section>
+
+  <!-- 7 ARCHITECTURE -->
+  <section class="slide">
+    <h2>How It Works — Architecture</h2>
+    <div class="grid2">
+      <div>
+        <h3>Output-stationary 8×8 mesh</h3>
+        <p class="muted">A flows east · B flows south · each PE accumulates C[i][j] in place.</p>
+        <div class="array">
+          <div class="pe">PE</div><div class="pe">PE</div><div class="pe gated">gated</div><div class="pe">PE</div>
+          <div class="pe">PE</div><div class="pe gated">gated</div><div class="pe">PE</div><div class="pe">PE</div>
+          <div class="pe gated">gated</div><div class="pe">PE</div><div class="pe">PE</div><div class="pe gated">gated</div>
+          <div class="pe">PE</div><div class="pe">PE</div><div class="pe gated">gated</div><div class="pe">PE</div>
+        </div>
+        <p class="flow">↳ <span class="accent">Pink PEs</span> = clock-gated when operands are zero.</p>
+      </div>
+      <div>
+        <h3>Inside each PE</h3>
+        <ul>
+          <li><b>Mode select</b> → INT8 or INT4×2 on a shared partial-product reduction tree + INT32 accumulator</li>
+          <li><b>2:4 decoder</b> feeds only non-zero operand pairs</li>
+          <li><b>Zero detect</b> → operand isolation + ICG kills switching &amp; clock</li>
+          <li><b>DSP48-mapped MAC</b>: one DSP per PE (MREG + PREG)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer"><span>Architecture</span><span>7</span></div>
+  </section>
+
+  <!-- 8 SCOPE -->
+  <section class="slide">
+    <h2>4 · Scope of Work</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="color:var(--good)">In Scope</h3>
+        <ul>
+          <li>Parameterized 8×8 / 16×16 output-stationary array</li>
+          <li>Two precision modes: INT8 &amp; INT4×2 (shared tree + INT32 acc)</li>
+          <li>Combinational 2:4 sparsity decoder</li>
+          <li>Per-PE ICG + operand isolation (single clock domain)</li>
+          <li>SV + cocotb verification, &gt;95% coverage</li>
+          <li>Vivado FPGA + Yosys/FreePDK45 ASIC, normalized pJ/MAC</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--accent2)">Out of Scope</h3>
+        <ul>
+          <li>Full-chip tapeout (post-dissertation path)</li>
+          <li>DRAM controllers / weight loading / SoC integration</li>
+          <li>Training-time quantization (inference only)</li>
+          <li>Floating-point modes (FP8 / FP16 / BF16)</li>
+          <li>Unstructured sparsity</li>
+          <li>Multi-clock-domain / async interfaces</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer"><span>Scope</span><span>8</span></div>
+  </section>
+
+  <!-- 9 PLAN -->
+  <section class="slide">
+    <h2>5 · Plan of Work (6 Months)</h2>
+    <table>
+      <tr><th>Month</th><th>Phase</th><th>Key Deliverable</th></tr>
+      <tr><td>1</td><td>Foundation &amp; Baseline</td><td>Toolchain validated; dense INT8 8×8 verified vs golden</td></tr>
+      <tr><td>2</td><td>Precision Modes</td><td>INT4×2 packing; two-mode PE regression; area/Fmax</td></tr>
+      <tr><td>3</td><td>Sparsity &amp; Clock Gating</td><td>2:4 decoder + per-PE ICG; SAIF power at 0/25/50/75%</td></tr>
+      <tr><td>4</td><td>Synthesis &amp; Characterization</td><td>Full PPA + pJ/MAC; comparison vs BitFusion/SCNN</td></tr>
+      <tr><td>5</td><td>Writing</td><td>Draft dissertation/paper to supervisor</td></tr>
+      <tr><td>6</td><td>Review &amp; Submission</td><td>Address feedback; final submission</td></tr>
+    </table>
+    <p class="muted" style="margin-top:2vh"><span class="pill">Now</span> Baseline (Month 1) already complete — see next slide.</p>
+    <div class="footer"><span>Plan of Work</span><span>9</span></div>
+  </section>
+
+  <!-- 10 RESULTS -->
+  <section class="slide">
+    <h2>Early Progress — Baseline Already Built</h2>
+    <p class="lead" style="margin-top:0">Dense INT8 8×8 array · Vivado 2026.2 · Kintex-7 (xc7k70t) · post-route.</p>
+    <div class="grid3" style="margin-top:2.5vh">
+      <div class="card center"><div class="kpi">250 MHz<small>timing MET · +2.024 ns slack · 0 failing endpoints</small></div></div>
+      <div class="card center"><div class="kpi">0.219 W<small>total on-chip power (0.139 W dynamic)</small></div></div>
+      <div class="card center"><div class="kpi">DSP48<small>MAC mapped to 1 DSP/PE · 344 flip-flops</small></div></div>
+    </div>
+    <p style="margin-top:3vh">This is the <b class="accent">reference baseline</b> against which precision, sparsity and gating gains will be measured.</p>
+    <div class="footer"><span>Preliminary Results</span><span>10</span></div>
+  </section>
+
+  <!-- 11 TARGETS -->
+  <section class="slide">
+    <h2>Success Metrics — Targets</h2>
+    <table>
+      <tr><th>Metric</th><th>Target</th><th>Comparison Basis</th></tr>
+      <tr><td>Area overhead (adaptive PE vs fixed INT8)</td><td><b>&lt; 20%</b></td><td>Own baseline RTL</td></tr>
+      <tr><td>Dynamic power reduction @ 50% sparsity (FPGA)</td><td><b>30–45%</b></td><td>Own dense baseline</td></tr>
+      <tr><td>Throughput — INT4×2 packing</td><td><b>1.8–2.0×</b></td><td>INT8 dense</td></tr>
+      <tr><td>Fmax on Kintex-7</td><td><b>&gt; 250 MHz</b></td><td>Vivado timing (already met)</td></tr>
+      <tr><td>Functional coverage</td><td><b>&gt; 95%</b></td><td>Covergroups per mode</td></tr>
+      <tr><td>Energy efficiency</td><td><b>Competitive pJ/MAC</b></td><td>BitFusion / SCNN published</td></tr>
+    </table>
+    <div class="footer"><span>What I'll Achieve</span><span>11</span></div>
+  </section>
+
+  <!-- 12 REFERENCES -->
+  <section class="slide">
+    <h2>6 · Key Literature</h2>
+    <ul>
+      <li>Sze et al., <i>Efficient Processing of DNNs: A Tutorial &amp; Survey</i>, Proc. IEEE 2017</li>
+      <li>Jouppi et al., <i>In-Datacenter Performance Analysis of a TPU</i>, ISCA 2017</li>
+      <li>Choquette et al., <i>NVIDIA A100 Tensor Core GPU</i>, IEEE Micro 2021</li>
+      <li>Mishra et al., <i>Accelerating Sparse DNNs (Ampere 2:4)</i>, arXiv 2021</li>
+      <li>Sharma et al., <i>Bit Fusion</i>, ISCA 2018</li>
+      <li>Parashar et al., <i>SCNN</i>, ISCA 2017</li>
+      <li>Chen et al., <i>Eyeriss v2</i>, IEEE JETCAS 2019</li>
+    </ul>
+    <div class="footer"><span>References</span><span>12</span></div>
+  </section>
+
+  <!-- 13 CLOSE -->
+  <section class="slide center">
+    <h1>Summary</h1>
+    <p class="lead" style="max-width:70vw">One synthesizable systolic array that unifies <b class="accent">mixed precision (INT8/INT4×2)</b>, <b class="accent">2:4 structured sparsity</b> and <b class="accent">per-PE clock gating</b> — characterized end-to-end (FPGA + ASIC) and released open-source.</p>
+    <div style="margin-top:3vh">
+      <span class="tag">Baseline done ✔</span>
+      <span class="tag">Timing closed @ 250 MHz ✔</span>
+      <span class="tag">Clear 6-month plan ✔</span>
+    </div>
+    <p class="muted" style="margin-top:5vh;font-size:1.3vw">Thank you — Questions &amp; Feedback</p>
+    <div class="footer"><span>Thank You</span><span>13</span></div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button onclick="go(-1)">◀ Prev</button>
+  <span id="counter" style="align-self:center;color:#9fb3c8;font-size:13px"></span>
+  <button onclick="go(1)">Next ▶</button>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function render(){
+    slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+    document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+    document.getElementById('counter').textContent=(i+1)+' / '+slides.length;
+  }
+  function go(d){i=Math.min(slides.length-1,Math.max(0,i+d));render();}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
+    else if(e.key==='Home'){i=0;render();}
+    else if(e.key==='End'){i=slides.length-1;render();}
+    else if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.();}
+  });
+  render();
+</script>
+</body>
+</html>
