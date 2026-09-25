@@ -2,10 +2,12 @@
 cocotb testbench for rtl/pe_mixed.sv (precision-adaptive INT8 / INT4x2 PE).
 
 Checks the PE against golden/golden_model.py using a cycle-accurate shadow of
-the 2-stage pipeline. The product registered at edge N is formed from the
-operands AND the mode present at edge N, so the model captures mode alongside
-the operands - this is what catches a mode change that leaks into the wrong
-product.
+the 3-stage pipeline (a stage was added post-baseline for FPGA timing closure
+- see rtl/pe_mixed.sv header). The product for a given (a, b, mode) is formed
+one cycle after they are captured, and accumulated one cycle after that, so
+acc_result is now visible 2 cycles after the operands arrive (was 1). The
+model captures mode alongside the operands at every stage - this is what
+catches a mode change that leaks into the wrong product.
 
 Run:  cd tb && make TEST=pe_mixed
       cd tb && make TEST=pe_mixed TB_EXHAUSTIVE=0    # skip the 65536-vector sweeps
@@ -38,33 +40,49 @@ EXHAUSTIVE = os.environ.get("TB_EXHAUSTIVE", "1") == "1"
 
 
 class PEMixedModel:
-    """Cycle-accurate shadow of pe_mixed.sv (one call == one posedge)."""
+    """Cycle-accurate shadow of pe_mixed.sv (one call == one posedge).
+
+    3-stage MAC pipeline (stage A was added post-baseline for FPGA timing
+    closure - see rtl/pe_mixed.sv header):
+        stage A : (a, b, mode) for this cycle captured -> stage_a/valid_a
+        stage B : product_q formed from the PREVIOUS cycle's stage_a,
+                  valid_b tracks whether that product is real
+        stage C : acc accumulates product_q when valid_b (acc_clear wins)
+    """
 
     def __init__(self):
-        # operands + mode whose product is currently sitting in product_q
-        self.op_a = 0
-        self.op_b = 0
-        self.op_mode = MODE_INT8
-        self.valid_q = 0
+        # (a, b, mode) captured this cycle - feeds stage B next cycle.
+        self.stage_a = (0, 0, MODE_INT8)
+        self.valid_a = 0
+        # Product formed from the PREVIOUS stage_a - feeds stage C next cycle.
+        self.product_q = 0
+        self.valid_b = 0
         self.acc = 0
         self.a_out = 0
         self.b_out = 0
         self.valid_out = 0
 
     def step(self, mode, a_in, b_in, valid_in, acc_clear):
-        # Stage 2 consumes the PREVIOUS cycle's product_q / valid_q;
+        # Stage C: accumulate the PREVIOUS cycle's stage-B product;
         # acc_clear has priority over the accumulate (see pe_mixed.sv).
         if acc_clear:
             next_acc = 0
-        elif self.valid_q:
-            next_acc = pe_golden(self.op_mode, self.op_a, self.op_b, self.acc)
+        elif self.valid_b:
+            next_acc = to_signed(self.acc + self.product_q, ACC_WIDTH)
         else:
             next_acc = self.acc
 
-        self.op_a = a_in
-        self.op_b = b_in
-        self.op_mode = mode
-        self.valid_q = valid_in
+        # Stage B: form the product from the PREVIOUS cycle's stage_a.
+        a_prev, b_prev, mode_prev = self.stage_a
+        next_product_q = pe_golden(mode_prev, a_prev, b_prev, 0)
+        next_valid_b = self.valid_a
+
+        # Stage A: capture this cycle's (a, b, mode).
+        self.stage_a = (a_in, b_in, mode)
+        self.valid_a = valid_in
+
+        self.product_q = next_product_q
+        self.valid_b = next_valid_b
         self.acc = next_acc
         self.a_out = a_in
         self.b_out = b_in
