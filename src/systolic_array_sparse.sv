@@ -29,6 +29,13 @@
 // owns its own feeder phase counter and its own `feed_en` bit - assert
 // feed_en[j] from cycle j onward.
 //
+// FEEDER OUTPUT LATENCY: sparse_feeder.sv now registers its outputs (added
+// for FPGA timing closure), so it takes one extra cycle from `feed_en[j]`
+// asserting to `k_data` appearing at b_v[0][j]. To keep column j's dense
+// weight landing at the same absolute cycle this contract already assumes,
+// the driver must assert feed_en[j] from cycle (j - 1) onward, not cycle j.
+// This module's wiring is unchanged; only the driver's feed_en timing shifts.
+//
 // WHY SPARSITY BUYS POWER AND NOT THROUGHPUT HERE: the feeder does not compact
 // the schedule - a group of four k-steps still costs four cycles, two of them
 // streaming zeros. Those zero cycles gate the MAC, which is where the dynamic
