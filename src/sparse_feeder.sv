@@ -6,8 +6,10 @@
 //
 // Sits at the array BOUNDARY, outside the systolic mesh, and turns a
 // compressed 2:4 weight stream into the dense per-cycle stream the column
-// expects. Because it is a boundary block, it adds no stage to the mesh and
-// the skew contract of systolic_array.sv is untouched.
+// expects. It is a boundary block, so it never adds a stage to the MESH
+// itself (the i+j+k skew formula in systolic_array_sparse.sv is untouched) -
+// but see the OUTPUT REGISTER note below: it does add one cycle of latency
+// between `en` and the feeder's own outputs, which the driver must budget for.
 //
 //   compressed in : {nz1, nz0} + 4-bit metadata   (2 words per 4 k-steps)
 //   dense out     : one word per enabled cycle    (4 words per 4 k-steps,
@@ -22,8 +24,22 @@
 // group to tell the source to present the next one. `en` lets a column start
 // late, which is exactly what the column-j injection skew requires.
 //
-// The expansion itself is the purely combinational sparsity_decoder; the only
-// state here is the 2-bit phase counter that walks the group.
+// The expansion itself is the purely combinational sparsity_decoder (that
+// module has zero registered paths, by design and by the plan's own Week-9
+// verification step, and is untouched here); phase is the 2-bit counter that
+// walks the group.
+//
+// OUTPUT REGISTER (added for FPGA timing closure): phase_reg -> decoder ->
+// per-slot mux -> PE b_in -> pre-conditioning -> multiply was one long
+// unregistered chain that missed 250 MHz on Kintex-7 by ~0.5 ns / 115+
+// endpoints (see synth/fpga/reports/timing_sparse_nogate_uniform50.rpt from
+// before this fix). k_data/k_nonzero/grp_advance/meta_legal are now captured
+// in one register together, so they stay aligned with each other; only their
+// timing relative to `en` shifts by one cycle. THE DRIVER MUST ASSERT
+// feed_en[j] ONE CYCLE EARLIER than the original combinational contract to
+// compensate - column j's dense weight still lands at the same absolute
+// cycle at the PE as before, just sourced from a registered feeder output
+// instead of a combinational one.
 //-----------------------------------------------------------------------------
 module sparse_feeder #(
     parameter int DATA_WIDTH = 8
@@ -42,6 +58,7 @@ module sparse_feeder #(
     logic [1:0]              phase;
     logic [4*DATA_WIDTH-1:0] dense_group;
     logic [3:0]              nz_mask;
+    logic                    meta_legal_c;
 
     sparsity_decoder #(
         .DATA_WIDTH (DATA_WIDTH)
@@ -50,7 +67,7 @@ module sparse_feeder #(
         .meta       (grp_meta),
         .dense_out  (dense_group),
         .nz_mask    (nz_mask),
-        .meta_legal (meta_legal)
+        .meta_legal (meta_legal_c)
     );
 
     always_ff @(posedge clk) begin
@@ -60,8 +77,27 @@ module sparse_feeder #(
             phase <= phase + 2'd1;
     end
 
-    assign k_data      = dense_group[phase*DATA_WIDTH +: DATA_WIDTH];
-    assign k_nonzero   = nz_mask[phase];
-    assign grp_advance = en && (phase == 2'd3);
+    // Stage 0 (combinational): this cycle's slot out of the decoded group.
+    logic [DATA_WIDTH-1:0] k_data_c;
+    logic                   k_nonzero_c, grp_advance_c;
+
+    assign k_data_c     = dense_group[phase*DATA_WIDTH +: DATA_WIDTH];
+    assign k_nonzero_c   = nz_mask[phase];
+    assign grp_advance_c = en && (phase == 2'd3);
+
+    // Output register - see the OUTPUT REGISTER note above.
+    always_ff @(posedge clk) begin
+        if (rst) begin
+            k_data      <= '0;
+            k_nonzero   <= 1'b0;
+            grp_advance <= 1'b0;
+            meta_legal  <= 1'b0;
+        end else begin
+            k_data      <= k_data_c;
+            k_nonzero   <= k_nonzero_c;
+            grp_advance <= grp_advance_c;
+            meta_legal  <= meta_legal_c;
+        end
+    end
 
 endmodule
