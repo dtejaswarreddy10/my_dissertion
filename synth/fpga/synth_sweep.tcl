@@ -26,10 +26,17 @@
 # stimulus.
 #
 # NOTE ON FPGA CLOCK GATING: a Kintex-7 has only ~32 BUFGs, so 64 PEs cannot
-# each own a gated clock. Without -d ICG_USE_BUFGCE the ICG latch maps to
-# fabric and Vivado converts the intent into flip-flop clock-enables. The FPGA
-# "full" number is therefore operand-isolation + clock-enable, NOT true ICG -
-# report it as such. True ICG power lives in the Yosys/FreePDK45 flow.
+# each own a gated clock. icg_cell.sv's DEFAULT (no macro) path is the
+# latch-based ICG structure meant for ASIC - on FPGA that is ~128 per-PE
+# latch-gated clock nets (2/PE x 64 PEs) fighting for general fabric routing,
+# not a defined result. This script therefore always reads the RTL with
+# ICG_NO_GATING defined, which forces icg_cell.sv's honest FPGA passthrough
+# (gclk = clk) - pe_mixed's operand isolation + the valid_q/acc_active holds
+# then degenerate to a plain flip-flop clock-enable, bit-identical to the
+# gated result (see pe_mixed.sv). The FPGA "full" number is therefore
+# operand-isolation + clock-enable, NOT true ICG - report it as such. True
+# ICG power lives in the Yosys/FreePDK45 flow, which must NOT define this
+# macro (it needs the real latch-based ICG to synthesize a gated clock).
 # ----------------------------------------------------------------------------
 
 set config [lindex $argv 0]
@@ -86,17 +93,26 @@ foreach name $run_list {
 
     # Out of context: the array exposes 2000+ accumulator/operand bits, far more
     # than any package has pins, so I/O buffer insertion must be suppressed.
+    # -verilog_define (not read_verilog -define, which needs compile-unit-mode
+    # filesets that this non-project flow does not use) forces ICG_NO_GATING.
     if {$gen eq ""} {
-        synth_design -top $top -part $part -mode out_of_context
+        synth_design -top $top -part $part -mode out_of_context \
+            -verilog_define {ICG_NO_GATING}
     } else {
-        synth_design -top $top -part $part -mode out_of_context -generic $gen
+        synth_design -top $top -part $part -mode out_of_context \
+            -verilog_define {ICG_NO_GATING} -generic $gen
     }
 
     create_clock -name clk -period $clk_ns [get_ports clk]
 
     opt_design
-    place_design
+    place_design -directive ExtraTimingOpt
+    phys_opt_design
     route_design
+    # Post-route physical optimization to claw back sub-100ps residual slack
+    # (retiming/replication only - no functional or latency change, so this is
+    # safe regardless of what the RTL side is doing in parallel).
+    phys_opt_design -directive AggressiveExplore
 
     # Activity annotation: a SAIF from the cocotb power stimulus if provided,
     # otherwise the plan's uniform 50% toggle placeholder.
