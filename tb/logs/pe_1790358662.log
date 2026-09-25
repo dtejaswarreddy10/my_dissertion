@@ -1,0 +1,111 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_pe.xml
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_pe.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_pe_int8 COCOTB_TESTCASE=  COCOTB_TOPLEVEL=pe_int8 TOPLEVEL_LANG=verilog       \
+     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 23:21:07 on Sep 25,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/masters/my_dissertion/tb/../src/pe_int8.sv 
+# -- Compiling module pe_int8
+# 
+# Top level modules:
+# 	pe_int8
+# End time: 23:21:07 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.pe_int8 
+# Start time: 23:21:07 on Sep 25,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.pe_int8(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1790358668
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_pe_int8.test_pe_directed_corners (1/3)
+#                                                             Boundary operands: 0, +127, -128, +/-1 in every combination.
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py:104: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    395.00ns WARNING  cocotb.regression                  test_pe_int8.test_pe_directed_corners failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py", line 113, in test_pe_directed_corners
+#                                                             await drive_and_check(dut, model, a, b, 1, 0, ctx="corner")
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py", line 92, in drive_and_check
+#                                                             assert got == model.acc, (
+#                                                         AssertionError: corner acc_result mismatch: RTL=1 golden=0 (a=1, b=1, valid=1, acc_clear=0)
+#                                                         assert 1 == 0
+#                                                          +  where 0 = <test_pe_int8.PEModel object at 0x7ffff0dae090>.acc
+#    395.00ns INFO     cocotb.regression                  running test_pe_int8.test_pe_random_mac (2/3)
+#                                                             100 random operand pairs accumulated in place, vs pe_golden_int8().
+#    395.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py:122: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    430.00ns WARNING  cocotb.regression                  test_pe_int8.test_pe_random_mac failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py", line 131, in test_pe_random_mac
+#                                                             await drive_and_check(dut, model, a, b, 1, 0, ctx=f"rand[{n}]")
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py", line 92, in drive_and_check
+#                                                             assert got == model.acc, (
+#                                                         AssertionError: rand[0] acc_result mismatch: RTL=5760 golden=0 (a=-60, b=-96, valid=1, acc_clear=0)
+#                                                         assert 5760 == 0
+#                                                          +  where 0 = <test_pe_int8.PEModel object at 0x7ffff0daf5c0>.acc
+#    430.00ns INFO     cocotb.regression                  running test_pe_int8.test_pe_valid_gating_and_clear (3/3)
+#                                                             valid_in=0 must not accumulate; acc_clear must zero the accumulator.
+#    430.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py:141: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    465.00ns WARNING  cocotb.regression                  test_pe_int8.test_pe_valid_gating_and_clear failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py", line 152, in test_pe_valid_gating_and_clear
+#                                                             await drive_and_check(dut, model, a, b, valid, clear, ctx=f"mixed[{n}]")
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py", line 92, in drive_and_check
+#                                                             assert got == model.acc, (
+#                                                         AssertionError: mixed[0] acc_result mismatch: RTL=8200 golden=0 (a=-100, b=-82, valid=True, acc_clear=False)
+#                                                         assert 8200 == 0
+#                                                          +  where 0 = <test_pe_int8.PEModel object at 0x7ffff0dafaa0>.acc
+#    465.00ns INFO     cocotb.regression                  *****************************************************************************************************
+#                                                         ** TEST                                         STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         *****************************************************************************************************
+#                                                         ** test_pe_int8.test_pe_directed_corners         FAIL         395.00           0.01      70255.82  **
+#                                                         ** test_pe_int8.test_pe_random_mac               FAIL          35.00           0.00      39985.56  **
+#                                                         ** test_pe_int8.test_pe_valid_gating_and_clear   FAIL          35.00           0.00      52764.96  **
+#                                                         *****************************************************************************************************
+#                                                         ** TESTS=3 PASS=0 FAIL=3 SKIP=0                               465.00           0.01      44375.69  **
+#                                                         *****************************************************************************************************
+# ** Note: $finish
+#    Time: 465002 ps  Iteration: 2  Instance: /pe_int8 File: /home/uday-teja/masters/my_dissertion/tb/../src/pe_int8.sv
+# End time: 23:21:08 on Sep 25,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+make: *** [/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:132: results_pe.xml] Error 3

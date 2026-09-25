@@ -1,0 +1,117 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_array_mixed.xml
+mkdir -p sim_build
+# Make sure all libs in SOURCES_VHDL_* are mentioned in VHDL_LIB_ORDER and vice versa
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_array_mixed.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_array_mixed COCOTB_TESTCASE=  COCOTB_TOPLEVEL=systolic_array_mixed TOPLEVEL_LANG=verilog       \
+     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 23:23:32 on Sep 25,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/masters/my_dissertion/tb/../src/pe_mixed.sv /home/uday-teja/masters/my_dissertion/tb/../src/systolic_array_mixed.sv 
+# -- Compiling module pe_mixed
+# -- Compiling module systolic_array_mixed
+# 
+# Top level modules:
+# 	systolic_array_mixed
+# End time: 23:23:32 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.systolic_array_mixed 
+# Start time: 23:23:32 on Sep 25,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.systolic_array_mixed(fast)
+# Loading work.pe_mixed(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1790358814
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_array_mixed.test_int8_identity (1/6)
+#                                                             A x I == A in INT8 mode (sanity check of the skew/dataflow contract).
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_mixed.py:134: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    455.00ns INFO     cocotb.systolic_array_mixed        INT8 identity GEMM passed
+#    455.00ns INFO     cocotb.regression                  test_array_mixed.test_int8_identity passed
+#    455.00ns INFO     cocotb.regression                  running test_array_mixed.test_int8_random (2/6)
+#                                                             Random INT8 matrix pairs vs gemm_golden().
+#    455.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_mixed.py:149: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  22470.00ns INFO     cocotb.systolic_array_mixed        INT8 random GEMM passed: 50 matrix pairs
+#  22470.00ns INFO     cocotb.regression                  test_array_mixed.test_int8_random passed
+#  22470.00ns INFO     cocotb.regression                  running test_array_mixed.test_int4x2_corners (3/6)
+#                                                             Lane extremes across the whole array.
+#  22470.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_mixed.py:170: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  22925.00ns INFO     cocotb.systolic_array_mixed        INT4x2 corner case 'all_min_lanes' passed
+#  23365.00ns INFO     cocotb.systolic_array_mixed        INT4x2 corner case 'all_max_lanes' passed
+#  23805.00ns INFO     cocotb.systolic_array_mixed        INT4x2 corner case 'mixed_lanes' passed
+#  24245.00ns INFO     cocotb.systolic_array_mixed        INT4x2 corner case 'zero_lanes' passed
+#  24245.00ns INFO     cocotb.regression                  test_array_mixed.test_int4x2_corners passed
+#  24245.00ns INFO     cocotb.regression                  running test_array_mixed.test_int4x2_random (4/6)
+#                                                             Random packed matrix pairs vs gemm_golden_int4x2().
+#  24245.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_mixed.py:191: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  46260.00ns INFO     cocotb.systolic_array_mixed        INT4x2 random GEMM passed: 50 matrix pairs
+#  46260.00ns INFO     cocotb.regression                  test_array_mixed.test_int4x2_random passed
+#  46260.00ns INFO     cocotb.regression                  running test_array_mixed.test_alternating_mode_tiles (5/6)
+#                                                             Back-to-back tiles alternating precision; acc_clear must isolate them.
+#  46260.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_mixed.py:212: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  50675.00ns INFO     cocotb.systolic_array_mixed        Alternating-precision tiles passed
+#  50675.00ns INFO     cocotb.regression                  test_array_mixed.test_alternating_mode_tiles passed
+#  50675.00ns INFO     cocotb.regression                  running test_array_mixed.test_throughput_int4x2_vs_int8 (6/6)
+#                                                             Same logical 2K-deep GEMM: INT8 takes 2K stream cycles, INT4x2 takes K.
+#  50675.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_mixed.py:238: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  51730.00ns INFO     cocotb.systolic_array_mixed        Throughput: INT8 = 23 stream cycles, INT4x2 = 15 stream cycles -> 1.53x
+#  51730.00ns INFO     cocotb.regression                  test_array_mixed.test_throughput_int4x2_vs_int8 passed
+#  51730.00ns INFO     cocotb.regression                  *********************************************************************************************************
+#                                                         ** TEST                                             STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         *********************************************************************************************************
+#                                                         ** test_array_mixed.test_int8_identity               PASS         455.00           0.01      49410.60  **
+#                                                         ** test_array_mixed.test_int8_random                 PASS       22015.00           0.40      55459.12  **
+#                                                         ** test_array_mixed.test_int4x2_corners              PASS        1775.00           0.03      55991.88  **
+#                                                         ** test_array_mixed.test_int4x2_random               PASS       22015.00           0.45      48967.88  **
+#                                                         ** test_array_mixed.test_alternating_mode_tiles      PASS        4415.00           0.09      51754.60  **
+#                                                         ** test_array_mixed.test_throughput_int4x2_vs_int8   PASS        1055.00           0.02      56220.15  **
+#                                                         *********************************************************************************************************
+#                                                         ** TESTS=6 PASS=6 FAIL=0 SKIP=0                                 51730.00           0.99      52064.06  **
+#                                                         *********************************************************************************************************
+# ** Note: $finish
+#    Time: 51730005 ps  Iteration: 2  Instance: /systolic_array_mixed File: /home/uday-teja/masters/my_dissertion/tb/../src/systolic_array_mixed.sv
+# End time: 23:23:35 on Sep 25,2026, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
