@@ -37,8 +37,19 @@
 // their switching activity. This is the same operand-isolation mechanism the
 // Month-3 clock-gating work builds on.
 //
-// TIMING: identical contract to pe_int8.sv - 1 cycle/hop forwarding, product
-// registered in stage 1, accumulate in stage 2, so array skew is UNCHANGED.
+// TIMING: 1 cycle/hop forwarding is UNCHANGED (array skew is identical to
+// pe_int8.sv). Internally this PE is now a 3-stage MAC pipeline, not 2:
+//   stage A : m_hh/m_hl/m_lh/m_ll (the four sub-products) captured in m_*_q
+//   stage B : the mode-selected reduction of m_*_q captured in product_q
+//   stage C : product_q accumulated into acc_q
+// (stage A was added post-baseline: at 250 MHz on Kintex-7 the unregistered
+// pre-conditioning + 4x signed multiply + reduction tree missed timing by
+// ~2.7-3.4 ns / 800+ endpoints, because use_dsp="no" puts the whole tree in
+// fabric CARRY4 chains instead of a hardened DSP48 - see
+// synth/fpga/reports/timing_mixed_uniform50.rpt.) acc_result therefore
+// becomes valid ONE CYCLE LATER than the earlier 2-stage version relative to
+// when operands meet at the PE - only the accumulate-visible latency grows;
+// a_out/b_out/valid_out forwarding, and therefore systolic skew, is untouched.
 //
 // MODE CHANGES ARE TILE-GRANULAR: `mode` is broadcast, not pipelined with the
 // operands. Assert acc_clear when switching mode so no tile mixes precisions.
@@ -50,7 +61,8 @@
 //
 // WHAT IS *NOT* GATED: a_out / b_out / valid_out run on the ungated clock and
 // always advance. Gating the forwarding path would stall the systolic mesh and
-// corrupt every downstream PE, so only product_q and acc_q see the gated clock.
+// corrupt every downstream PE, so only the internal MAC pipeline (m_*_q/
+// mode_q, product_q, acc_q) sees a gated clock.
 //
 // FUNCTIONAL EQUIVALENCE: a zero operand byte makes every sub-product zero, so
 // suppressing the accumulate for that cycle yields exactly the same
@@ -154,47 +166,69 @@ module pe_mixed #(
     assign m_ll = a_lo * b_lo;   // used in BOTH modes
 
     //-------------------------------------------------------------------------
-    // Shared reduction tree. Only the HH shift is mode-dependent (<<2H for the
-    // INT8 expansion, <<0 for the INT4x2 lane sum) - a narrow 2:1 select on a
-    // single term, not a mux across the whole tree.
+    // Stage A - capture the four raw sub-products before reducing them. This
+    // is the pipeline stage added for FPGA timing closure (see the TIMING note
+    // above): it turns the multiply and the reduce+shift into two cycles
+    // instead of one so neither has to share a 250 MHz period with the other.
+    // mode_q travels alongside the sub-products so stage B's mode-dependent
+    // shift always reads a mode value that matches the data it is shifting.
+    //-------------------------------------------------------------------------
+    logic signed [PROD-1:0] m_hh_q, m_hl_q, m_lh_q, m_ll_q;
+    logic                   mode_q;
+
+    //-------------------------------------------------------------------------
+    // Shared reduction tree (stage B, combinational). Only the HH shift is
+    // mode-dependent (<<2H for the INT8 expansion, <<0 for the INT4x2 lane
+    // sum) - a narrow 2:1 select on a single term, not a mux across the whole
+    // tree.
     //-------------------------------------------------------------------------
     logic signed [SUM-1:0] hh_term, cross_term, product_c;
 
-    assign hh_term    = int4_mode ? SUM'(m_hh) : (SUM'(m_hh) <<< (2 * HALF));
-    assign cross_term = SUM'(m_hl + m_lh) <<< HALF;   // zero in INT4x2 mode
-    assign product_c  = hh_term + cross_term + SUM'(m_ll);
+    assign hh_term    = mode_q ? SUM'(m_hh_q) : (SUM'(m_hh_q) <<< (2 * HALF));
+    assign cross_term = SUM'(m_hl_q + m_lh_q) <<< HALF;   // zero in INT4x2 mode
+    assign product_c  = hh_term + cross_term + SUM'(m_ll_q);
 
     //-------------------------------------------------------------------------
-    // Stage 1 / Stage 2 pipeline - identical latency to pe_int8.sv.
+    // Stage A / Stage B / Stage C pipeline.
     //
-    // Two clock nets, one source:
+    // Four clock nets, one source:
     //   clk       -> forwarding registers (NEVER gated; the mesh depends on it)
-    //   gclk_mac  -> product_q            (gated when this cycle cannot MAC)
+    //   gclk_sub  -> m_*_q, mode_q        (gated when this cycle cannot MAC)
+    //   gclk_mac  -> product_q            (gated when the last cycle didn't)
     //   gclk_acc  -> acc_q                (gated when nothing will be added)
-    // valid_q stays on the ungated clock: it is one bit, and it must be able to
-    // fall so that a stale product_q left behind by a gated cycle can never be
-    // accumulated.
+    // valid_a/valid_b stay on the ungated clock: they are one bit each, and
+    // must be able to fall so that a stale product left behind by a gated
+    // cycle can never be accumulated. valid_a tracks "stage A captured real
+    // data this cycle"; valid_b is valid_a delayed one more cycle, i.e. "stage
+    // B's product_q is real this cycle" - the same role the old single-stage
+    // valid_q played, just one cycle further downstream.
     //-------------------------------------------------------------------------
     logic signed [ACC_WIDTH-1:0] product_q;
-    logic                        valid_q;
+    logic                        valid_a, valid_b;
     logic signed [ACC_WIDTH-1:0] acc_q;
 
     assign acc_result = acc_q;
 
-    logic gclk_mac, gclk_acc;
+    logic gclk_sub, gclk_mac, gclk_acc;
     logic acc_active;
 
-    assign acc_active = valid_q || acc_clear;
+    assign acc_active = valid_b || acc_clear;
 
     generate
         if (ENABLE_GATING) begin : g_icg
-            // rst is ORed into both enables: the reset is synchronous, so the
-            // gated clock must keep toggling during reset or product_q/acc_q
+            // rst is ORed into every enable: the reset is synchronous, so each
+            // gated clock must keep toggling during reset or its register
             // would never be cleared.
             // test_en tied off: DFT insertion is out of scope for this work.
-            icg_cell u_icg_mac (
+            icg_cell u_icg_sub (
                 .clk     (clk),
                 .enable  (mac_active | rst),
+                .test_en (1'b0),
+                .gclk    (gclk_sub)
+            );
+            icg_cell u_icg_mac (
+                .clk     (clk),
+                .enable  (valid_a | rst),
                 .test_en (1'b0),
                 .gclk    (gclk_mac)
             );
@@ -205,6 +239,7 @@ module pe_mixed #(
                 .gclk    (gclk_acc)
             );
         end else begin : g_no_icg
+            assign gclk_sub = clk;
             assign gclk_mac = clk;
             assign gclk_acc = clk;
         end
@@ -216,16 +251,35 @@ module pe_mixed #(
             a_out     <= '0;
             b_out     <= '0;
             valid_out <= 1'b0;
-            valid_q   <= 1'b0;
+            valid_a   <= 1'b0;
+            valid_b   <= 1'b0;
         end else begin
             a_out     <= a_in;
             b_out     <= b_in;
             valid_out <= valid_in;
-            valid_q   <= mac_active;
+            valid_a   <= mac_active;
+            valid_b   <= valid_a;
         end
     end
 
-    // Stage 1 - product capture on the gated clock.
+    // Stage A - sub-product capture on the gated clock.
+    always_ff @(posedge gclk_sub) begin
+        if (rst) begin
+            m_hh_q <= '0;
+            m_hl_q <= '0;
+            m_lh_q <= '0;
+            m_ll_q <= '0;
+            mode_q <= 1'b0;
+        end else begin
+            m_hh_q <= m_hh;
+            m_hl_q <= m_hl;
+            m_lh_q <= m_lh;
+            m_ll_q <= m_ll;
+            mode_q <= int4_mode;
+        end
+    end
+
+    // Stage B - reduced product capture on the gated clock.
     always_ff @(posedge gclk_mac) begin
         if (rst)
             product_q <= '0;
@@ -233,13 +287,13 @@ module pe_mixed #(
             product_q <= ACC_WIDTH'(product_c);
     end
 
-    // Stage 2 - accumulate on the gated clock (acc_clear keeps priority).
+    // Stage C - accumulate on the gated clock (acc_clear keeps priority).
     always_ff @(posedge gclk_acc) begin
         if (rst)
             acc_q <= '0;
         else if (acc_clear)
             acc_q <= '0;
-        else if (valid_q)
+        else if (valid_b)
             acc_q <= acc_q + product_q;
     end
 
