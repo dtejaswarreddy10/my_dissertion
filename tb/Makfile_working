@@ -1,0 +1,120 @@
+#-----------------------------------------------------------------------------
+# cocotb Makefile - INT8 PE / Systolic Array Verification
+#
+# Usage:
+#   make                          # PE test (default)
+#   make TEST=array               # Systolic array test
+#   make SIM=questa TEST=array    # Questa
+#   make SIM=icarus TEST=pe       # Icarus
+#   make SIM=verilator TEST=array # Verilator
+#   make waves                    # Enable waveform dump
+#   make clean                    # Built-in cocotb clean
+#-----------------------------------------------------------------------------
+
+# Default simulator (override with SIM=...)
+SIM           ?= questa
+TOPLEVEL_LANG ?= verilog
+TEST          ?= pe
+
+TB_DIR := $(shell pwd)
+RTL    := $(TB_DIR)/../src
+
+# RTL sources
+VERILOG_SOURCES := \
+	$(RTL)/pe_int8.sv \
+	$(RTL)/systolic_array.sv
+
+#----------------------------------------------------------------------------
+# Select DUT and Python test based on TEST
+#----------------------------------------------------------------------------
+
+
+
+ifeq ($(TEST),pe)
+    TOPLEVEL = pe_int8
+    COCOTB_TOPLEVEL = pe_int8
+
+    MODULE = test_pe_int8
+    COCOTB_TEST_MODULES = test_pe_int8
+
+else ifeq ($(TEST),array)
+    TOPLEVEL = systolic_array
+    COCOTB_TOPLEVEL = systolic_array
+
+    MODULE = test_systolic_array
+    COCOTB_TEST_MODULES = test_systolic_array
+
+else
+    $(error TEST must be 'pe' or 'array')
+endif
+
+# Backward compatibility with older cocotb versions
+TOPLEVEL := $(COCOTB_TOPLEVEL)
+MODULE   := $(COCOTB_TEST_MODULES)
+
+#----------------------------------------------------------------------------
+# Simulator-specific options
+#----------------------------------------------------------------------------
+
+# Icarus
+ifeq ($(SIM),icarus)
+	COMPILE_ARGS += -g2012
+endif
+
+# Verilator
+ifeq ($(SIM),verilator)
+	EXTRA_ARGS += --trace --trace-structs
+endif
+
+# Questa / ModelSim
+ifneq ($(filter $(SIM),questa modelsim),)
+
+	# Explicit SystemVerilog mode
+	COMPILE_ARGS += -sv
+
+	# 64-bit headless simulation
+	SIM_ARGS += -64 -c
+
+	# Avoid deprecated automatic +acc behaviour
+	SIM_ARGS += -no_autoacc
+
+endif
+
+#----------------------------------------------------------------------------
+# Python environment
+#----------------------------------------------------------------------------
+
+# Allow importing project Python modules (e.g., golden_model.py)
+export PYTHONPATH := $(TB_DIR):$(TB_DIR)/..:$(PYTHONPATH)
+
+# Test parameters
+export TB_SEED      ?= 1
+export TB_N         ?= 8
+export TB_MATRICES  ?= 50
+
+COCOTB_RESULTS_FILE := results_$(TEST).xml
+
+#----------------------------------------------------------------------------
+# cocotb Makefile
+#----------------------------------------------------------------------------
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
+
+#----------------------------------------------------------------------------
+# Utility targets
+#----------------------------------------------------------------------------
+
+waves:
+	$(MAKE) SIM=$(SIM) TEST=$(TEST) WAVES=1
+
+.PHONY: waves
+
+ifneq ($(filter $(SIM),questa modelsim),)
+    COMPILE_ARGS += -sv
+    SIM_ARGS += -64 -c -no_autoacc
+    SIM_ARGS += -wlf sim_build/vsim.wlf
+
+    ifeq ($(WAVES),1)
+        SIM_ARGS += -do $(TB_DIR)/wave.do
+    endif
+endif
