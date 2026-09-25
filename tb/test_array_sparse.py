@@ -7,11 +7,21 @@ Exercises all three contributions together:
     * per-PE operand isolation and clock gating (ENABLE_GATING)
 
 DRIVER CONTRACT
-    Activations stay dense and are row-skewed exactly as before. Weights arrive
-    COMPRESSED: for column j at cycle t the feeder is on k-step (t - j), so the
-    group presented must be compressed[(t-j)//4][j] and it must stay stable for
-    the four cycles of that group. feed_en[j] is asserted from cycle j onward,
-    which is what gives column j its injection delay.
+    Weights arrive COMPRESSED: for column j at cycle t the feeder is on
+    k-step (t - j), so the group presented must be compressed[(t-j)//4][j]
+    and it must stay stable for the four cycles of that group. feed_en[j] is
+    asserted from cycle j onward, which is what gives column j its injection
+    delay - THIS SIDE IS UNCHANGED by the note below.
+
+    sparse_feeder.sv's k_data/k_nonzero/grp_advance/meta_legal outputs are now
+    registered (added for FPGA timing closure - see rtl/sparse_feeder.sv), so
+    the dense weight for k-step k lands at b_v[0][j] one cycle later than the
+    (still-unchanged) feed_en[j]/grp_nz/grp_meta driving above would imply.
+    Rather than pre-driving weight data a cycle early (impossible for column
+    0, which would require driving before t=0), ACTIVATIONS are delayed by
+    one extra cycle instead: row i's k-step k is driven at cycle
+    (i + k + 1), not (i + k), so it meets the naturally-delayed weight at the
+    same absolute cycle. See stream_sparse() below.
 
 REFERENCE
     The array computes A x B_pruned, NOT A x B. Pruning is a property of the
@@ -105,15 +115,21 @@ async def clear_accumulators(dut):
 
 
 async def stream_sparse(dut, mode, A, compressed, depth):
-    """Drive dense activations + compressed weights with the required skew."""
+    """Drive dense activations + compressed weights with the required skew.
+
+    Activation injection is delayed one extra cycle (i + k + 1, not i + k) to
+    meet sparse_feeder's registered weight output at the same absolute cycle
+    - see the DRIVER CONTRACT note in the module docstring. The weight/feeder
+    driving formula below is unchanged from before that register was added.
+    """
     dut.mode.value = int(mode)
 
-    for t in range(N + depth - 1):
+    for t in range(N + depth):
         a_vec = v_vec = 0
         nz_vec = meta_vec = en_vec = 0
 
         for i in range(N):
-            k = t - i
+            k = t - i - 1
             if 0 <= k < depth:
                 a_vec |= (A[i][k] & DATA_MASK) << (i * DATA_WIDTH)
                 v_vec |= 1 << i
