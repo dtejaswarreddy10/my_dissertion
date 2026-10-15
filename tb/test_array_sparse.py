@@ -124,6 +124,12 @@ async def stream_sparse(dut, mode, A, compressed, depth):
     """
     dut.mode.value = int(mode)
 
+    # meta_legal is one of sparse_feeder's registered outputs (see
+    # rtl/sparse_feeder.sv), so at cycle t it reflects grp_meta as driven at
+    # cycle t-1, one register behind feed_en. Validate it against LAST
+    # cycle's active-column mask, not this cycle's.
+    prev_en_vec = 0
+
     for t in range(N + depth):
         a_vec = v_vec = 0
         nz_vec = meta_vec = en_vec = 0
@@ -152,11 +158,17 @@ async def stream_sparse(dut, mode, A, compressed, depth):
         await FallingEdge(dut.clk)
 
         # Metadata legality is checked live: an illegal group would silently
-        # drop a survivor and corrupt the result.
-        assert int(dut.meta_legal.value) == (1 << N) - 1, (
-            f"cycle {t}: illegal 2:4 metadata on some column "
-            f"(meta_legal=0b{int(dut.meta_legal.value):0{N}b})"
+        # drop a survivor and corrupt the result. Only check columns that
+        # were actually fed last cycle - an un-fed column legitimately
+        # presents grp_meta=0 (idx0==idx1==0), which the decoder correctly
+        # flags as illegal, and that is not a real error.
+        got_legal = int(dut.meta_legal.value)
+        bad = prev_en_vec & ~got_legal & ((1 << N) - 1)
+        assert bad == 0, (
+            f"cycle {t}: illegal 2:4 metadata on an active column "
+            f"(meta_legal=0b{got_legal:0{N}b}, active=0b{prev_en_vec:0{N}b})"
         )
+        prev_en_vec = en_vec
 
     dut.a_west.value = 0
     dut.valid_west.value = 0
