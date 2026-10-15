@@ -93,7 +93,12 @@ if {$icg_outs ne ""} {
 }
 
 # Reasonable block-level boundary conditions for a PE characterised standalone.
-set_input_delay  -clock clk [expr {$clk_ns * 0.2}] [remove_from_collection [all_inputs] [get_ports clk]]
+#set_input_delay  -clock clk [expr {$clk_ns * 0.2}] [remove_from_collection [all_inputs] [get_ports clk]]
+foreach port [all_inputs] {
+    if {[get_name $port] ne "clk"} {
+        set_input_delay -clock clk [expr {$clk_ns * 0.2}] $port
+    }
+}
 set_output_delay -clock clk [expr {$clk_ns * 0.2}] [all_outputs]
 catch { set_load 0.005 [all_outputs] }
 

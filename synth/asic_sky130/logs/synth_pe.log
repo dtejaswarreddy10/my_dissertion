@@ -53,47 +53,52 @@ Removed 0 unused modules.
 Cleaned up 0 empty switches.
 
 3.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
-Marked 2 switch rules as full_case in process $proc$/work/src/pe_int8.sv:20$2 in module pe_int8.
+Marked 2 switch rules as full_case in process $proc$/work/src/pe_int8.sv:48$1 in module pe_int8.
 Removed a total of 0 dead cases.
 
 3.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
-Removed 3 redundant assignments.
+Removed 5 redundant assignments.
 Promoted 0 assignments to connections.
 
 3.2.4. Executing PROC_INIT pass (extract init attributes).
 
 3.2.5. Executing PROC_ARST pass (detect async resets in processes).
-Found async reset \rst in `\pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
 
 3.2.6. Executing PROC_ROM pass (convert switches to ROMs).
 Converted 0 switches.
-<suppressed ~2 debug messages>
+<suppressed ~3 debug messages>
 
 3.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
-Creating decoders for process `\pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
-     1/4: $0\valid_out[0:0]
-     2/4: $0\b_out[7:0]
-     3/4: $0\a_out[7:0]
-     4/4: $0\acc_result[31:0]
+Creating decoders for process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+     1/6: $0\valid_q[0:0]
+     2/6: $0\product_q[31:0]
+     3/6: $0\valid_out[0:0]
+     4/6: $0\b_out[7:0]
+     5/6: $0\a_out[7:0]
+     6/6: $0\acc_q[31:0]
 
 3.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
 
 3.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
-Creating register for signal `\pe_int8.\a_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
-  created $adff cell `$procdff$9' with positive edge clock and positive level reset.
-Creating register for signal `\pe_int8.\b_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
-  created $adff cell `$procdff$10' with positive edge clock and positive level reset.
-Creating register for signal `\pe_int8.\valid_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
-  created $adff cell `$procdff$11' with positive edge clock and positive level reset.
-Creating register for signal `\pe_int8.\acc_result' using process `\pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
-  created $adff cell `$procdff$12' with positive edge clock and positive level reset.
+Creating register for signal `\pe_int8.\a_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$27' with positive edge clock.
+Creating register for signal `\pe_int8.\b_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$28' with positive edge clock.
+Creating register for signal `\pe_int8.\valid_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$29' with positive edge clock.
+Creating register for signal `\pe_int8.\product_q' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$30' with positive edge clock.
+Creating register for signal `\pe_int8.\valid_q' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$31' with positive edge clock.
+Creating register for signal `\pe_int8.\acc_q' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$32' with positive edge clock.
 
 3.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
 
 3.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
-Found and cleaned up 2 empty switches in `\pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
-Removing empty process `pe_int8.$proc$/work/src/pe_int8.sv:20$2'.
-Cleaned up 2 empty switches.
+Found and cleaned up 3 empty switches in `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+Removing empty process `pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+Cleaned up 3 empty switches.
 
 3.2.12. Executing OPT_EXPR pass (perform const folding).
 Optimizing module pe_int8.
@@ -105,7 +110,7 @@ Optimizing module pe_int8.
 
 3.5. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \pe_int8..
-Removed 0 unused cells and 7 unused wires.
+Removed 0 unused cells and 14 unused wires.
 <suppressed ~1 debug messages>
 
 3.6. Executing CHECK pass (checking for obvious problems).
@@ -127,7 +132,7 @@ Running muxtree optimizer on module \pe_int8..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~1 debug messages>
+<suppressed ~6 debug messages>
 
 3.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \pe_int8.
@@ -135,17 +140,46 @@ Performed a total of 0 changes.
 
 3.7.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\pe_int8'.
-Removed a total of 0 cells.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
 
 3.7.6. Executing OPT_DFF pass (perform DFF optimizations).
 
 3.7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \pe_int8..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
 
 3.7.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module pe_int8.
 
-3.7.9. Finished OPT passes. (There is nothing left to do.)
+3.7.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.7.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~5 debug messages>
+
+3.7.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+3.7.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+3.7.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.7.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+3.7.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+3.7.16. Finished OPT passes. (There is nothing left to do.)
 
 3.8. Executing FSM pass (extract and optimize FSM).
 
@@ -181,7 +215,7 @@ Running muxtree optimizer on module \pe_int8..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~1 debug messages>
+<suppressed ~5 debug messages>
 
 3.9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \pe_int8.
@@ -192,24 +226,28 @@ Finding identical cells in module `\pe_int8'.
 Removed a total of 0 cells.
 
 3.9.6. Executing OPT_DFF pass (perform DFF optimizations).
-Adding EN signal on $procdff$12 ($adff) from module pe_int8 (D = $0\acc_result[31:0], Q = \acc_result).
+Adding SRST signal on $procdff$32 ($dff) from module pe_int8 (D = $procmux$19_Y, Q = \acc_q, rval = 0).
+Adding EN signal on $auto$ff.cc:266:slice$33 ($sdff) from module pe_int8 (D = $add$/work/src/pe_int8.sv:70$3_Y, Q = \acc_q).
+Adding SRST signal on $procdff$30 ($dff) from module pe_int8 (D = $mul$/work/src/pe_int8.sv:63$2_Y, Q = \product_q, rval = 0).
+Adding SRST signal on $procdff$29 ($dff) from module pe_int8 (D = \valid_in, Q = \valid_out, rval = 1'0).
+Adding SRST signal on $procdff$28 ($dff) from module pe_int8 (D = \b_in, Q = \b_out, rval = 8'00000000).
+Adding SRST signal on $procdff$27 ($dff) from module pe_int8 (D = \a_in, Q = \a_out, rval = 8'00000000).
 
 3.9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \pe_int8..
+Removed 7 unused cells and 7 unused wires.
+<suppressed ~8 debug messages>
 
 3.9.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module pe_int8.
-<suppressed ~1 debug messages>
 
 3.9.9. Rerunning OPT passes. (Maybe there is more to do..)
 
 3.9.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \pe_int8..
   Creating internal representation of mux trees.
-  Evaluating internal representation of mux trees.
-  Analyzing evaluation results.
+  No muxes found in this module.
 Removed 0 multiplexer ports.
-<suppressed ~1 debug messages>
 
 3.9.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \pe_int8.
@@ -230,9 +268,9 @@ Optimizing module pe_int8.
 3.9.16. Finished OPT passes. (There is nothing left to do.)
 
 3.10. Executing WREDUCE pass (reducing word size of cells).
-Removed top 24 bits (of 32) from port A of cell pe_int8.$mul$/work/src/pe_int8.sv:18$1 ($mul).
-Removed top 24 bits (of 32) from port B of cell pe_int8.$mul$/work/src/pe_int8.sv:18$1 ($mul).
-Removed top 16 bits (of 32) from port Y of cell pe_int8.$mul$/work/src/pe_int8.sv:18$1 ($mul).
+Removed top 24 bits (of 32) from port A of cell pe_int8.$mul$/work/src/pe_int8.sv:63$2 ($mul).
+Removed top 24 bits (of 32) from port B of cell pe_int8.$mul$/work/src/pe_int8.sv:63$2 ($mul).
+Removed top 16 bits (of 32) from port Y of cell pe_int8.$mul$/work/src/pe_int8.sv:63$2 ($mul).
 
 3.11. Executing PEEPOPT pass (run peephole optimizers).
 
@@ -241,11 +279,11 @@ Finding unused cells or wires in module \pe_int8..
 
 3.13. Executing ALUMACC pass (create $alu and $macc cells).
 Extracting $alu and $macc cells in module pe_int8:
-  creating $macc model for $add$/work/src/pe_int8.sv:33$3 ($add).
-  creating $macc model for $mul$/work/src/pe_int8.sv:18$1 ($mul).
-  creating $alu model for $macc $add$/work/src/pe_int8.sv:33$3.
-  creating $macc cell for $mul$/work/src/pe_int8.sv:18$1: $auto$alumacc.cc:365:replace_macc$16
-  creating $alu cell for $add$/work/src/pe_int8.sv:33$3: $auto$alumacc.cc:485:replace_alu$17
+  creating $macc model for $add$/work/src/pe_int8.sv:70$3 ($add).
+  creating $macc model for $mul$/work/src/pe_int8.sv:63$2 ($mul).
+  creating $alu model for $macc $add$/work/src/pe_int8.sv:70$3.
+  creating $macc cell for $mul$/work/src/pe_int8.sv:63$2: $auto$alumacc.cc:365:replace_macc$41
+  creating $alu cell for $add$/work/src/pe_int8.sv:70$3: $auto$alumacc.cc:485:replace_alu$42
   created 1 $alu and 1 $macc cells.
 
 3.14. Executing SHARE pass (SAT-based resource sharing).
@@ -262,10 +300,8 @@ Removed a total of 0 cells.
 3.15.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \pe_int8..
   Creating internal representation of mux trees.
-  Evaluating internal representation of mux trees.
-  Analyzing evaluation results.
+  No muxes found in this module.
 Removed 0 multiplexer ports.
-<suppressed ~1 debug messages>
 
 3.15.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \pe_int8.
@@ -319,7 +355,6 @@ Finding unused cells or wires in module \pe_int8..
 
 3.18.1. Executing OPT_EXPR pass (perform const folding).
 Optimizing module pe_int8.
-<suppressed ~1 debug messages>
 
 3.18.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\pe_int8'.
@@ -329,8 +364,6 @@ Removed a total of 0 cells.
 
 3.18.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \pe_int8..
-Removed 0 unused cells and 1 unused wires.
-<suppressed ~1 debug messages>
 
 3.18.5. Finished fast OPT passes.
 
@@ -348,10 +381,8 @@ Removed a total of 0 cells.
 3.20.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \pe_int8..
   Creating internal representation of mux trees.
-  Evaluating internal representation of mux trees.
-  Analyzing evaluation results.
+  No muxes found in this module.
 Removed 0 multiplexer ports.
-<suppressed ~1 debug messages>
 
 3.20.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \pe_int8.
@@ -404,20 +435,20 @@ Generating RTLIL representation for module `\_90_lut'.
 Successfully finished Verilog frontend.
 
 3.21.2. Continuing TECHMAP pass.
-Using template $paramod$fbc7873bff55778c0b3173955b7e4bce1d9d6834\_90_alu for cells of type $alu.
-Using extmapper simplemap for cells of type $reduce_bool.
-Using extmapper simplemap for cells of type $adffe.
-Using extmapper simplemap for cells of type $mux.
-Using extmapper simplemap for cells of type $adff.
 Using extmapper maccmap for cells of type $macc.
   add \a_in * \b_in (8x8 bits, signed)
+Using extmapper simplemap for cells of type $sdff.
+Using template $paramod$2653f68ddb8eab7b1907b4a20767b72a824a7a36\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $sdffe.
 Using extmapper simplemap for cells of type $and.
-Using extmapper simplemap for cells of type $xor.
-Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
-Using extmapper simplemap for cells of type $pos.
 Using extmapper simplemap for cells of type $not.
 Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000010000 for cells of type $fa.
 Using template $paramod$6df0329addda9228fcc2546de2aaf14ad26c98e1\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $mux.
 Using extmapper simplemap for cells of type $or.
 Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000010000 for cells of type $lcu.
 No more expansions possible.
@@ -438,15 +469,15 @@ Removed a total of 129 cells.
 
 3.22.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \pe_int8..
-Removed 64 unused cells and 158 unused wires.
-<suppressed ~65 debug messages>
+Removed 80 unused cells and 158 unused wires.
+<suppressed ~81 debug messages>
 
 3.22.5. Finished fast OPT passes.
 
 3.23. Executing ABC pass (technology mapping using ABC).
 
 3.23.1. Extracting gate netlist of module `\pe_int8' to `<abc-temp-dir>/input.blif'..
-Extracted 677 gates and 728 wires to a netlist network with 50 inputs and 33 outputs.
+Extracted 645 gates and 711 wires to a netlist network with 66 inputs and 49 outputs.
 
 3.23.1.1. Executing ABC.
 Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
@@ -461,18 +492,18 @@ ABC: + map
 ABC: + write_blif <abc-temp-dir>/output.blif 
 
 3.23.1.2. Re-integrating ABC results.
-ABC RESULTS:              NAND cells:       35
-ABC RESULTS:               AND cells:       45
-ABC RESULTS:               NOT cells:       29
-ABC RESULTS:             ORNOT cells:       36
-ABC RESULTS:               NOR cells:       23
-ABC RESULTS:              XNOR cells:       43
-ABC RESULTS:                OR cells:       80
-ABC RESULTS:               XOR cells:      161
-ABC RESULTS:            ANDNOT cells:      246
-ABC RESULTS:        internal signals:      645
-ABC RESULTS:           input signals:       50
-ABC RESULTS:          output signals:       33
+ABC RESULTS:               NOT cells:        7
+ABC RESULTS:             ORNOT cells:        7
+ABC RESULTS:               AND cells:       62
+ABC RESULTS:                OR cells:       84
+ABC RESULTS:              XNOR cells:       74
+ABC RESULTS:              NAND cells:       43
+ABC RESULTS:               NOR cells:       65
+ABC RESULTS:            ANDNOT cells:      172
+ABC RESULTS:               XOR cells:      130
+ABC RESULTS:        internal signals:      596
+ABC RESULTS:           input signals:       66
+ABC RESULTS:          output signals:       49
 Removing temp directory.
 
 3.24. Executing OPT pass (performing simple optimizations).
@@ -488,7 +519,7 @@ Removed a total of 0 cells.
 
 3.24.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \pe_int8..
-Removed 0 unused cells and 255 unused wires.
+Removed 0 unused cells and 279 unused wires.
 <suppressed ~1 debug messages>
 
 3.24.5. Finished fast OPT passes.
@@ -506,25 +537,25 @@ Removed 0 unused modules.
 
 === pe_int8 ===
 
-   Number of wires:                678
-   Number of wire bits:            799
-   Number of public wires:          11
-   Number of public wire bits:     101
+   Number of wires:                618
+   Number of wire bits:            906
+   Number of public wires:          13
+   Number of public wire bits:     134
    Number of memories:               0
    Number of memory bits:            0
    Number of processes:              0
-   Number of cells:                747
-     $_ANDNOT_                     246
-     $_AND_                         45
-     $_DFFE_PP0P_                   32
-     $_DFF_PP0_                     17
-     $_NAND_                        35
-     $_NOR_                         23
-     $_NOT_                         29
-     $_ORNOT_                       36
-     $_OR_                          80
-     $_XNOR_                        43
-     $_XOR_                        161
+   Number of cells:                709
+     $_ANDNOT_                     172
+     $_AND_                         62
+     $_NAND_                        43
+     $_NOR_                         65
+     $_NOT_                          7
+     $_ORNOT_                        7
+     $_OR_                          84
+     $_SDFFE_PP0P_                  32
+     $_SDFF_PP0_                    33
+     $_XNOR_                        74
+     $_XOR_                        130
 
 3.27. Executing CHECK pass (checking for obvious problems).
 Checking module pe_int8...
@@ -793,12 +824,12 @@ Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin att
 
 4.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
 Mapping DFF cells in module `\pe_int8':
-  mapped 49 $_DFF_PN0_ cells to \sky130_fd_sc_hd__dfrtp_1 cells.
+  mapped 65 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_1 cells.
 
 5. Executing ABC pass (technology mapping using ABC).
 
 5.1. Extracting gate netlist of module `\pe_int8' to `<abc-temp-dir>/input.blif'..
-Extracted 779 gates and 830 wires to a netlist network with 51 inputs and 81 outputs.
+Extracted 741 gates and 810 wires to a netlist network with 68 inputs and 65 outputs.
 
 5.1.1. Executing ABC.
 Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
@@ -920,115 +951,109 @@ ABC: + &put
 ABC: + write_blif <abc-temp-dir>/output.blif 
 
 5.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:        1
 ABC RESULTS:   sky130_fd_sc_hd__or4_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        6
-ABC RESULTS:   sky130_fd_sc_hd__o21ba_1 cells:        2
-ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        6
-ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__xnor3_1 cells:       15
-ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        9
-ABC RESULTS:   sky130_fd_sc_hd__xor3_1 cells:       10
-ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:        9
-ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:        4
-ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:        2
-ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:       39
-ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        6
-ABC RESULTS:   sky130_fd_sc_hd__o41ai_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        4
-ABC RESULTS:   sky130_fd_sc_hd__o41a_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__o21bai_1 cells:        2
-ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        7
-ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        2
-ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       10
-ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        3
 ABC RESULTS:   sky130_fd_sc_hd__a32o_1 cells:        1
-ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        7
-ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:       34
-ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:       63
-ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        9
-ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        5
-ABC RESULTS:   sky130_fd_sc_hd__a22o_1 cells:        4
-ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       39
-ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       54
-ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:       36
-ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:       94
-ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        3
-ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__xor3_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        8
+ABC RESULTS:   sky130_fd_sc_hd__o211a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:       14
 ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:        2
-ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       63
-ABC RESULTS:        internal signals:      698
-ABC RESULTS:           input signals:       51
-ABC RESULTS:          output signals:       81
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nand4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:       28
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       25
+ABC RESULTS:   sky130_fd_sc_hd__a2111oi_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       38
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:       15
+ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       20
+ABC RESULTS:   sky130_fd_sc_hd__o2111ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:       47
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:       68
+ABC RESULTS:   sky130_fd_sc_hd__o22ai_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:       73
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:       17
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       51
+ABC RESULTS:   sky130_fd_sc_hd__o41ai_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a31o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__a41o_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:       76
+ABC RESULTS:        internal signals:      677
+ABC RESULTS:           input signals:       68
+ABC RESULTS:          output signals:       65
 Removing temp directory.
 
 6. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \pe_int8..
-Removed 0 unused cells and 799 unused wires.
+Removed 0 unused cells and 770 unused wires.
 <suppressed ~1 debug messages>
 
 7. Printing statistics.
 
 === pe_int8 ===
 
-   Number of wires:                576
-   Number of wire bits:            666
-   Number of public wires:          11
-   Number of public wire bits:     101
+   Number of wires:                597
+   Number of wire bits:            718
+   Number of public wires:          13
+   Number of public wire bits:     134
    Number of memories:               0
    Number of memory bits:            0
    Number of processes:              0
-   Number of cells:                614
+   Number of cells:                649
      sky130_fd_sc_hd__a2111oi_0      1
      sky130_fd_sc_hd__a211oi_1       2
-     sky130_fd_sc_hd__a21boi_0       2
-     sky130_fd_sc_hd__a21o_1         9
-     sky130_fd_sc_hd__a21oi_1       39
-     sky130_fd_sc_hd__a22o_1         4
-     sky130_fd_sc_hd__a22oi_1        9
-     sky130_fd_sc_hd__a31oi_1        5
+     sky130_fd_sc_hd__a21o_1         7
+     sky130_fd_sc_hd__a21oi_1       51
+     sky130_fd_sc_hd__a22o_1         1
+     sky130_fd_sc_hd__a22oi_1       15
+     sky130_fd_sc_hd__a31o_1         1
+     sky130_fd_sc_hd__a31oi_1        9
      sky130_fd_sc_hd__a32o_1         1
-     sky130_fd_sc_hd__and2_0         7
-     sky130_fd_sc_hd__and3_1         4
-     sky130_fd_sc_hd__and3b_1        1
+     sky130_fd_sc_hd__a41o_1         1
+     sky130_fd_sc_hd__and2_0         6
+     sky130_fd_sc_hd__and3_1        14
      sky130_fd_sc_hd__and4_1         6
-     sky130_fd_sc_hd__clkinv_1      63
-     sky130_fd_sc_hd__dfrtp_1       49
-     sky130_fd_sc_hd__lpflow_inputiso1p_1      5
-     sky130_fd_sc_hd__lpflow_isobufsrc_1      9
-     sky130_fd_sc_hd__maj3_1        39
-     sky130_fd_sc_hd__mux2_1         1
-     sky130_fd_sc_hd__mux2i_1        1
-     sky130_fd_sc_hd__nand2_1       94
-     sky130_fd_sc_hd__nand2b_1      10
-     sky130_fd_sc_hd__nand3_1        7
+     sky130_fd_sc_hd__clkinv_1      20
+     sky130_fd_sc_hd__dfxtp_1       65
+     sky130_fd_sc_hd__lpflow_inputiso1p_1      6
+     sky130_fd_sc_hd__lpflow_isobufsrc_1     25
+     sky130_fd_sc_hd__maj3_1        28
+     sky130_fd_sc_hd__mux2i_1        6
+     sky130_fd_sc_hd__nand2_1       68
+     sky130_fd_sc_hd__nand2b_1       6
+     sky130_fd_sc_hd__nand3_1       17
      sky130_fd_sc_hd__nand3b_1       1
-     sky130_fd_sc_hd__nand4_1        6
-     sky130_fd_sc_hd__nor2_1        36
-     sky130_fd_sc_hd__nor2b_1        2
-     sky130_fd_sc_hd__nor3_1         3
-     sky130_fd_sc_hd__nor4b_1        1
-     sky130_fd_sc_hd__o21a_1         4
-     sky130_fd_sc_hd__o21ai_0       54
-     sky130_fd_sc_hd__o21ba_1        2
-     sky130_fd_sc_hd__o21bai_1       2
-     sky130_fd_sc_hd__o22ai_1        3
-     sky130_fd_sc_hd__o31ai_1        1
-     sky130_fd_sc_hd__o41a_1         1
-     sky130_fd_sc_hd__o41ai_1        1
-     sky130_fd_sc_hd__or3_1          6
+     sky130_fd_sc_hd__nand4_1       13
+     sky130_fd_sc_hd__nand4b_1       1
+     sky130_fd_sc_hd__nor2_1        76
+     sky130_fd_sc_hd__nor2b_1        7
+     sky130_fd_sc_hd__nor3_1        10
+     sky130_fd_sc_hd__o2111ai_1      1
+     sky130_fd_sc_hd__o211a_1        1
+     sky130_fd_sc_hd__o211ai_1       1
+     sky130_fd_sc_hd__o21a_1         5
+     sky130_fd_sc_hd__o21ai_0       38
+     sky130_fd_sc_hd__o22ai_1        6
+     sky130_fd_sc_hd__o41ai_1        3
+     sky130_fd_sc_hd__or3_1          8
      sky130_fd_sc_hd__or4_1          1
-     sky130_fd_sc_hd__xnor2_1       63
-     sky130_fd_sc_hd__xnor3_1       15
-     sky130_fd_sc_hd__xor2_1        34
-     sky130_fd_sc_hd__xor3_1        10
+     sky130_fd_sc_hd__xnor2_1       73
+     sky130_fd_sc_hd__xor2_1        47
+     sky130_fd_sc_hd__xor3_1         1
 
-   Chip area for module '\pe_int8': 5056.099200
+   Chip area for module '\pe_int8': 4930.979200
 
 8. Executing Verilog backend.
 
@@ -1041,6 +1066,6 @@ INFO: for critical path, run OpenSTA (sta_pe.tcl) on the netlist above.
 Dumping module `\pe_int8'.
 
 Warnings: 26 unique messages, 234 total
-End of script. Logfile hash: d93b2c2a6e, CPU: user 1.41s system 0.06s, MEM: 45.46 MB peak
+End of script. Logfile hash: 104bc45ed8, CPU: user 1.65s system 0.07s, MEM: 45.64 MB peak
 Yosys 0.30+48 (git sha1 14d50a176d5, gcc 8.3.1 -fPIC -Os)
-Time spent: 37% 2x abc (0 sec), 15% 1x dfflibmap (0 sec), ...
+Time spent: 35% 2x abc (0 sec), 16% 1x dfflibmap (0 sec), ...
