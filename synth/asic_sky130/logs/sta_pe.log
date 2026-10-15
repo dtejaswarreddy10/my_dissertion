@@ -1,0 +1,105 @@
+OpenSTA 2.4.0 41a51eaf4c Copyright (c) 2021, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+INFO: lib=/root/.ciel/ciel/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+INFO: netlist=/work/synth/asic_sky130/reports/pe_netlist_sky130.v  top=pe_int8  clk=10.0ns
+INFO: setup/hold reports -> reports/sta_pe_netlist_sky130_*.rpt
+Startpoint: rst (input port clocked by clk)
+Endpoint: _1130_ (recovery check against rising-edge clock clk)
+Path Group: asynchronous
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   2.0000    2.0000 v input external delay
+   0.0000    2.0000 v rst (in)
+   0.0261    2.0261 ^ _0575_/Y (sky130_fd_sc_hd__clkinv_1)
+   0.0000    2.0261 ^ _1130_/RESET_B (sky130_fd_sc_hd__dfrtp_1)
+             2.0261   data arrival time
+
+  10.0000   10.0000   clock clk (rise edge)
+   0.0000   10.0000   clock network delay (ideal)
+   0.0000   10.0000   clock reconvergence pessimism
+            10.0000 ^ _1130_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.2210   10.2210   library recovery time
+            10.2210   data required time
+-------------------------------------------------------------
+            10.2210   data required time
+            -2.0261   data arrival time
+-------------------------------------------------------------
+             8.1950   slack (MET)
+
+
+Startpoint: a_in[5] (input port clocked by clk)
+Endpoint: _1161_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   2.0000    2.0000 v input external delay
+   0.0000    2.0000 v a_in[5] (in)
+   0.0586    2.0586 ^ _0707_/Y (sky130_fd_sc_hd__nand2_1)
+   0.4147    2.4733 v _0744_/X (sky130_fd_sc_hd__xnor3_1)
+   0.3950    2.8682 v _0771_/X (sky130_fd_sc_hd__xor3_1)
+   0.3872    3.2554 v _0795_/X (sky130_fd_sc_hd__xor3_1)
+   0.1749    3.4303 v _0812_/X (sky130_fd_sc_hd__xor2_1)
+   0.3606    3.7909 v _0823_/X (sky130_fd_sc_hd__maj3_1)
+   0.1865    3.9775 ^ _0825_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.1429    4.1204 v _0826_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.3943    4.5146 v _0828_/X (sky130_fd_sc_hd__maj3_1)
+   0.2021    4.7168 ^ _0829_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.1349    4.8517 v _0830_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.2312    5.0829 ^ _0831_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.2272    5.3101 ^ _0833_/X (sky130_fd_sc_hd__maj3_1)
+   0.0943    5.4043 ^ _0847_/Y (sky130_fd_sc_hd__nand2b_1)
+   0.8897    6.2941 ^ _0854_/X (sky130_fd_sc_hd__and3_1)
+   0.1936    6.4876 v _0875_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.2449    6.7325 v _0938_/X (sky130_fd_sc_hd__o21a_1)
+   0.2582    6.9907 ^ _0940_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.2615    7.2522 ^ _0941_/X (sky130_fd_sc_hd__maj3_1)
+   0.2074    7.4596 ^ _0942_/X (sky130_fd_sc_hd__maj3_1)
+   0.2244    7.6840 ^ _0943_/X (sky130_fd_sc_hd__maj3_1)
+   0.1588    7.8427 v _0945_/Y (sky130_fd_sc_hd__nand4_1)
+   0.4843    8.3271 ^ _0951_/Y (sky130_fd_sc_hd__a2111oi_0)
+   0.1686    8.4956 v _0955_/Y (sky130_fd_sc_hd__o21bai_1)
+   0.1845    8.6801 ^ _0957_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.1175    8.7976 v _0959_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.1787    8.9763 v _0961_/X (sky130_fd_sc_hd__and3b_1)
+   0.2081    9.1845 ^ _0965_/Y (sky130_fd_sc_hd__o31ai_1)
+   0.0000    9.1845 ^ _1161_/D (sky130_fd_sc_hd__dfrtp_1)
+             9.1845   data arrival time
+
+  10.0000   10.0000   clock clk (rise edge)
+   0.0000   10.0000   clock network delay (ideal)
+   0.0000   10.0000   clock reconvergence pessimism
+            10.0000 ^ _1161_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.0984    9.9016   library setup time
+             9.9016   data required time
+-------------------------------------------------------------
+             9.9016   data required time
+            -9.1845   data arrival time
+-------------------------------------------------------------
+             0.7171   slack (MET)
+
+
+WARN: no SAIF supplied - power below uses default activity and is NOT
+WARN: the number to quote. Produce a SAIF via asic_power_sweep.sh.
+Group                    Internal    Switching      Leakage        Total
+                            Power        Power        Power        Power (Watts)
+------------------------------------------------------------------------
+Sequential           2.493931e-04 6.651499e-05 5.709613e-10 3.159087e-04  36.4%
+Combinational        2.866642e-04 2.642446e-04 1.532850e-09 5.509104e-04  63.6%
+Macro                0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00   0.0%
+Pad                  0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00   0.0%
+------------------------------------------------------------------------
+Total                5.360577e-04 3.307594e-04 2.103810e-09 8.668193e-04 100.0%
+                            61.8%        38.2%         0.0%
+INFO: power report -> /work/reports/power_pe_netlist_sky130_default.rpt
