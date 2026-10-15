@@ -88,6 +88,16 @@ async def drive_and_check(dut, model, a, b, valid, acc_clear, ctx=""):
     model.step(a & DATA_MASK, b & DATA_MASK, int(valid), int(acc_clear))
     await FallingEdge(dut.clk)
 
+    # TEMP DEBUG - remove once the Questa compat-flow timing question is
+    # settled. Reads pe_int8's internal stage-1 registers directly (visible
+    # because vlog compiled with +acc) to check whether product_q/valid_q
+    # themselves update on the schedule pe_int8.sv documents, independent of
+    # whatever cocotb/VPI is doing on the input-driving side.
+    dut._log.info(
+        f"{ctx}: product_q={read_signed(dut.product_q, ACC_WIDTH)} "
+        f"valid_q={int(dut.valid_q.value)} acc_q={read_signed(dut.acc_q, ACC_WIDTH)}"
+    )
+
     got = read_signed(dut.acc_result, ACC_WIDTH)
     assert got == model.acc, (
         f"{ctx} acc_result mismatch: RTL={got} golden={model.acc} "
