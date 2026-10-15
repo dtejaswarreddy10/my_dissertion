@@ -250,7 +250,12 @@ async def test_int4x2_lane_independence(dut):
             pack_int4x2(0, lo), pack_int4x2(rng.randint(-8, 7), hi), 1, 0,
             ctx=f"lo-only[{n}]",
         )
+        # Two drain cycles: pe_mixed is now a 3-stage pipeline (sub-product
+        # capture -> reduced-product capture -> accumulate), so the pushed
+        # operand's contribution needs one more idle cycle to reach acc than
+        # the earlier 2-stage design did.
         await drive_and_check(dut, model, MODE_INT4X2, 0, 0, 0, 0, ctx="drain")
+        await drive_and_check(dut, model, MODE_INT4X2, 0, 0, 0, 0, ctx="drain2")
         assert model.acc == lo * hi, (
             f"low-lane isolation broken: acc={model.acc} expected {lo * hi}"
         )
@@ -287,7 +292,11 @@ async def test_mode_transition_with_clear(dut):
                 a, b = pack_int4x2(a_hi, a_lo), pack_int4x2(b_hi, b_lo)
             await drive_and_check(dut, model, mode, a, b, 1, 0, ctx=f"tile{tile}")
 
+        # Two drain cycles for the same reason as test_int4x2_lane_independence
+        # above: the 3-stage pe_mixed pipeline needs one more idle cycle than
+        # the old 2-stage design before the last push is fully accumulated.
         await drive_and_check(dut, model, mode, 0, 0, 0, 0, ctx=f"tile{tile} drain")
+        await drive_and_check(dut, model, mode, 0, 0, 0, 0, ctx=f"tile{tile} drain2")
         got = to_signed(int(dut.acc_result.value), ACC_WIDTH)
         assert got == expected, (
             f"tile {tile} (mode={mode}) result {got} != independently computed {expected}"
