@@ -1,0 +1,150 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_array_sparse.xml
+mkdir -p sim_build
+# Make sure all libs in SOURCES_VHDL_* are mentioned in VHDL_LIB_ORDER and vice versa
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_array_sparse.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_array_sparse COCOTB_TESTCASE=  COCOTB_TOPLEVEL=systolic_array_sparse TOPLEVEL_LANG=verilog       \
+     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 21:57:38 on Oct 19,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/masters/my_dissertion/tb/../src/pe_mixed.sv /home/uday-teja/masters/my_dissertion/tb/../src/icg_cell.sv /home/uday-teja/masters/my_dissertion/tb/../src/sparsity_decoder.sv /home/uday-teja/masters/my_dissertion/tb/../src/sparse_feeder.sv /home/uday-teja/masters/my_dissertion/tb/../src/systolic_array_sparse.sv 
+# -- Compiling module pe_mixed
+# -- Compiling module icg_cell
+# -- Compiling module sparsity_decoder
+# -- Compiling module sparse_feeder
+# -- Compiling module systolic_array_sparse
+# 
+# Top level modules:
+# 	systolic_array_sparse
+# End time: 21:57:38 on Oct 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.systolic_array_sparse 
+# Start time: 21:57:38 on Oct 19,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.systolic_array_sparse(fast)
+# Loading work.sparse_feeder(fast)
+# Loading work.sparsity_decoder(fast)
+# Loading work.pe_mixed(fast)
+# Loading work.icg_cell(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792427259
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_array_sparse.test_sparse_int8_random (1/6)
+#                                                             Compressed-weight INT8 GEMM == dense GEMM against the pruned matrix.
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:203: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    115.00ns WARNING  cocotb.regression                  test_array_sparse.test_sparse_int8_random failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 210, in test_sparse_int8_random
+#                                                             await stream_sparse(dut, MODE_INT8, A, comp, K)
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 167, in stream_sparse
+#                                                             assert bad == 0, (
+#                                                         AssertionError: cycle 8: illegal 2:4 metadata on an active column (meta_legal=0b11111110, active=0b11111111)
+#                                                         assert 1 == 0
+#    115.00ns INFO     cocotb.regression                  running test_array_sparse.test_sparse_int4x2_random (2/6)
+#                                                             Compressed weights combined with packed INT4x2 lanes.
+#    115.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:219: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    230.00ns WARNING  cocotb.regression                  test_array_sparse.test_sparse_int4x2_random failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 226, in test_sparse_int4x2_random
+#                                                             await stream_sparse(dut, MODE_INT4X2, A, comp, K)
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 167, in stream_sparse
+#                                                             assert bad == 0, (
+#                                                         AssertionError: cycle 8: illegal 2:4 metadata on an active column (meta_legal=0b11111110, active=0b11111111)
+#                                                         assert 1 == 0
+#    230.00ns INFO     cocotb.regression                  running test_array_sparse.test_pruned_weights_are_half_zero (3/6)
+#                                                             Sanity: the streamed weight matrix really is 50% zero (2 of every 4).
+#    230.00ns INFO     cocotb.systolic_array_sparse       Pruned weight matrix is 50.0% zero (2:4 contract upper bound 50%)
+#    230.00ns INFO     cocotb.regression                  test_array_sparse.test_pruned_weights_are_half_zero passed
+#    230.00ns INFO     cocotb.regression                  running test_array_sparse.test_zero_weight_group_gates_cleanly (4/6)
+#                                                             An all-zero weight column must yield an all-zero result, not X or stale data.
+#    230.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:255: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    345.00ns WARNING  cocotb.regression                  test_array_sparse.test_zero_weight_group_gates_cleanly failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 264, in test_zero_weight_group_gates_cleanly
+#                                                             await stream_sparse(dut, MODE_INT8, A, comp, K)
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 167, in stream_sparse
+#                                                             assert bad == 0, (
+#                                                         AssertionError: cycle 8: illegal 2:4 metadata on an active column (meta_legal=0b11111110, active=0b11111111)
+#                                                         assert 1 == 0
+#    345.00ns INFO     cocotb.regression                  running test_array_sparse.test_back_to_back_sparse_tiles (5/6)
+#                                                             Consecutive tiles: feeder phase and accumulators must both re-align.
+#    345.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:273: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    460.00ns WARNING  cocotb.regression                  test_array_sparse.test_back_to_back_sparse_tiles failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 280, in test_back_to_back_sparse_tiles
+#                                                             await stream_sparse(dut, MODE_INT8, A, comp, K)
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 167, in stream_sparse
+#                                                             assert bad == 0, (
+#                                                         AssertionError: cycle 8: illegal 2:4 metadata on an active column (meta_legal=0b11111110, active=0b11111111)
+#                                                         assert 1 == 0
+#    460.00ns INFO     cocotb.regression                  running test_array_sparse.test_power_stimulus (6/6)
+#                                                             Long run at a controlled ACTIVATION sparsity, for VCD -> SAIF power.
+#    460.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:306: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#    475.00ns INFO     cocotb.systolic_array_sparse       Power stimulus: activation sparsity = 50%, 16 tiles, N=8 K=8
+#    575.00ns WARNING  cocotb.regression                  test_array_sparse.test_power_stimulus failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 323, in test_power_stimulus
+#                                                             await stream_sparse(dut, MODE_INT8, A, comp, K)
+#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 167, in stream_sparse
+#                                                             assert bad == 0, (
+#                                                         AssertionError: cycle 8: illegal 2:4 metadata on an active column (meta_legal=0b11111110, active=0b11111111)
+#                                                         assert 1 == 0
+#    575.00ns INFO     cocotb.regression                  ****************************************************************************************************************
+#                                                         ** TEST                                                    STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         ****************************************************************************************************************
+#                                                         ** test_array_sparse.test_sparse_int8_random                FAIL         115.00           0.00      23888.88  **
+#                                                         ** test_array_sparse.test_sparse_int4x2_random              FAIL         115.00           0.00      32389.49  **
+#                                                         ** test_array_sparse.test_pruned_weights_are_half_zero      PASS           0.00           0.00          0.00  **
+#                                                         ** test_array_sparse.test_zero_weight_group_gates_cleanly   FAIL         115.00           0.00      40643.63  **
+#                                                         ** test_array_sparse.test_back_to_back_sparse_tiles         FAIL         115.00           0.00      35243.54  **
+#                                                         ** test_array_sparse.test_power_stimulus                    FAIL         115.00           0.00      32443.82  **
+#                                                         ****************************************************************************************************************
+#                                                         ** TESTS=6 PASS=1 FAIL=5 SKIP=0                                          575.00           0.02      24223.65  **
+#                                                         ****************************************************************************************************************
+# ** Note: $finish
+#    Time: 575005 ps  Iteration: 2  Instance: /systolic_array_sparse File: /home/uday-teja/masters/my_dissertion/tb/../src/systolic_array_sparse.sv
+# End time: 21:57:39 on Oct 19,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+make: *** [/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:132: results_array_sparse.xml] Error 5
