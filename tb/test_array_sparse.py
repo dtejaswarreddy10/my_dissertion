@@ -11,17 +11,15 @@ DRIVER CONTRACT
     k-step (t - j), so the group presented must be compressed[(t-j)//4][j]
     and it must stay stable for the four cycles of that group. feed_en[j] is
     asserted from cycle j onward, which is what gives column j its injection
-    delay - THIS SIDE IS UNCHANGED by the note below.
+    delay. Activations use the same (i + k) skew as the dense arrays.
 
-    sparse_feeder.sv's k_data/k_nonzero/grp_advance/meta_legal outputs are now
-    registered (added for FPGA timing closure - see rtl/sparse_feeder.sv), so
-    the dense weight for k-step k lands at b_v[0][j] one cycle later than the
-    (still-unchanged) feed_en[j]/grp_nz/grp_meta driving above would imply.
-    Rather than pre-driving weight data a cycle early (impossible for column
-    0, which would require driving before t=0), ACTIVATIONS are delayed by
-    one extra cycle instead: row i's k-step k is driven at cycle
-    (i + k + 1), not (i + k), so it meets the naturally-delayed weight at the
-    same absolute cycle. See stream_sparse() below.
+    sparse_feeder.sv's k_data/k_nonzero/grp_advance/meta_legal outputs are
+    registered (added for FPGA timing closure - see rtl/sparse_feeder.sv),
+    but that register's input comes directly from THIS cycle's
+    grp_nz/grp_meta, not from another register set up a cycle earlier - so
+    the standard "set inputs, await the clock edge, read" idiom already
+    samples the correct same-cycle result. No driver-side skew compensation
+    is needed for it. See stream_sparse() below.
 
 REFERENCE
     The array computes A x B_pruned, NOT A x B. Pruning is a property of the
@@ -117,25 +115,21 @@ async def clear_accumulators(dut):
 async def stream_sparse(dut, mode, A, compressed, depth):
     """Drive dense activations + compressed weights with the required skew.
 
-    Activation injection is delayed one extra cycle (i + k + 1, not i + k) to
-    meet sparse_feeder's registered weight output at the same absolute cycle
-    - see the DRIVER CONTRACT note in the module docstring. The weight/feeder
-    driving formula below is unchanged from before that register was added.
+    sparse_feeder's k_data/meta_legal registers take their D-input directly
+    from THIS cycle's grp_nz/grp_meta (not from another register set up a
+    cycle earlier - see rtl/sparse_feeder.sv), so the standard "set inputs,
+    await the clock edge, read" idiom already samples the correct, same-cycle
+    result with no extra compensation. No row/column skew adjustment is
+    needed here, unlike pe_mixed's genuinely chained pipeline registers.
     """
     dut.mode.value = int(mode)
 
-    # meta_legal is one of sparse_feeder's registered outputs (see
-    # rtl/sparse_feeder.sv), so at cycle t it reflects grp_meta as driven at
-    # cycle t-1, one register behind feed_en. Validate it against LAST
-    # cycle's active-column mask, not this cycle's.
-    prev_en_vec = 0
-
-    for t in range(N + depth):
+    for t in range(N + depth - 1):
         a_vec = v_vec = 0
         nz_vec = meta_vec = en_vec = 0
 
         for i in range(N):
-            k = t - i - 1
+            k = t - i
             if 0 <= k < depth:
                 a_vec |= (A[i][k] & DATA_MASK) << (i * DATA_WIDTH)
                 v_vec |= 1 << i
@@ -158,17 +152,16 @@ async def stream_sparse(dut, mode, A, compressed, depth):
         await FallingEdge(dut.clk)
 
         # Metadata legality is checked live: an illegal group would silently
-        # drop a survivor and corrupt the result. Only check columns that
-        # were actually fed last cycle - an un-fed column legitimately
-        # presents grp_meta=0 (idx0==idx1==0), which the decoder correctly
-        # flags as illegal, and that is not a real error.
+        # drop a survivor and corrupt the result. Only check columns that are
+        # actually fed THIS cycle - an un-fed column legitimately presents
+        # grp_meta=0 (idx0==idx1==0), which the decoder correctly flags as
+        # illegal, and that is not a real error.
         got_legal = int(dut.meta_legal.value)
-        bad = prev_en_vec & ~got_legal & ((1 << N) - 1)
+        bad = en_vec & ~got_legal & ((1 << N) - 1)
         assert bad == 0, (
             f"cycle {t}: illegal 2:4 metadata on an active column "
-            f"(meta_legal=0b{got_legal:0{N}b}, active=0b{prev_en_vec:0{N}b})"
+            f"(meta_legal=0b{got_legal:0{N}b}, active=0b{en_vec:0{N}b})"
         )
-        prev_en_vec = en_vec
 
     dut.a_west.value = 0
     dut.valid_west.value = 0
