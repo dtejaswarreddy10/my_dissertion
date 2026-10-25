@@ -7,9 +7,7 @@
 // Sits at the array BOUNDARY, outside the systolic mesh, and turns a
 // compressed 2:4 weight stream into the dense per-cycle stream the column
 // expects. It is a boundary block, so it never adds a stage to the MESH
-// itself (the i+j+k skew formula in systolic_array_sparse.sv is untouched) -
-// but see the OUTPUT REGISTER note below: it does add one cycle of latency
-// between `en` and the feeder's own outputs, which the driver must budget for.
+// itself (the i+j+k skew formula in systolic_array_sparse.sv is untouched).
 //
 //   compressed in : {nz1, nz0} + 4-bit metadata   (2 words per 4 k-steps)
 //   dense out     : one word per enabled cycle    (4 words per 4 k-steps,
@@ -34,12 +32,19 @@
 // unregistered chain that missed 250 MHz on Kintex-7 by ~0.5 ns / 115+
 // endpoints (see synth/fpga/reports/timing_sparse_nogate_uniform50.rpt from
 // before this fix). k_data/k_nonzero/grp_advance/meta_legal are now captured
-// in one register together, so they stay aligned with each other; only their
-// timing relative to `en` shifts by one cycle. THE DRIVER MUST ASSERT
-// feed_en[j] ONE CYCLE EARLIER than the original combinational contract to
-// compensate - column j's dense weight still lands at the same absolute
-// cycle at the PE as before, just sourced from a registered feeder output
-// instead of a combinational one.
+// in one register together, so they stay aligned with each other.
+//
+// NO DRIVER-SIDE COMPENSATION IS NEEDED for this register. k_data_c and
+// meta_legal_c are combinational from THIS CYCLE's grp_nz/grp_meta (and, for
+// k_data_c, `phase`, whose own value already accounts for cumulative `en`
+// correctly) - never from another register's output a cycle upstream. A
+// driver using the standard "set inputs, await the clock edge, then read"
+// idiom - the idiom every testbench in this project already uses - reads
+// this register's value for the SAME cycle's inputs with no extra skew,
+// exactly as it would read a plain wire. (This is unlike pe_mixed's
+// pipeline, where product_q's input chains through another register -
+// m_hh_q - set up a full cycle earlier; that one genuinely needs a
+// one-cycle compensation. This module does not.)
 //-----------------------------------------------------------------------------
 module sparse_feeder #(
     parameter int DATA_WIDTH = 8
