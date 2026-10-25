@@ -11,15 +11,21 @@ DRIVER CONTRACT
     k-step (t - j), so the group presented must be compressed[(t-j)//4][j]
     and it must stay stable for the four cycles of that group. feed_en[j] is
     asserted from cycle j onward, which is what gives column j its injection
-    delay. Activations use the same (i + k) skew as the dense arrays.
+    delay - this driving formula is unchanged by the note below.
 
     sparse_feeder.sv's k_data/k_nonzero/grp_advance/meta_legal outputs are
-    registered (added for FPGA timing closure - see rtl/sparse_feeder.sv),
-    but that register's input comes directly from THIS cycle's
-    grp_nz/grp_meta, not from another register set up a cycle earlier - so
-    the standard "set inputs, await the clock edge, read" idiom already
-    samples the correct same-cycle result. No driver-side skew compensation
-    is needed for it. See stream_sparse() below.
+    registered (added for FPGA timing closure - see rtl/sparse_feeder.sv).
+    That register does NOT require a compensation in how THIS testbench
+    reads meta_legal (its D-input comes directly from this cycle's
+    grp_nz/grp_meta, not a chained prior-cycle register, so "set inputs,
+    await the edge, read" already samples the correct same-cycle result).
+    It DOES require compensation on the activation side: a_west wires
+    straight into the mesh with no register, while grp_meta/feed_en go
+    through this one extra register before reaching the mesh - so what the
+    mesh sees from the weight side during cycle t is one iteration behind
+    what it sees from the activation side during the same cycle t.
+    Activation injection is delayed one extra cycle to compensate (see
+    stream_sparse() below for the exact formula and reasoning).
 
 REFERENCE
     The array computes A x B_pruned, NOT A x B. Pruning is a property of the
@@ -115,21 +121,38 @@ async def clear_accumulators(dut):
 async def stream_sparse(dut, mode, A, compressed, depth):
     """Drive dense activations + compressed weights with the required skew.
 
-    sparse_feeder's k_data/meta_legal registers take their D-input directly
-    from THIS cycle's grp_nz/grp_meta (not from another register set up a
-    cycle earlier - see rtl/sparse_feeder.sv), so the standard "set inputs,
-    await the clock edge, read" idiom already samples the correct, same-cycle
-    result with no extra compensation. No row/column skew adjustment is
-    needed here, unlike pe_mixed's genuinely chained pipeline registers.
+    Two DIFFERENT timing questions here, easy to conflate (an earlier version
+    of this function got this wrong in both directions at different times -
+    see the conversation/commit history):
+
+    1. Does the TESTBENCH's own meta_legal check need a cycle compensation?
+       No. meta_legal's register takes its D-input directly from THIS
+       cycle's grp_meta/grp_nz (not from another register set up a cycle
+       earlier - see rtl/sparse_feeder.sv), so "set inputs, await the edge,
+       read" already samples the correct same-cycle result. This is why the
+       check below masks by THIS cycle's en_vec, not a delayed one.
+
+    2. Does the MESH see activations and weights at the same relative cycle?
+       No - and this DOES need compensation. a_west wires directly into the
+       mesh (zero registers), so what the mesh sees during iteration t is
+       exactly what was driven during iteration t. grp_meta/feed_en go
+       THROUGH sparse_feeder's one output register before reaching
+       b_v[0][j], so what the mesh sees during iteration t is what was
+       DRIVEN during iteration t-1 - one iteration behind. Activation
+       injection is therefore delayed one extra cycle (i + k + 1, not
+       i + k) to meet the naturally-delayed weight at the same absolute
+       mesh-visible cycle. Delaying activations (not advancing the weight
+       drive) is the only option that doesn't require driving weight data
+       before t=0 for column 0's first k-step.
     """
     dut.mode.value = int(mode)
 
-    for t in range(N + depth - 1):
+    for t in range(N + depth):
         a_vec = v_vec = 0
         nz_vec = meta_vec = en_vec = 0
 
         for i in range(N):
-            k = t - i
+            k = t - i - 1
             if 0 <= k < depth:
                 a_vec |= (A[i][k] & DATA_MASK) << (i * DATA_WIDTH)
                 v_vec |= 1 << i
