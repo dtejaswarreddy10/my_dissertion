@@ -34,17 +34,31 @@
 // before this fix). k_data/k_nonzero/grp_advance/meta_legal are now captured
 // in one register together, so they stay aligned with each other.
 //
-// NO DRIVER-SIDE COMPENSATION IS NEEDED for this register. k_data_c and
-// meta_legal_c are combinational from THIS CYCLE's grp_nz/grp_meta (and, for
-// k_data_c, `phase`, whose own value already accounts for cumulative `en`
-// correctly) - never from another register's output a cycle upstream. A
-// driver using the standard "set inputs, await the clock edge, then read"
-// idiom - the idiom every testbench in this project already uses - reads
-// this register's value for the SAME cycle's inputs with no extra skew,
-// exactly as it would read a plain wire. (This is unlike pe_mixed's
-// pipeline, where product_q's input chains through another register -
-// m_hh_q - set up a full cycle earlier; that one genuinely needs a
-// one-cycle compensation. This module does not.)
+// TWO DIFFERENT COMPENSATION QUESTIONS - do not conflate them:
+//
+// (1) Does code that reads THIS MODULE's own outputs via the standard "set
+//     grp_meta/en, await the clock edge, then read" idiom need a cycle
+//     compensation? No. k_data_c and meta_legal_c are combinational from
+//     THIS CYCLE's grp_nz/grp_meta (and, for k_data_c, `phase`, whose own
+//     value already accounts for cumulative `en` correctly) - never from
+//     another register's output a cycle upstream. Reading this register
+//     right after the same edge its inputs were driven for already gives
+//     the correct same-cycle result, exactly as it would a plain wire.
+//     (Contrast pe_mixed, where product_q's input chains through another
+//     register - m_hh_q - set up a full cycle earlier; that one genuinely
+//     needs a one-cycle read-side compensation. This module does not.)
+//
+// (2) Does a signal that reaches the array through THIS register (k_data,
+//     feeding b_v[0][j]) arrive at the same relative cycle as a sibling
+//     signal that reaches the array WITHOUT going through any register
+//     (e.g. a_west, wired straight into a_in)? No - this one DOES need
+//     compensation, on whichever driver feeds both. The array sees a_west
+//     from the same iteration it was driven; it sees k_data from the
+//     PREVIOUS iteration's grp_meta/en, because this register sits in that
+//     path and a_west has no equivalent register. A driver pairing
+//     activations with weights (see systolic_array_sparse.sv's driver, e.g.
+//     tb/test_array_sparse.py's stream_sparse()) must delay activation
+//     injection by one extra cycle to compensate.
 //-----------------------------------------------------------------------------
 module sparse_feeder #(
     parameter int DATA_WIDTH = 8
