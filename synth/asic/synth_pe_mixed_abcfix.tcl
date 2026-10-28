@@ -70,7 +70,7 @@ set configs [list nogate 0 gated 1]
 foreach {name gating} $configs {
 
     puts "=============================================================="
-    puts "INFO: synthesising pe_mixed  ENABLE_GATING=$gating  ($name)  [abcfix]"
+    puts "INFO: synthesising pe_mixed  ENABLE_GATING=$gating  ($name)  (abcfix)"
     puts "=============================================================="
 
     yosys design -reset

@@ -1,0 +1,33 @@
+
+21. Printing statistics.
+
+=== pe_mixed ===
+
+   Number of wires:               1360
+   Number of wire bits:           1598
+   Number of public wires:          50
+   Number of public wire bits:     288
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1427
+     $_DLATCH_N_                     3
+     AND2X2                        201
+     AOI21X1                        64
+     AOI22X1                         1
+     DFFPOSX1                      108
+     INVX1                         100
+     MUX2X1                         10
+     NAND2X1                       176
+     NAND3X1                        48
+     NOR2X1                        129
+     NOR3X1                         19
+     OAI21X1                        64
+     OR2X2                         174
+     XNOR2X1                       135
+     XOR2X1                        195
+
+   Area for cell type $_DLATCH_N_ is unknown!
+
+   Chip area for module '\pe_mixed': 4807.509200
+
