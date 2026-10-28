@@ -24,7 +24,7 @@ if {[info exists ::env(FREEPDK45_LIB)]} {
 }
 
 set here [file normalize [file dirname [info script]]]
-set rtl  [file normalize $here/../../rtl]
+set rtl  [file normalize $here/../../src]
 file mkdir $here/reports
 
 if {![file exists $lib]} {

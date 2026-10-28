@@ -22,7 +22,7 @@ Reading pref.tcl
 # vmap work sim_build/work 
 # Modifying modelsim.ini
 # QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
-# Start time: 11:33:38 on Oct 25,2026
+# Start time: 12:02:00 on Oct 25,2026
 # vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/masters/my_dissertion/tb/../src/pe_mixed.sv /home/uday-teja/masters/my_dissertion/tb/../src/icg_cell.sv /home/uday-teja/masters/my_dissertion/tb/../src/sparsity_decoder.sv /home/uday-teja/masters/my_dissertion/tb/../src/sparse_feeder.sv /home/uday-teja/masters/my_dissertion/tb/../src/systolic_array_sparse.sv 
 # -- Compiling module pe_mixed
 # -- Compiling module icg_cell
@@ -32,10 +32,10 @@ Reading pref.tcl
 # 
 # Top level modules:
 # 	systolic_array_sparse
-# End time: 11:33:38 on Oct 25,2026, Elapsed time: 0:00:00
+# End time: 12:02:00 on Oct 25,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.systolic_array_sparse 
-# Start time: 11:33:38 on Oct 25,2026
+# Start time: 12:02:00 on Oct 25,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
@@ -62,83 +62,58 @@ Reading pref.tcl
 #      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
 #      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
 #      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
-#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792908220
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792909921
 #      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
 #      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
 #      0.00ns INFO     cocotb.regression                  Running tests
 #      0.00ns INFO     cocotb.regression                  running test_array_sparse.test_sparse_int8_random (1/6)
 #                                                             Compressed-weight INT8 GEMM == dense GEMM against the pruned matrix.
-#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:196: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:219: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
 #                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
-#    455.00ns WARNING  cocotb.regression                  test_array_sparse.test_sparse_int8_random failed
-#                                                         Traceback (most recent call last):
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 204, in test_sparse_int8_random
-#                                                             check_result(dut, gemm_golden(A, B_pruned), ctx=f"sparse int8[{n}]")
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 87, in check_result
-#                                                             assert not bad, (
-#                                                         AssertionError: sparse int8[0]: 64 mismatch(es), first 5: C[0][0] RTL=-12936 golden=-17563, C[0][1] RTL=8740 golden=15326, C[0][2] RTL=-21723 golden=-35386, C[0][3] RTL=14784 golden=-8616, C[0][4] RTL=18547 golden=6114
-#                                                         assert not [(0, 0, -12936, -17563), (0, 1, 8740, 15326), (0, 2, -21723, -35386), (0, 3, 14784, -8616), (0, 4, 18547, 6114), (0, 5, -15431, -28383), ...]
-#    455.00ns INFO     cocotb.regression                  running test_array_sparse.test_sparse_int4x2_random (2/6)
+#  22515.00ns INFO     cocotb.systolic_array_sparse       Sparse INT8 GEMM passed: 50 matrix pairs
+#  22515.00ns INFO     cocotb.regression                  test_array_sparse.test_sparse_int8_random passed
+#  22515.00ns INFO     cocotb.regression                  running test_array_sparse.test_sparse_int4x2_random (2/6)
 #                                                             Compressed weights combined with packed INT4x2 lanes.
-#    455.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:212: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#  22515.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:235: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
 #                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
-#    910.00ns WARNING  cocotb.regression                  test_array_sparse.test_sparse_int4x2_random failed
-#                                                         Traceback (most recent call last):
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 220, in test_sparse_int4x2_random
-#                                                             check_result(dut, gemm_golden_int4x2(A, B_pruned), ctx=f"sparse int4[{n}]")
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 87, in check_result
-#                                                             assert not bad, (
-#                                                         AssertionError: sparse int4[0]: 64 mismatch(es), first 5: C[0][0] RTL=8 golden=-30, C[0][1] RTL=-15 golden=12, C[0][2] RTL=-50 golden=8, C[0][3] RTL=65 golden=16, C[0][4] RTL=11 golden=37
-#                                                         assert not [(0, 0, 8, -30), (0, 1, -15, 12), (0, 2, -50, 8), (0, 3, 65, 16), (0, 4, 11, 37), (0, 5, -39, -23), ...]
-#    910.00ns INFO     cocotb.regression                  running test_array_sparse.test_pruned_weights_are_half_zero (3/6)
+#  45030.00ns INFO     cocotb.systolic_array_sparse       Sparse INT4x2 GEMM passed: 50 matrix pairs
+#  45030.00ns INFO     cocotb.regression                  test_array_sparse.test_sparse_int4x2_random passed
+#  45030.00ns INFO     cocotb.regression                  running test_array_sparse.test_pruned_weights_are_half_zero (3/6)
 #                                                             Sanity: the streamed weight matrix really is 50% zero (2 of every 4).
-#    910.00ns INFO     cocotb.systolic_array_sparse       Pruned weight matrix is 50.0% zero (2:4 contract upper bound 50%)
-#    910.00ns INFO     cocotb.regression                  test_array_sparse.test_pruned_weights_are_half_zero passed
-#    910.00ns INFO     cocotb.regression                  running test_array_sparse.test_zero_weight_group_gates_cleanly (4/6)
+#  45030.00ns INFO     cocotb.systolic_array_sparse       Pruned weight matrix is 50.0% zero (2:4 contract upper bound 50%)
+#  45030.00ns INFO     cocotb.regression                  test_array_sparse.test_pruned_weights_are_half_zero passed
+#  45030.00ns INFO     cocotb.regression                  running test_array_sparse.test_zero_weight_group_gates_cleanly (4/6)
 #                                                             An all-zero weight column must yield an all-zero result, not X or stale data.
-#    910.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:248: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#  45030.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:271: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
 #                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
-#   1365.00ns INFO     cocotb.systolic_array_sparse       Fully gated array returns clean zeros (no stale accumulate)
-#   1365.00ns INFO     cocotb.regression                  test_array_sparse.test_zero_weight_group_gates_cleanly passed
-#   1365.00ns INFO     cocotb.regression                  running test_array_sparse.test_back_to_back_sparse_tiles (5/6)
+#  45495.00ns INFO     cocotb.systolic_array_sparse       Fully gated array returns clean zeros (no stale accumulate)
+#  45495.00ns INFO     cocotb.regression                  test_array_sparse.test_zero_weight_group_gates_cleanly passed
+#  45495.00ns INFO     cocotb.regression                  running test_array_sparse.test_back_to_back_sparse_tiles (5/6)
 #                                                             Consecutive tiles: feeder phase and accumulators must both re-align.
-#   1365.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:266: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#  45495.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:289: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
 #                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
-#   1820.00ns WARNING  cocotb.regression                  test_array_sparse.test_back_to_back_sparse_tiles failed
-#                                                         Traceback (most recent call last):
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 274, in test_back_to_back_sparse_tiles
-#                                                             check_result(dut, gemm_golden(A, B_pruned), ctx=f"sparse tile[{tile}]")
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 87, in check_result
-#                                                             assert not bad, (
-#                                                         AssertionError: sparse tile[0]: 64 mismatch(es), first 5: C[0][0] RTL=13810 golden=767, C[0][1] RTL=20346 golden=-9175, C[0][2] RTL=-11267 golden=4826, C[0][3] RTL=25810 golden=13232, C[0][4] RTL=-5605 golden=-7448
-#                                                         assert not [(0, 0, 13810, 767), (0, 1, 20346, -9175), (0, 2, -11267, 4826), (0, 3, 25810, 13232), (0, 4, -5605, -7448), (0, 5, -26716, 9182), ...]
-#   1820.00ns INFO     cocotb.regression                  running test_array_sparse.test_power_stimulus (6/6)
+#  48210.00ns INFO     cocotb.systolic_array_sparse       Back-to-back sparse tiles passed
+#  48210.00ns INFO     cocotb.regression                  test_array_sparse.test_back_to_back_sparse_tiles passed
+#  48210.00ns INFO     cocotb.regression                  running test_array_sparse.test_power_stimulus (6/6)
 #                                                             Long run at a controlled ACTIVATION sparsity, for VCD -> SAIF power.
-#   1820.01ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:299: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#  48210.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py:322: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
 #                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
-#   1835.01ns INFO     cocotb.systolic_array_sparse       Power stimulus: activation sparsity = 50%, 16 tiles, N=8 K=8
-#   2275.01ns WARNING  cocotb.regression                  test_array_sparse.test_power_stimulus failed
-#                                                         Traceback (most recent call last):
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 317, in test_power_stimulus
-#                                                             check_result(dut, gemm_golden(A, B_pruned), ctx=f"power tile[{tile}]")
-#                                                           File "/home/uday-teja/masters/my_dissertion/tb/test_array_sparse.py", line 87, in check_result
-#                                                             assert not bad, (
-#                                                         AssertionError: power tile[0]: 63 mismatch(es), first 5: C[0][0] RTL=-7247 golden=11909, C[0][1] RTL=3621 golden=-4671, C[0][2] RTL=3731 golden=-2399, C[0][3] RTL=-703 golden=12473, C[0][4] RTL=7557 golden=-13233
-#                                                         assert not [(0, 0, -7247, 11909), (0, 1, 3621, -4671), (0, 2, 3731, -2399), (0, 3, -703, 12473), (0, 4, 7557, -13233), (0, 5, -6710, 19963), ...]
-#   2275.01ns INFO     cocotb.regression                  ****************************************************************************************************************
+#  48225.00ns INFO     cocotb.systolic_array_sparse       Power stimulus: activation sparsity = 50%, 16 tiles, N=8 K=8
+#  55425.00ns INFO     cocotb.systolic_array_sparse       Power stimulus complete: 16 tiles verified, measured activation sparsity 48.1% (target 50%)
+#  55425.00ns INFO     cocotb.regression                  test_array_sparse.test_power_stimulus passed
+#  55425.00ns INFO     cocotb.regression                  ****************************************************************************************************************
 #                                                         ** TEST                                                    STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
 #                                                         ****************************************************************************************************************
-#                                                         ** test_array_sparse.test_sparse_int8_random                FAIL         455.00           0.01      39718.83  **
-#                                                         ** test_array_sparse.test_sparse_int4x2_random              FAIL         455.00           0.01      44169.72  **
+#                                                         ** test_array_sparse.test_sparse_int8_random                PASS       22515.00           0.44      50690.41  **
+#                                                         ** test_array_sparse.test_sparse_int4x2_random              PASS       22515.00           0.49      45544.87  **
 #                                                         ** test_array_sparse.test_pruned_weights_are_half_zero      PASS           0.00           0.00          0.00  **
-#                                                         ** test_array_sparse.test_zero_weight_group_gates_cleanly   PASS         455.00           0.01      61118.01  **
-#                                                         ** test_array_sparse.test_back_to_back_sparse_tiles         FAIL         455.00           0.01      49549.49  **
-#                                                         ** test_array_sparse.test_power_stimulus                    FAIL         455.00           0.01      51836.69  **
+#                                                         ** test_array_sparse.test_zero_weight_group_gates_cleanly   PASS         465.00           0.01      59733.37  **
+#                                                         ** test_array_sparse.test_back_to_back_sparse_tiles         PASS        2715.00           0.05      50895.44  **
+#                                                         ** test_array_sparse.test_power_stimulus                    PASS        7215.00           0.14      53251.91  **
 #                                                         ****************************************************************************************************************
-#                                                         ** TESTS=6 PASS=2 FAIL=4 SKIP=0                                         2275.01           0.05      42982.98  **
+#                                                         ** TESTS=6 PASS=6 FAIL=0 SKIP=0                                        55425.00           1.14      48683.47  **
 #                                                         ****************************************************************************************************************
 # ** Note: $finish
-#    Time: 2275005 ps  Iteration: 2  Instance: /systolic_array_sparse File: /home/uday-teja/masters/my_dissertion/tb/../src/systolic_array_sparse.sv
-# End time: 11:33:40 on Oct 25,2026, Elapsed time: 0:00:02
+#    Time: 55425005 ps  Iteration: 2  Instance: /systolic_array_sparse File: /home/uday-teja/masters/my_dissertion/tb/../src/systolic_array_sparse.sv
+# End time: 12:02:02 on Oct 25,2026, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0
-make: *** [/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:132: results_array_sparse.xml] Error 4
