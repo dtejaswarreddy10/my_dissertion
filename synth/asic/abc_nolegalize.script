@@ -1,0 +1,19 @@
+# Minimal liberty technology-mapping recipe for ABC, used by
+# synth_pe_mixed_abcfix.tcl in place of Yosys's default abc script.
+#
+# The default Yosys `abc -liberty` recipe runs:
+#   strash; &get -n; &fraig -x; &put; scorr; dc2; dretime; strash;
+#   &get -n; &dch -f; &nf; &put; write_blif
+#
+# scorr/dc2/dretime/&dch/&nf are sequential-equivalence / choice-based
+# resynthesis passes. pe_int8 goes through that exact recipe cleanly on both
+# FreePDK45 and sky130; pe_mixed does not (49 "wire has no driver" problems
+# on a_out/b_out/valid_out/acc_q - see ../asic/logs/synth_pe_mixed_freepdk45.log
+# and ../asic_sky130/logs/synth_pe_mixed_sky130_20261016.log for the full
+# analysis). Working theory: a scale-triggered re-integration defect in those
+# extra passes, not an RTL bug (cocotb passes on pe_mixed's RTL in both
+# ENABLE_GATING settings). This script strips the recipe down to bare
+# structural hashing + direct liberty mapping, with no sequential-equivalence
+# or choice-based passes, to test that theory in isolation.
+strash
+map
