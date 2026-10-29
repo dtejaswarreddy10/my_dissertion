@@ -60,14 +60,25 @@ for s in "${SPARSITIES[@]}"; do
     echo "--------------------------------------------------------------"
 
     # --- 1. Simulate with waves to capture switching activity ---------------
+    # TESTCASE/COCOTB_TESTCASE restricts the run to test_power_stimulus only -
+    # without this, TEST=array_sparse runs all 6 tests in the module into the
+    # same waveform, which would mix test_sparse_int8_random/
+    # test_zero_weight_group_gates_cleanly/etc. activity into the SAIF and
+    # corrupt the single-variable sparsity comparison. cocotb's variable name
+    # for this changed across versions (TESTCASE historically, COCOTB_TESTCASE
+    # in newer releases), so both are passed - whichever the installed cocotb
+    # honors takes effect; check the sim log to confirm only one test ran.
     pushd "$TB_DIR" >/dev/null
     make clean >/dev/null
     make SIM="$SIM" TEST=array_sparse WAVES=1 \
+         TESTCASE=test_power_stimulus COCOTB_TESTCASE=test_power_stimulus \
          TB_SPARSITY="$s" TB_POWER_TILES="${TB_POWER_TILES:-16}"
 
-    # Simulator-dependent dump name; take whichever exists.
+    # Simulator-dependent dump name; take whichever exists. Questa always
+    # writes sim_build/vsim.wlf (see tb/Makefile's SIM_ARGS) - that is not the
+    # same as a bare vsim.wlf in this directory, so check it explicitly first.
     dump=""
-    for cand in dump.vcd systolic_array_sparse.vcd vsim.wlf; do
+    for cand in sim_build/vsim.wlf dump.vcd systolic_array_sparse.vcd vsim.wlf; do
         [[ -f "$cand" ]] && dump="$cand" && break
     done
     [[ -n "$dump" ]] || { echo "ERROR: no waveform dump produced"; exit 1; }
