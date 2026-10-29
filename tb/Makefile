@@ -149,6 +149,7 @@ SIM_ARGS += -wlf sim_build/vsim.wlf
 
 ifeq ($(POWER),1)
 SIM_ARGS += -do "$(TB_DIR)/power.do"
+SIM_ARGS += -onfinish stop
 else ifeq ($(WAVES),1)
 SIM_ARGS += -do "$(TB_DIR)/wave.do"
 endif

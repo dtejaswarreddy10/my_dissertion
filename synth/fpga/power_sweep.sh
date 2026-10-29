@@ -86,7 +86,7 @@ for s in "${SPARSITIES[@]}"; do
     saif="$OUT_DIR/activity_${tag}.saif"
     pushd "$TB_DIR" >/dev/null
     make clean >/dev/null
-    SAIF_OUT="$saif" make SIM="$SIM" TEST=array_sparse POWER=1 \
+    SAIF_OUT="$saif" SIM_CMD_PREFIX="$TB_DIR/power_vsim_wrapper.sh" make SIM="$SIM" TEST=array_sparse POWER=1 \
          TESTCASE=test_power_stimulus COCOTB_TESTCASE=test_power_stimulus \
          TB_SPARSITY="$s" TB_POWER_TILES="${TB_POWER_TILES:-16}"
     popd >/dev/null
