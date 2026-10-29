@@ -1,123 +1,168 @@
-#!/bin/bash
 # ----------------------------------------------------------------------------
-# power_sweep.sh - end-to-end power-vs-sparsity characterisation (M3.6)
+# Vivado synthesis + implementation sweep across the four design configurations.
 #
 # Project : Mixed-Precision Sparsity-Aware Systolic Array (dissertation)
-# Stage   : Month 3 Week 12 - "4-point power vs sparsity curve (paper Figure 3)"
+# Stage   : Month 3 / Month 4 (M2.6 area delta, M3.6 power, Week 13 sweep)
 #
-# Pipeline, repeated at 0 / 25 / 50 / 75% activation sparsity:
-#
-#   1. cocotb power stimulus  -> VCD   (test_array_sparse.py::test_power_stimulus)
-#   2. VCD                    -> SAIF  (vcd2saif, or Vivado's read_saif path)
-#   3. SAIF + routed netlist  -> annotated dynamic power (synth_sweep.tcl)
-#
-# Each sparsity point is run for BOTH gating configurations so the reported
-# reduction is a single-variable comparison:
-#     sparse_nogate : operand isolation off, no gating   (reference)
-#     full          : operand isolation + gating on      (measurement)
+# Produces, for every configuration, the numbers the dissertation reports:
+#   LUTs, FFs, DSP48s, post-route Fmax, static/dynamic power, and (when a SAIF
+#   is supplied) activity-annotated dynamic power.
 #
 # Usage:
-#   ./power_sweep.sh                 # all four sparsity points, both configs
-#   ./power_sweep.sh 0.50            # a single sparsity point
+#   vivado -mode batch -source synth_sweep.tcl
+#   vivado -mode batch -source synth_sweep.tcl -tclargs <config> <part> <clk_ns> <saif>
 #
-# Requires: an activated cocotb venv, a simulator (SIM env var, default questa),
-# and Vivado on PATH. Nothing here is installed by this script.
+#   <config> : baseline | mixed | sparse_nogate | full | all   (default: all)
+#   <saif>   : optional .saif for activity-annotated power
+#
+# Configurations map 1:1 onto the plan's sweep:
+#   baseline       systolic_array          dense INT8 reference
+#   mixed          systolic_array_mixed    + INT8/INT4x2 precision modes
+#   sparse_nogate  systolic_array_sparse   + 2:4 sparsity, ENABLE_GATING=0
+#   full           systolic_array_sparse   + 2:4 sparsity, ENABLE_GATING=1
+#
+# The area delta for the "< 20% overhead" claim is (mixed - baseline); the
+# power delta for the sparsity claim is (full - sparse_nogate) at matched
+# stimulus.
+#
+# NOTE ON FPGA CLOCK GATING: a Kintex-7 has only ~32 BUFGs, so 64 PEs cannot
+# each own a gated clock. icg_cell.sv's DEFAULT (no macro) path is the
+# latch-based ICG structure meant for ASIC - on FPGA that is ~128 per-PE
+# latch-gated clock nets (2/PE x 64 PEs) fighting for general fabric routing,
+# not a defined result. This script therefore always reads the RTL with
+# ICG_NO_GATING defined, which forces icg_cell.sv's honest FPGA passthrough
+# (gclk = clk) - pe_mixed's operand isolation + the valid_q/acc_active holds
+# then degenerate to a plain flip-flop clock-enable, bit-identical to the
+# gated result (see pe_mixed.sv). The FPGA "full" number is therefore
+# operand-isolation + clock-enable, NOT true ICG - report it as such. True
+# ICG power lives in the Yosys/FreePDK45 flow, which must NOT define this
+# macro (it needs the real latch-based ICG to synthesize a gated clock).
 # ----------------------------------------------------------------------------
-set -euo pipefail
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT="$(cd "$HERE/../.." && pwd)"
-TB_DIR="$ROOT/tb"
-OUT_DIR="$HERE/reports/power_sweep"
-SIM="${SIM:-questa}"
-PART="${PART:-xc7k70tfbv676-1}"
-CLK_NS="${CLK_NS:-4.0}"
+set config [lindex $argv 0]
+if {$config eq ""} { set config all }
 
-mkdir -p "$OUT_DIR"
+set part [lindex $argv 1]
+if {$part eq ""} { set part xc7k70tfbv676-1 }
 
-if [[ $# -ge 1 ]]; then
-    SPARSITIES=("$1")
-else
-    SPARSITIES=(0.00 0.25 0.50 0.75)
-fi
+set clk_ns [lindex $argv 2]
+if {$clk_ns eq ""} { set clk_ns 4.0 }
 
-echo "=============================================================="
-echo " Power vs sparsity sweep"
-echo "   sim=$SIM  part=$PART  clk=${CLK_NS}ns"
-echo "   sparsity points: ${SPARSITIES[*]}"
-echo "   output: $OUT_DIR"
-echo "=============================================================="
+set saif [lindex $argv 3]
 
-command -v vivado >/dev/null 2>&1 || { echo "ERROR: vivado not on PATH"; exit 1; }
-command -v cocotb-config >/dev/null 2>&1 || { echo "ERROR: cocotb not active (venv?)"; exit 1; }
+set here    [file normalize [file dirname [info script]]]
+set rtl_dir [file normalize $here/../../src]
+set out_dir [file normalize $here/reports]
+file mkdir $out_dir
 
-for s in "${SPARSITIES[@]}"; do
-    tag="sp$(printf '%02d' "$(echo "$s * 100 / 1" | bc)")"
+# config -> {top  extra_generics}
+dict set cfg baseline      top systolic_array
+dict set cfg baseline      gen {}
+dict set cfg mixed         top systolic_array_mixed
+dict set cfg mixed         gen {}
+dict set cfg sparse_nogate top systolic_array_sparse
+dict set cfg sparse_nogate gen {ENABLE_GATING=0}
+dict set cfg full          top systolic_array_sparse
+dict set cfg full          gen {ENABLE_GATING=1}
 
-    echo ""
-    echo "--------------------------------------------------------------"
-    echo " Sparsity ${s} -> tag ${tag}"
-    echo "--------------------------------------------------------------"
-
-    # --- 1. Simulate with waves to capture switching activity ---------------
-    # TESTCASE/COCOTB_TESTCASE restricts the run to test_power_stimulus only -
-    # without this, TEST=array_sparse runs all 6 tests in the module into the
-    # same waveform, which would mix test_sparse_int8_random/
-    # test_zero_weight_group_gates_cleanly/etc. activity into the SAIF and
-    # corrupt the single-variable sparsity comparison. cocotb's variable name
-    # for this changed across versions (TESTCASE historically, COCOTB_TESTCASE
-    # in newer releases), so both are passed - whichever the installed cocotb
-    # honors takes effect; check the sim log to confirm only one test ran.
-    pushd "$TB_DIR" >/dev/null
-    make clean >/dev/null
-    make SIM="$SIM" TEST=array_sparse WAVES=1 \
-         TESTCASE=test_power_stimulus COCOTB_TESTCASE=test_power_stimulus \
-         TB_SPARSITY="$s" TB_POWER_TILES="${TB_POWER_TILES:-16}"
-
-    # Simulator-dependent dump name; take whichever exists. Questa always
-    # writes sim_build/vsim.wlf (see tb/Makefile's SIM_ARGS) - that is not the
-    # same as a bare vsim.wlf in this directory, so check it explicitly first.
-    dump=""
-    for cand in sim_build/vsim.wlf dump.vcd systolic_array_sparse.vcd vsim.wlf; do
-        [[ -f "$cand" ]] && dump="$cand" && break
-    done
-    [[ -n "$dump" ]] || { echo "ERROR: no waveform dump produced"; exit 1; }
-
-    # --- 2. Convert to SAIF -------------------------------------------------
-    saif="$OUT_DIR/activity_${tag}.saif"
-    if [[ "$dump" == *.wlf ]]; then
-        # Questa native path: power add / power report writes SAIF directly.
-        vsim -c -do "dataset open $dump; power add -r /*; power report -all -bsaif $saif; quit -f" \
-            || { echo "ERROR: Questa SAIF export failed"; exit 1; }
-    elif command -v vcd2saif >/dev/null 2>&1; then
-        vcd2saif -input "$dump" -output "$saif"
-    else
-        echo "ERROR: need vcd2saif (Synopsys/Cadence) or a Questa .wlf to make SAIF"
+if {$config eq "all"} {
+    set run_list {baseline mixed sparse_nogate full}
+} else {
+    if {![dict exists $cfg $config]} {
+        puts "ERROR: unknown config '$config'. Use baseline|mixed|sparse_nogate|full|all"
         exit 1
-    fi
-    popd >/dev/null
+    }
+    set run_list [list $config]
+}
 
-    echo "INFO: SAIF written to $saif"
+set summary {}
 
-    # --- 3. Annotated power for both gating configurations ------------------
-    for cfg in sparse_nogate full; do
-        echo "INFO: Vivado power run  config=$cfg  sparsity=$s"
-        vivado -mode batch -nojournal -nolog \
-               -source "$HERE/synth_sweep.tcl" \
-               -tclargs "$cfg" "$PART" "$CLK_NS" "$saif" \
-            | tee "$OUT_DIR/vivado_${cfg}_${tag}.log"
+foreach name $run_list {
+    set top  [dict get $cfg $name top]
+    set gen  [dict get $cfg $name gen]
 
-        cp "$HERE/reports/power_${cfg}_saif.rpt" \
-           "$OUT_DIR/power_${cfg}_${tag}.rpt" 2>/dev/null || true
-    done
-done
+    puts "=============================================================="
+    puts "INFO: config=$name  top=$top  generics='$gen'  part=$part  clk=$clk_ns ns"
+    puts "=============================================================="
 
-echo ""
-echo "=============================================================="
-echo " Sweep complete. Extract the curve with:"
-echo "   grep -H 'Dynamic (W)' $OUT_DIR/power_*_sp*.rpt"
-echo ""
-echo " Report as: dynamic power vs sparsity, sparse_nogate vs full."
-echo " Remember: on FPGA this is operand isolation + clock ENABLE,"
-echo " not true ICG. True ICG power comes from the Yosys/FreePDK45 flow."
-echo "=============================================================="
+    # Fresh in-memory design per configuration.
+    catch {close_design}
+    catch {close_project}
+
+    read_verilog -sv [glob $rtl_dir/*.sv]
+
+    # Out of context: the array exposes 2000+ accumulator/operand bits, far more
+    # than any package has pins, so I/O buffer insertion must be suppressed.
+    # -verilog_define (not read_verilog -define, which needs compile-unit-mode
+    # filesets that this non-project flow does not use) forces ICG_NO_GATING.
+    if {$gen eq ""} {
+        synth_design -top $top -part $part -mode out_of_context \
+            -verilog_define {ICG_NO_GATING}
+    } else {
+        synth_design -top $top -part $part -mode out_of_context \
+            -verilog_define {ICG_NO_GATING} -generic $gen
+    }
+
+    create_clock -name clk -period $clk_ns [get_ports clk]
+
+    opt_design
+    place_design -directive ExtraTimingOpt
+    phys_opt_design
+    route_design
+    # Post-route physical optimization to claw back sub-100ps residual slack
+    # (retiming/replication only - no functional or latency change, so this is
+    # safe regardless of what the RTL side is doing in parallel).
+    phys_opt_design -directive AggressiveExplore
+
+    # Activity annotation: a SAIF from the cocotb power stimulus if provided,
+    # otherwise the plan's uniform 50% toggle placeholder.
+    if {$saif ne "" && [file exists $saif]} {
+        puts "INFO: annotating switching activity from $saif"
+        read_saif $saif
+        set act "saif"
+    } else {
+        if {[catch {
+            set_switching_activity -default_toggle_rate 0.5 -default_static_probability 0.5
+        } msg]} {
+            puts "WARN: could not set uniform switching activity: $msg"
+        }
+        set act "uniform50"
+    }
+
+    report_utilization    -file $out_dir/util_${name}_${act}.rpt
+    report_timing_summary -file $out_dir/timing_${name}_${act}.rpt
+    report_power          -file $out_dir/power_${name}_${act}.rpt
+
+    # --- Scrape the headline numbers for the comparison table ---------------
+    set luts [llength [get_cells -hierarchical -filter {PRIMITIVE_GROUP == LUT}]]
+    set ffs  [llength [get_cells -hierarchical -filter {PRIMITIVE_GROUP == FLOP_LATCH}]]
+    set dsps [llength [get_cells -hierarchical -filter {PRIMITIVE_GROUP == ARITHMETIC}]]
+
+    set wns [get_property SLACK [get_timing_paths -setup -max_paths 1 -nworst 1]]
+    if {$wns ne "" && $wns >= 0} {
+        set fmax [format %.1f [expr {1000.0 / ($clk_ns - $wns)}]]
+    } else {
+        set fmax "TIMING_FAILED"
+    }
+
+    set dyn "n/a"
+    catch { set dyn [format %.4f [get_property POWER_DYNAMIC [current_design]]] }
+
+    lappend summary [list $name $luts $ffs $dsps $wns $fmax $dyn]
+}
+
+# --- Console summary table ----------------------------------------------------
+puts ""
+puts "=============================================================="
+puts "SWEEP SUMMARY  (part=$part, clk=$clk_ns ns)"
+puts "=============================================================="
+puts [format "%-16s %8s %8s %6s %10s %10s %12s" \
+      "config" "LUTs" "FFs" "DSPs" "WNS(ns)" "Fmax(MHz)" "Dyn(W)"]
+foreach row $summary {
+    lassign $row name luts ffs dsps wns fmax dyn
+    puts [format "%-16s %8s %8s %6s %10s %10s %12s" $name $luts $ffs $dsps $wns $fmax $dyn]
+}
+puts ""
+puts "INFO: reports written to $out_dir"
+puts "INFO: area overhead claim = (mixed - baseline) / baseline"
+puts "INFO: power claim         = (full vs sparse_nogate) at matched SAIF stimulus"
