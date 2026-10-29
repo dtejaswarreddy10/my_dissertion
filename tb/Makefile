@@ -148,7 +148,7 @@ SIM_ARGS += -no_autoacc
 SIM_ARGS += -wlf sim_build/vsim.wlf
 
 ifeq ($(WAVES),1)
-SIM_ARGS += -do "do $(TB_DIR)/wave.do"
+SIM_ARGS += -do "$(TB_DIR)/wave.do"
 endif
 
 ifeq ($(COVERAGE),1)

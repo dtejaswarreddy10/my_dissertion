@@ -51,7 +51,7 @@ if {$clk_ns eq ""} { set clk_ns 4.0 }
 set saif [lindex $argv 3]
 
 set here    [file normalize [file dirname [info script]]]
-set rtl_dir [file normalize $here/../../rtl]
+set rtl_dir [file normalize $here/../../src]
 set out_dir [file normalize $here/reports]
 file mkdir $out_dir
 
