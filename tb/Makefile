@@ -34,7 +34,7 @@ MODULE := test_pe_int8
 COCOTB_TEST_MODULES := test_pe_int8
 
 VERILOG_SOURCES := \
-	$(RTL)/pe_int8.sv
+    $(RTL)/pe_int8.sv
 
 else ifeq ($(TEST),array)
 
@@ -44,8 +44,8 @@ MODULE := test_systolic_array
 COCOTB_TEST_MODULES := test_systolic_array
 
 VERILOG_SOURCES := \
-	$(RTL)/pe_int8.sv \
-	$(RTL)/systolic_array.sv
+    $(RTL)/pe_int8.sv \
+    $(RTL)/systolic_array.sv
 
 else ifeq ($(TEST),pe_mixed)
 
@@ -55,7 +55,7 @@ MODULE := test_pe_mixed
 COCOTB_TEST_MODULES := test_pe_mixed
 
 VERILOG_SOURCES := \
-	$(RTL)/pe_mixed.sv
+    $(RTL)/pe_mixed.sv
 
 else ifeq ($(TEST),array_mixed)
 
@@ -65,8 +65,8 @@ MODULE := test_array_mixed
 COCOTB_TEST_MODULES := test_array_mixed
 
 VERILOG_SOURCES := \
-	$(RTL)/pe_mixed.sv \
-	$(RTL)/systolic_array_mixed.sv
+    $(RTL)/pe_mixed.sv \
+    $(RTL)/systolic_array_mixed.sv
 
 else ifeq ($(TEST),decoder)
 
@@ -76,7 +76,7 @@ MODULE := test_sparsity_decoder
 COCOTB_TEST_MODULES := test_sparsity_decoder
 
 VERILOG_SOURCES := \
-	$(RTL)/sparsity_decoder.sv
+    $(RTL)/sparsity_decoder.sv
 
 else ifeq ($(TEST),array_sparse)
 
@@ -86,11 +86,11 @@ MODULE := test_array_sparse
 COCOTB_TEST_MODULES := test_array_sparse
 
 VERILOG_SOURCES := \
-	$(RTL)/pe_mixed.sv \
-	$(RTL)/icg_cell.sv \
-	$(RTL)/sparsity_decoder.sv \
-	$(RTL)/sparse_feeder.sv \
-	$(RTL)/systolic_array_sparse.sv
+    $(RTL)/pe_mixed.sv \
+    $(RTL)/icg_cell.sv \
+    $(RTL)/sparsity_decoder.sv \
+    $(RTL)/sparse_feeder.sv \
+    $(RTL)/systolic_array_sparse.sv
 
 else ifeq ($(TEST),pe_mixed_gl)
 
@@ -108,8 +108,8 @@ $(error TEST=pe_mixed_gl requires GL_LIB_V=<stdcell_lib.v>)
 endif
 
 VERILOG_SOURCES := \
-	$(GL_LIB_V) \
-	$(GL_NETLIST)
+    $(GL_LIB_V) \
+    $(GL_NETLIST)
 
 else
 $(error Invalid TEST=$(TEST))
@@ -147,7 +147,9 @@ SIM_ARGS += -64 -c
 SIM_ARGS += -no_autoacc
 SIM_ARGS += -wlf sim_build/vsim.wlf
 
-ifeq ($(WAVES),1)
+ifeq ($(POWER),1)
+SIM_ARGS += -do "$(TB_DIR)/power.do"
+else ifeq ($(WAVES),1)
 SIM_ARGS += -do "$(TB_DIR)/wave.do"
 endif
 
