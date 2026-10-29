@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.2 (lin64) Build 5239630 Fri Nov 08 22:34:34 MST 2024
-| Date             : Fri Oct 30 01:11:46 2026
+| Date             : Fri Oct 30 02:01:43 2026
 | Host             : uday-teja-Inspiron-15-3567 running 64-bit Ubuntu 24.04.5 LTS
 | Command          : report_power -file /home/uday-teja/masters/my_dissertion/synth/fpga/reports/power_full_saif.rpt
 | Design           : systolic_array_sparse
@@ -30,17 +30,17 @@ Table of Contents
 ----------
 
 +--------------------------+-----------------------------------------------------------------------------------------+
-| Total On-Chip Power (W)  | 0.216                                                                                   |
+| Total On-Chip Power (W)  | 0.200                                                                                   |
 | Design Power Budget (W)  | Unspecified*                                                                            |
 | Power Budget Margin (W)  | NA                                                                                      |
-| Dynamic (W)              | 0.136                                                                                   |
+| Dynamic (W)              | 0.120                                                                                   |
 | Device Static (W)        | 0.080                                                                                   |
 | Effective TJA (C/W)      | 1.9                                                                                     |
 | Max Ambient (C)          | 84.6                                                                                    |
 | Junction Temperature (C) | 25.4                                                                                    |
 | Confidence Level         | Medium                                                                                  |
 | Setting File             | ---                                                                                     |
-| Simulation Activity File | /home/uday-teja/masters/my_dissertion/synth/fpga/reports/power_sweep/activity_sp50.saif |
+| Simulation Activity File | /home/uday-teja/masters/my_dissertion/synth/fpga/reports/power_sweep/activity_sp75.saif |
 | Design Nets Matched      | 11%   (3284/29032)                                                                      |
 +--------------------------+-----------------------------------------------------------------------------------------+
 * Specify Design Power Budget using, set_operating_conditions -design_power_budget <value in Watts>
@@ -53,14 +53,14 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.085 |        3 |       --- |             --- |
-| Slice Logic    |     0.029 |    21757 |       --- |             --- |
-|   LUT as Logic |     0.021 |    11166 |     41000 |           27.23 |
-|   CARRY4       |     0.007 |     2048 |     10250 |           19.98 |
-|   Register     |     0.001 |     6932 |     82000 |            8.45 |
+| Slice Logic    |     0.020 |    21757 |       --- |             --- |
+|   LUT as Logic |     0.015 |    11166 |     41000 |           27.23 |
+|   CARRY4       |     0.005 |     2048 |     10250 |           19.98 |
+|   Register     |    <0.001 |     6932 |     82000 |            8.45 |
 |   Others       |     0.000 |      137 |       --- |             --- |
-| Signals        |     0.022 |    15105 |       --- |             --- |
+| Signals        |     0.015 |    15105 |       --- |             --- |
 | Static Power   |     0.080 |          |           |                 |
-| Total          |     0.216 |          |           |                 |
+| Total          |     0.200 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -70,7 +70,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.158 |       0.136 |      0.022 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.142 |       0.120 |      0.022 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.012 |       0.000 |      0.012 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -140,7 +140,7 @@ Table of Contents
 +--------------------------+-----------+
 | Name                     | Power (W) |
 +--------------------------+-----------+
-| systolic_array_sparse    |     0.136 |
+| systolic_array_sparse    |     0.120 |
 |   g_row[0].g_col[0].u_pe |     0.002 |
 |   g_row[0].g_col[1].u_pe |     0.002 |
 |   g_row[0].g_col[2].u_pe |     0.002 |
@@ -204,7 +204,7 @@ Table of Contents
 |   g_row[7].g_col[4].u_pe |     0.002 |
 |   g_row[7].g_col[5].u_pe |     0.002 |
 |   g_row[7].g_col[6].u_pe |     0.002 |
-|   g_row[7].g_col[7].u_pe |     0.002 |
+|   g_row[7].g_col[7].u_pe |     0.001 |
 +--------------------------+-----------+
 
 
