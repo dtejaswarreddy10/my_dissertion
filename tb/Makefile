@@ -111,6 +111,25 @@ VERILOG_SOURCES := \
     $(GL_LIB_V) \
     $(GL_NETLIST)
 
+else ifeq ($(TEST),pe_int8_gl)
+
+TOPLEVEL := pe_int8
+COCOTB_TOPLEVEL := pe_int8
+MODULE := test_pe_int8
+COCOTB_TEST_MODULES := test_pe_int8
+
+ifndef GL_NETLIST
+$(error TEST=pe_int8_gl requires GL_NETLIST=<netlist.v>)
+endif
+
+ifndef GL_LIB_V
+$(error TEST=pe_int8_gl requires GL_LIB_V=<stdcell_lib.v>)
+endif
+
+VERILOG_SOURCES := \
+    $(GL_LIB_V) \
+    $(GL_NETLIST)
+
 else
 $(error Invalid TEST=$(TEST))
 endif
@@ -147,9 +166,14 @@ SIM_ARGS += -64 -c
 SIM_ARGS += -no_autoacc
 SIM_ARGS += -wlf sim_build/vsim.wlf
 
+# Zero-delay gate-level runs: cocotb restarts the clock each test, which trips
+# the std-cell $width min-pulse checks (reported as "Errors", not mismatches).
+ifneq ($(filter $(TEST),pe_mixed_gl pe_int8_gl),)
+SIM_ARGS += +notimingchecks
+endif
+
 ifeq ($(POWER),1)
 SIM_ARGS += -do "$(TB_DIR)/power.do"
-SIM_ARGS += -onfinish stop
 else ifeq ($(WAVES),1)
 SIM_ARGS += -do "$(TB_DIR)/wave.do"
 endif
