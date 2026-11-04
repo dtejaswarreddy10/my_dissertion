@@ -1,0 +1,1692 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_pe_mixed_gl.xml
+mkdir -p sim_build
+# Make sure all libs in SOURCES_VHDL_* are mentioned in VHDL_LIB_ORDER and vice versa
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_pe_mixed_gl.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_pe_mixed COCOTB_TESTCASE=  COCOTB_TOPLEVEL=pe_mixed TOPLEVEL_LANG=verilog       \
+     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 23:13:23 on Nov 04,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v /home/uday-teja/masters/my_dissertion/synth/asic/reports/pe_mixed_nogate_abcfix.v 
+# -- Compiling module AND2X1
+# -- Compiling module AND2X2
+# -- Compiling module AOI21X1
+# -- Compiling module AOI22X1
+# -- Compiling module BUFX2
+# -- Compiling module BUFX4
+# -- Compiling module CLKBUF1
+# -- Compiling module CLKBUF2
+# -- Compiling module CLKBUF3
+# -- Compiling module DFFNEGX1
+# -- Compiling module DFFPOSX1
+# -- Compiling module DFFSR
+# -- Compiling module FAX1
+# -- Compiling module HAX1
+# -- Compiling module INVX1
+# -- Compiling module INVX2
+# -- Compiling module INVX4
+# -- Compiling module INVX8
+# -- Compiling module LATCH
+# -- Compiling module MUX2X1
+# -- Compiling module NAND2X1
+# -- Compiling module NAND3X1
+# -- Compiling module NOR2X1
+# -- Compiling module NOR3X1
+# -- Compiling module OAI21X1
+# -- Compiling module OAI22X1
+# -- Compiling module OR2X1
+# -- Compiling module OR2X2
+# -- Compiling module TBUFX1
+# -- Compiling module TBUFX2
+# -- Compiling module XNOR2X1
+# -- Compiling module XOR2X1
+# -- Compiling UDP udp_dff
+# -- Compiling UDP udp_tlat
+# -- Compiling UDP udp_rslat
+# -- Compiling UDP udp_mux2
+# -- Compiling module pe_mixed
+# 
+# Top level modules:
+# 	AND2X1
+# 	AOI22X1
+# 	BUFX2
+# 	BUFX4
+# 	CLKBUF1
+# 	CLKBUF2
+# 	CLKBUF3
+# 	DFFNEGX1
+# 	DFFSR
+# 	FAX1
+# 	HAX1
+# 	INVX2
+# 	INVX4
+# 	INVX8
+# 	LATCH
+# 	OAI22X1
+# 	OR2X1
+# 	TBUFX1
+# 	TBUFX2
+# 	pe_mixed
+# End time: 23:13:23 on Nov 04,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.pe_mixed 
+# Start time: 23:13:23 on Nov 04,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.pe_mixed(fast)
+# Loading work.INVX1(fast)
+# Loading work.XNOR2X1(fast)
+# Loading work.MUX2X1(fast)
+# Loading work.NOR2X1(fast)
+# Loading work.AND2X2(fast)
+# Loading work.NAND2X1(fast)
+# Loading work.XOR2X1(fast)
+# Loading work.OAI21X1(fast)
+# Loading work.AOI21X1(fast)
+# Loading work.NAND3X1(fast)
+# Loading work.OR2X2(fast)
+# Loading work.NOR3X1(fast)
+# Loading work.DFFPOSX1(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1793814205
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_pe_mixed.test_int8_corners (1/8)
+#                                                             INT8 boundary operands: 0, +-1, +127, -128 in every combination.
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:136: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#   1515.00ns INFO     cocotb.pe_mixed                    INT8 corner test passed (25 combinations)
+#   1515.00ns INFO     cocotb.regression                  test_pe_mixed.test_int8_corners passed
+#   1515.00ns INFO     cocotb.regression                  running test_pe_mixed.test_int8_exhaustive (2/8)
+#                                                             All 256x256 INT8 operand pairs against the golden model.
+#   1515.01ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:158: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2410_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2411_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2412_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2413_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2414_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2415_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2416_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2417_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2418_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2419_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2420_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2421_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2422_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2423_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2424_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2425_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2426_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2427_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2428_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2429_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2430_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2431_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2432_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2433_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2434_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2435_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2436_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2437_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2438_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2439_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2440_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2441_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2442_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2443_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2444_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2445_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2446_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2447_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2448_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2449_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2450_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2451_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2452_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2453_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2454_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2455_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2456_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2457_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2458_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2459_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2460_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2461_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2462_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2463_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2464_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2465_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2466_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2467_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2468_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2469_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2470_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2471_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2472_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2473_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2474_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2475_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2476_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2477_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2478_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2479_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2480_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2481_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2482_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2483_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2484_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2485_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2486_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2487_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2488_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2489_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2490_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2491_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2492_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2493_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2494_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2495_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2496_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2497_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2498_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2499_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2500_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2501_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2502_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2503_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2504_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2505_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2506_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2507_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2508_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2509_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2510_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2511_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2512_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2513_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2514_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2515_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1515 ns, :1515010 ps, 60 ps );
+#    Time: 1515010 ps  Iteration: 4  Process: /pe_mixed/_2516_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# 656900.01ns INFO     cocotb.pe_mixed                    INT8 exhaustive passed: 65536 operand pairs, 0 mismatches
+# 656900.01ns INFO     cocotb.regression                  test_pe_mixed.test_int8_exhaustive passed
+# 656900.01ns INFO     cocotb.regression                  running test_pe_mixed.test_int8_random_accumulate (3/8)
+#                                                             Long random INT8 accumulation (exercises accumulator wraparound).
+# 656900.02ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:173: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2410_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2411_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2412_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2413_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2414_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2415_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2416_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2417_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2418_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2419_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2420_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2421_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2422_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2423_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2424_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2425_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2426_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2427_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2428_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2429_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2430_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2431_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2432_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2433_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2434_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2435_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2436_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2437_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2438_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2439_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2440_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2441_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2442_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2443_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2444_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2445_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2446_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2447_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2448_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2449_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2450_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2451_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2452_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2453_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2454_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2455_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2456_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2457_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2458_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2459_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2460_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2461_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2462_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2463_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2464_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2465_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2466_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2467_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2468_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2469_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2470_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2471_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2472_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2473_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2474_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2475_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2476_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2477_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2478_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2479_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2480_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2481_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2482_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2483_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2484_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2485_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2486_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2487_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2488_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2489_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2490_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2491_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2492_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2493_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2494_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2495_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2496_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2497_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2498_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2499_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2500_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2501_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2502_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2503_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2504_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2505_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2506_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2507_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2508_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2509_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2510_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2511_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2512_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2513_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2514_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2515_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:656900010 ps, :656900020 ps, 60 ps );
+#    Time: 656900020 ps  Iteration: 4  Process: /pe_mixed/_2516_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# 661925.02ns INFO     cocotb.pe_mixed                    INT8 random accumulate passed; final acc = 84807
+# 661925.02ns INFO     cocotb.regression                  test_pe_mixed.test_int8_random_accumulate passed
+# 661925.02ns INFO     cocotb.regression                  running test_pe_mixed.test_int4x2_corners (4/8)
+#                                                             INT4 lane extremes: -8 and +7 in both lanes, plus zero lanes.
+# 661925.03ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:195: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2410_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2411_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2412_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2413_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2414_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2415_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2416_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2417_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2418_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2419_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2420_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2421_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2422_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2423_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2424_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2425_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2426_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2427_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2428_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2429_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2430_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2431_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2432_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2433_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2434_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2435_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2436_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2437_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2438_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2439_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2440_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2441_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2442_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2443_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2444_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2445_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2446_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2447_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2448_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2449_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2450_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2451_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2452_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2453_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2454_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2455_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2456_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2457_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2458_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2459_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2460_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2461_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2462_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2463_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2464_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2465_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2466_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2467_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2468_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2469_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2470_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2471_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2472_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2473_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2474_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2475_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2476_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2477_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2478_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2479_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2480_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2481_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2482_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2483_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2484_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2485_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2486_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2487_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2488_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2489_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2490_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2491_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2492_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2493_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2494_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2495_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2496_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2497_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2498_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2499_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2500_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2501_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2502_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2503_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2504_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2505_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2506_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2507_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2508_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2509_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2510_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2511_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2512_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2513_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2514_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2515_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:661925020 ps, :661925030 ps, 60 ps );
+#    Time: 661925030 ps  Iteration: 4  Process: /pe_mixed/_2516_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# 680690.03ns INFO     cocotb.pe_mixed                    INT4x2 corner test passed (625 combinations)
+# 680690.03ns INFO     cocotb.regression                  test_pe_mixed.test_int4x2_corners passed
+# 680690.03ns INFO     cocotb.regression                  running test_pe_mixed.test_int4x2_exhaustive (5/8)
+#                                                             All 256x256 packed byte pairs == every (a_hi,a_lo,b_hi,b_lo) lane combo.
+# 680690.04ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:223: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2410_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2411_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2412_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2413_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2414_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2415_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2416_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2417_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2418_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2419_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2420_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2421_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2422_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2423_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2424_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2425_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2426_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2427_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2428_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2429_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2430_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2431_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2432_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2433_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2434_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2435_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2436_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2437_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2438_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2439_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2440_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2441_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2442_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2443_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2444_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2445_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2446_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2447_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2448_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2449_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2450_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2451_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2452_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2453_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2454_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2455_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2456_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2457_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2458_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2459_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2460_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2461_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2462_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2463_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2464_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2465_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2466_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2467_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2468_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2469_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2470_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2471_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2472_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2473_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2474_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2475_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2476_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2477_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2478_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2479_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2480_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2481_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2482_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2483_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2484_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2485_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2486_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2487_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2488_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2489_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2490_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2491_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2492_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2493_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2494_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2495_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2496_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2497_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2498_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2499_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2500_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2501_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2502_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2503_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2504_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2505_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2506_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2507_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2508_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2509_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2510_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2511_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2512_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2513_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2514_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2515_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:680690030 ps, :680690040 ps, 60 ps );
+#    Time: 680690040 ps  Iteration: 4  Process: /pe_mixed/_2516_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# 1336075.04ns INFO     cocotb.pe_mixed                    INT4x2 exhaustive passed: 65536 lane combinations, 0 mismatches
+# 1336075.04ns INFO     cocotb.regression                  test_pe_mixed.test_int4x2_exhaustive passed
+# 1336075.04ns INFO     cocotb.regression                  running test_pe_mixed.test_int4x2_lane_independence (6/8)
+#                                                             A zero lane must contribute nothing - proves the lanes do not bleed.
+# 1336075.05ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:238: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2410_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2411_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2412_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2413_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2414_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2415_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2416_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2417_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2418_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2419_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2420_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2421_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2422_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2423_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2424_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2425_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2426_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2427_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2428_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2429_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2430_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2431_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2432_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2433_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2434_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2435_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2436_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2437_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2438_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2439_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2440_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2441_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2442_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2443_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2444_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2445_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2446_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2447_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2448_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2449_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2450_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2451_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2452_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2453_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2454_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2455_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2456_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2457_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2458_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2459_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2460_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2461_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2462_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2463_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2464_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2465_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2466_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2467_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2468_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2469_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2470_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2471_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2472_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2473_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2474_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2475_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2476_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2477_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2478_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2479_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2480_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2481_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2482_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2483_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2484_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2485_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2486_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2487_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2488_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2489_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2490_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2491_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2492_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2493_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2494_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2495_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2496_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2497_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2498_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2499_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2500_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2501_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2502_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2503_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2504_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2505_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2506_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2507_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2508_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2509_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2510_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2511_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2512_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2513_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2514_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2515_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1336075040 ps, :1336075050 ps, 60 ps );
+#    Time: 1336075050 ps  Iteration: 4  Process: /pe_mixed/_2516_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# 1344090.05ns INFO     cocotb.pe_mixed                    INT4x2 lane independence passed
+# 1344090.05ns INFO     cocotb.regression                  test_pe_mixed.test_int4x2_lane_independence passed
+# 1344090.05ns INFO     cocotb.regression                  running test_pe_mixed.test_mode_transition_with_clear (7/8)
+#                                                             Tile-granular mode switching: acc_clear at every precision change.
+# 1344090.06ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:273: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2410_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2411_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2412_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2413_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2414_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2415_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2416_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2417_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2418_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2419_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2420_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2421_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2422_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2423_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2424_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2425_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2426_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2427_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2428_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2429_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2430_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2431_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2432_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2433_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2434_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2435_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2436_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2437_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2438_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2439_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2440_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2441_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2442_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2443_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2444_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2445_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2446_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2447_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2448_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2449_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2450_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2451_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2452_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2453_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2454_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2455_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2456_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2457_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2458_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2459_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2460_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2461_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2462_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2463_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2464_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2465_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2466_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2467_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2468_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2469_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2470_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2471_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2472_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2473_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2474_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2475_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2476_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2477_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2478_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2479_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2480_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2481_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2482_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2483_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2484_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2485_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2486_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2487_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2488_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2489_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2490_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2491_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2492_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2493_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2494_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2495_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2496_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2497_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2498_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2499_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2500_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2501_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2502_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2503_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2504_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2505_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2506_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2507_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2508_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2509_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2510_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2511_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2512_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2513_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2514_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2515_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1344090050 ps, :1344090060 ps, 60 ps );
+#    Time: 1344090060 ps  Iteration: 3  Process: /pe_mixed/_2516_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# 1348505.06ns INFO     cocotb.pe_mixed                    Mode-transition test passed over 40 alternating tiles
+# 1348505.06ns INFO     cocotb.regression                  test_pe_mixed.test_mode_transition_with_clear passed
+# 1348505.06ns INFO     cocotb.regression                  running test_pe_mixed.test_mode_change_does_not_corrupt_inflight (8/8)
+#                                                             A mode change must apply to new operands only, not to the in-flight product.
+# 1348505.07ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:311: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2410_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2411_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2412_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2413_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2414_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2415_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2416_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2417_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2418_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2419_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2420_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2421_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2422_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2423_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2424_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2425_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2426_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2427_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2428_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2429_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2430_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2431_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2432_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2433_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2434_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2435_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2436_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2437_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2438_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2439_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2440_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2441_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2442_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2443_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2444_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2445_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2446_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2447_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2448_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2449_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2450_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2451_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2452_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2453_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2454_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2455_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2456_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2457_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2458_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2459_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2460_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2461_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2462_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2463_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2464_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2465_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2466_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2467_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2468_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2469_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2470_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2471_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2472_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2473_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2474_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2475_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2476_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2477_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2478_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2479_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2480_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2481_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2482_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2483_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2484_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2485_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2486_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2487_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2488_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2489_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2490_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2491_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2492_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2493_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2494_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2495_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2496_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2497_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2498_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2499_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2500_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2501_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2502_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2503_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2504_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2505_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2506_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2507_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2508_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2509_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2510_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2511_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2512_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2513_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2514_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2515_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# ** Error: $width( negedge CLK:1348505060 ps, :1348505070 ps, 60 ps );
+#    Time: 1348505070 ps  Iteration: 3  Process: /pe_mixed/_2516_/#Width# File: /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v Line: 304
+# 1351530.07ns INFO     cocotb.pe_mixed                    In-flight mode-change test passed
+# 1351530.07ns INFO     cocotb.regression                  test_pe_mixed.test_mode_change_does_not_corrupt_inflight passed
+# 1351530.07ns INFO     cocotb.regression                  ******************************************************************************************************************
+#                                                         ** TEST                                                      STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         ******************************************************************************************************************
+#                                                         ** test_pe_mixed.test_int8_corners                            PASS        1515.00           0.03      55427.15  **
+#                                                         ** test_pe_mixed.test_int8_exhaustive                         PASS      655385.00          12.06      54344.68  **
+#                                                         ** test_pe_mixed.test_int8_random_accumulate                  PASS        5025.00           0.19      27150.80  **
+#                                                         ** test_pe_mixed.test_int4x2_corners                          PASS       18765.00           0.36      52127.36  **
+#                                                         ** test_pe_mixed.test_int4x2_exhaustive                       PASS      655385.00          11.36      57671.72  **
+#                                                         ** test_pe_mixed.test_int4x2_lane_independence                PASS        8015.00           0.15      52868.10  **
+#                                                         ** test_pe_mixed.test_mode_transition_with_clear              PASS        4415.00           0.13      34027.40  **
+#                                                         ** test_pe_mixed.test_mode_change_does_not_corrupt_inflight   PASS        3025.00           0.11      27436.67  **
+#                                                         ******************************************************************************************************************
+#                                                         ** TESTS=8 PASS=8 FAIL=0 SKIP=0                                        1351530.07          24.39      55407.97  **
+#                                                         ******************************************************************************************************************
+# ** Note: $finish
+#    Time: 1351530070 ps  Iteration: 2  Instance: /pe_mixed File: /home/uday-teja/masters/my_dissertion/synth/asic/reports/pe_mixed_nogate_abcfix.v
+# End time: 23:13:49 on Nov 04,2026, Elapsed time: 0:00:26
+# Errors: 749, Warnings: 0

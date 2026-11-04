@@ -1,0 +1,543 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_pe.xml
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_pe.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_pe_int8 COCOTB_TESTCASE=  COCOTB_TOPLEVEL=pe_int8 TOPLEVEL_LANG=verilog       \
+     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 21:52:54 on Oct 19,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/masters/my_dissertion/tb/../src/pe_int8.sv 
+# -- Compiling module pe_int8
+# 
+# Top level modules:
+# 	pe_int8
+# End time: 21:52:54 on Oct 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.pe_int8 
+# Start time: 21:52:54 on Oct 19,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.pe_int8(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792426975
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_pe_int8.test_pe_directed_corners (1/3)
+#                                                             Boundary operands: 0, +127, -128, +/-1 in every combination.
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py:114: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#     25.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#     35.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#     45.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#     55.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#     65.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#     75.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#     85.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#     95.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    105.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    115.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    125.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    135.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#    145.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    155.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    165.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    175.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    185.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    195.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#    205.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    215.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    225.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    235.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    245.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    255.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#    265.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    275.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    285.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    295.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    305.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    315.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#    325.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    335.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    345.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    355.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    365.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    375.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#    385.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    395.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=0
+#    405.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=1
+#    415.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=2
+#    425.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=3
+#    435.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=4
+#    445.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    455.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=0
+#    465.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=-1
+#    475.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=-2
+#    485.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=-3
+#    495.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-4
+#    505.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    515.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=0
+#    525.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=127
+#    535.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=254
+#    545.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=381
+#    555.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=508
+#    565.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    575.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=0
+#    585.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=-128
+#    595.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=-256
+#    605.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=-384
+#    615.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-512
+#    625.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    635.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    645.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    655.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    665.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    675.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#    685.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    695.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=0
+#    705.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=-1
+#    715.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=-2
+#    725.00ns INFO     cocotb.pe_int8                     corner: product_q=-1 valid_q=1 acc_q=-3
+#    735.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-4
+#    745.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    755.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=0
+#    765.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=1
+#    775.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=2
+#    785.00ns INFO     cocotb.pe_int8                     corner: product_q=1 valid_q=1 acc_q=3
+#    795.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=4
+#    805.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    815.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=0
+#    825.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=-127
+#    835.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=-254
+#    845.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=-381
+#    855.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-508
+#    865.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    875.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=0
+#    885.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=128
+#    895.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=256
+#    905.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=384
+#    915.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=512
+#    925.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    935.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    945.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    955.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    965.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#    975.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#    985.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#    995.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=0
+#   1005.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=127
+#   1015.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=254
+#   1025.00ns INFO     cocotb.pe_int8                     corner: product_q=127 valid_q=1 acc_q=381
+#   1035.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=508
+#   1045.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1055.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=0
+#   1065.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=-127
+#   1075.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=-254
+#   1085.00ns INFO     cocotb.pe_int8                     corner: product_q=-127 valid_q=1 acc_q=-381
+#   1095.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-508
+#   1105.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1115.00ns INFO     cocotb.pe_int8                     corner: product_q=16129 valid_q=1 acc_q=0
+#   1125.00ns INFO     cocotb.pe_int8                     corner: product_q=16129 valid_q=1 acc_q=16129
+#   1135.00ns INFO     cocotb.pe_int8                     corner: product_q=16129 valid_q=1 acc_q=32258
+#   1145.00ns INFO     cocotb.pe_int8                     corner: product_q=16129 valid_q=1 acc_q=48387
+#   1155.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=64516
+#   1165.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1175.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=0
+#   1185.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=-16256
+#   1195.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=-32512
+#   1205.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=-48768
+#   1215.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-65024
+#   1225.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1235.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#   1245.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#   1255.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#   1265.00ns INFO     cocotb.pe_int8                     corner: product_q=0 valid_q=1 acc_q=0
+#   1275.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=0
+#   1285.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1295.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=0
+#   1305.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=-128
+#   1315.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=-256
+#   1325.00ns INFO     cocotb.pe_int8                     corner: product_q=-128 valid_q=1 acc_q=-384
+#   1335.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-512
+#   1345.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1355.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=0
+#   1365.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=128
+#   1375.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=256
+#   1385.00ns INFO     cocotb.pe_int8                     corner: product_q=128 valid_q=1 acc_q=384
+#   1395.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=512
+#   1405.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1415.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=0
+#   1425.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=-16256
+#   1435.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=-32512
+#   1445.00ns INFO     cocotb.pe_int8                     corner: product_q=-16256 valid_q=1 acc_q=-48768
+#   1455.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=-65024
+#   1465.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1475.00ns INFO     cocotb.pe_int8                     corner: product_q=16384 valid_q=1 acc_q=0
+#   1485.00ns INFO     cocotb.pe_int8                     corner: product_q=16384 valid_q=1 acc_q=16384
+#   1495.00ns INFO     cocotb.pe_int8                     corner: product_q=16384 valid_q=1 acc_q=32768
+#   1505.00ns INFO     cocotb.pe_int8                     corner: product_q=16384 valid_q=1 acc_q=49152
+#   1515.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=65536
+#   1515.00ns INFO     cocotb.pe_int8                     Directed corner test passed (25 combinations)
+#   1515.00ns INFO     cocotb.regression                  test_pe_int8.test_pe_directed_corners passed
+#   1515.00ns INFO     cocotb.regression                  running test_pe_int8.test_pe_random_mac (2/3)
+#                                                             100 random operand pairs accumulated in place, vs pe_golden_int8().
+#   1515.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py:132: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#   1540.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   1550.00ns INFO     cocotb.pe_int8                     rand[0]: product_q=5760 valid_q=1 acc_q=0
+#   1560.00ns INFO     cocotb.pe_int8                     rand[1]: product_q=-136 valid_q=1 acc_q=5760
+#   1570.00ns INFO     cocotb.pe_int8                     rand[2]: product_q=12750 valid_q=1 acc_q=5624
+#   1580.00ns INFO     cocotb.pe_int8                     rand[3]: product_q=7458 valid_q=1 acc_q=18374
+#   1590.00ns INFO     cocotb.pe_int8                     rand[4]: product_q=1680 valid_q=1 acc_q=25832
+#   1600.00ns INFO     cocotb.pe_int8                     rand[5]: product_q=-13794 valid_q=1 acc_q=27512
+#   1610.00ns INFO     cocotb.pe_int8                     rand[6]: product_q=6603 valid_q=1 acc_q=13718
+#   1620.00ns INFO     cocotb.pe_int8                     rand[7]: product_q=-12700 valid_q=1 acc_q=20321
+#   1630.00ns INFO     cocotb.pe_int8                     rand[8]: product_q=-88 valid_q=1 acc_q=7621
+#   1640.00ns INFO     cocotb.pe_int8                     rand[9]: product_q=-2584 valid_q=1 acc_q=7533
+#   1650.00ns INFO     cocotb.pe_int8                     rand[10]: product_q=13221 valid_q=1 acc_q=4949
+#   1660.00ns INFO     cocotb.pe_int8                     rand[11]: product_q=14260 valid_q=1 acc_q=18170
+#   1670.00ns INFO     cocotb.pe_int8                     rand[12]: product_q=-1206 valid_q=1 acc_q=32430
+#   1680.00ns INFO     cocotb.pe_int8                     rand[13]: product_q=-10032 valid_q=1 acc_q=31224
+#   1690.00ns INFO     cocotb.pe_int8                     rand[14]: product_q=-1440 valid_q=1 acc_q=21192
+#   1700.00ns INFO     cocotb.pe_int8                     rand[15]: product_q=-1125 valid_q=1 acc_q=19752
+#   1710.00ns INFO     cocotb.pe_int8                     rand[16]: product_q=-480 valid_q=1 acc_q=18627
+#   1720.00ns INFO     cocotb.pe_int8                     rand[17]: product_q=-1712 valid_q=1 acc_q=18147
+#   1730.00ns INFO     cocotb.pe_int8                     rand[18]: product_q=-2340 valid_q=1 acc_q=16435
+#   1740.00ns INFO     cocotb.pe_int8                     rand[19]: product_q=-6545 valid_q=1 acc_q=14095
+#   1750.00ns INFO     cocotb.pe_int8                     rand[20]: product_q=-759 valid_q=1 acc_q=7550
+#   1760.00ns INFO     cocotb.pe_int8                     rand[21]: product_q=-2814 valid_q=1 acc_q=6791
+#   1770.00ns INFO     cocotb.pe_int8                     rand[22]: product_q=-2728 valid_q=1 acc_q=3977
+#   1780.00ns INFO     cocotb.pe_int8                     rand[23]: product_q=459 valid_q=1 acc_q=1249
+#   1790.00ns INFO     cocotb.pe_int8                     rand[24]: product_q=9271 valid_q=1 acc_q=1708
+#   1800.00ns INFO     cocotb.pe_int8                     rand[25]: product_q=-12987 valid_q=1 acc_q=10979
+#   1810.00ns INFO     cocotb.pe_int8                     rand[26]: product_q=-312 valid_q=1 acc_q=-2008
+#   1820.00ns INFO     cocotb.pe_int8                     rand[27]: product_q=-3360 valid_q=1 acc_q=-2320
+#   1830.00ns INFO     cocotb.pe_int8                     rand[28]: product_q=3717 valid_q=1 acc_q=-5680
+#   1840.00ns INFO     cocotb.pe_int8                     rand[29]: product_q=-8064 valid_q=1 acc_q=-1963
+#   1850.00ns INFO     cocotb.pe_int8                     rand[30]: product_q=3285 valid_q=1 acc_q=-10027
+#   1860.00ns INFO     cocotb.pe_int8                     rand[31]: product_q=4453 valid_q=1 acc_q=-6742
+#   1870.00ns INFO     cocotb.pe_int8                     rand[32]: product_q=-13786 valid_q=1 acc_q=-2289
+#   1880.00ns INFO     cocotb.pe_int8                     rand[33]: product_q=-11872 valid_q=1 acc_q=-16075
+#   1890.00ns INFO     cocotb.pe_int8                     rand[34]: product_q=2117 valid_q=1 acc_q=-27947
+#   1900.00ns INFO     cocotb.pe_int8                     rand[35]: product_q=1722 valid_q=1 acc_q=-25830
+#   1910.00ns INFO     cocotb.pe_int8                     rand[36]: product_q=1464 valid_q=1 acc_q=-24108
+#   1920.00ns INFO     cocotb.pe_int8                     rand[37]: product_q=260 valid_q=1 acc_q=-22644
+#   1930.00ns INFO     cocotb.pe_int8                     rand[38]: product_q=3792 valid_q=1 acc_q=-22384
+#   1940.00ns INFO     cocotb.pe_int8                     rand[39]: product_q=5564 valid_q=1 acc_q=-18592
+#   1950.00ns INFO     cocotb.pe_int8                     rand[40]: product_q=-1134 valid_q=1 acc_q=-13028
+#   1960.00ns INFO     cocotb.pe_int8                     rand[41]: product_q=-4216 valid_q=1 acc_q=-14162
+#   1970.00ns INFO     cocotb.pe_int8                     rand[42]: product_q=-2070 valid_q=1 acc_q=-18378
+#   1980.00ns INFO     cocotb.pe_int8                     rand[43]: product_q=-11800 valid_q=1 acc_q=-20448
+#   1990.00ns INFO     cocotb.pe_int8                     rand[44]: product_q=-1508 valid_q=1 acc_q=-32248
+#   2000.00ns INFO     cocotb.pe_int8                     rand[45]: product_q=9960 valid_q=1 acc_q=-33756
+#   2010.00ns INFO     cocotb.pe_int8                     rand[46]: product_q=4536 valid_q=1 acc_q=-23796
+#   2020.00ns INFO     cocotb.pe_int8                     rand[47]: product_q=-6272 valid_q=1 acc_q=-19260
+#   2030.00ns INFO     cocotb.pe_int8                     rand[48]: product_q=4346 valid_q=1 acc_q=-25532
+#   2040.00ns INFO     cocotb.pe_int8                     rand[49]: product_q=1254 valid_q=1 acc_q=-21186
+#   2050.00ns INFO     cocotb.pe_int8                     rand[50]: product_q=1368 valid_q=1 acc_q=-19932
+#   2060.00ns INFO     cocotb.pe_int8                     rand[51]: product_q=-164 valid_q=1 acc_q=-18564
+#   2070.00ns INFO     cocotb.pe_int8                     rand[52]: product_q=10304 valid_q=1 acc_q=-18728
+#   2080.00ns INFO     cocotb.pe_int8                     rand[53]: product_q=10320 valid_q=1 acc_q=-8424
+#   2090.00ns INFO     cocotb.pe_int8                     rand[54]: product_q=-12463 valid_q=1 acc_q=1896
+#   2100.00ns INFO     cocotb.pe_int8                     rand[55]: product_q=-15 valid_q=1 acc_q=-10567
+#   2110.00ns INFO     cocotb.pe_int8                     rand[56]: product_q=-648 valid_q=1 acc_q=-10582
+#   2120.00ns INFO     cocotb.pe_int8                     rand[57]: product_q=-1632 valid_q=1 acc_q=-11230
+#   2130.00ns INFO     cocotb.pe_int8                     rand[58]: product_q=-1860 valid_q=1 acc_q=-12862
+#   2140.00ns INFO     cocotb.pe_int8                     rand[59]: product_q=2021 valid_q=1 acc_q=-14722
+#   2150.00ns INFO     cocotb.pe_int8                     rand[60]: product_q=-84 valid_q=1 acc_q=-12701
+#   2160.00ns INFO     cocotb.pe_int8                     rand[61]: product_q=242 valid_q=1 acc_q=-12785
+#   2170.00ns INFO     cocotb.pe_int8                     rand[62]: product_q=3744 valid_q=1 acc_q=-12543
+#   2180.00ns INFO     cocotb.pe_int8                     rand[63]: product_q=14364 valid_q=1 acc_q=-8799
+#   2190.00ns INFO     cocotb.pe_int8                     rand[64]: product_q=8120 valid_q=1 acc_q=5565
+#   2200.00ns INFO     cocotb.pe_int8                     rand[65]: product_q=2139 valid_q=1 acc_q=13685
+#   2210.00ns INFO     cocotb.pe_int8                     rand[66]: product_q=4089 valid_q=1 acc_q=15824
+#   2220.00ns INFO     cocotb.pe_int8                     rand[67]: product_q=-128 valid_q=1 acc_q=19913
+#   2230.00ns INFO     cocotb.pe_int8                     rand[68]: product_q=-73 valid_q=1 acc_q=19785
+#   2240.00ns INFO     cocotb.pe_int8                     rand[69]: product_q=-1953 valid_q=1 acc_q=19712
+#   2250.00ns INFO     cocotb.pe_int8                     rand[70]: product_q=1534 valid_q=1 acc_q=17759
+#   2260.00ns INFO     cocotb.pe_int8                     rand[71]: product_q=-8925 valid_q=1 acc_q=19293
+#   2270.00ns INFO     cocotb.pe_int8                     rand[72]: product_q=5940 valid_q=1 acc_q=10368
+#   2280.00ns INFO     cocotb.pe_int8                     rand[73]: product_q=-4600 valid_q=1 acc_q=16308
+#   2290.00ns INFO     cocotb.pe_int8                     rand[74]: product_q=-1440 valid_q=1 acc_q=11708
+#   2300.00ns INFO     cocotb.pe_int8                     rand[75]: product_q=-1428 valid_q=1 acc_q=10268
+#   2310.00ns INFO     cocotb.pe_int8                     rand[76]: product_q=-8362 valid_q=1 acc_q=8840
+#   2320.00ns INFO     cocotb.pe_int8                     rand[77]: product_q=3240 valid_q=1 acc_q=478
+#   2330.00ns INFO     cocotb.pe_int8                     rand[78]: product_q=-2352 valid_q=1 acc_q=3718
+#   2340.00ns INFO     cocotb.pe_int8                     rand[79]: product_q=1280 valid_q=1 acc_q=1366
+#   2350.00ns INFO     cocotb.pe_int8                     rand[80]: product_q=-2912 valid_q=1 acc_q=2646
+#   2360.00ns INFO     cocotb.pe_int8                     rand[81]: product_q=8188 valid_q=1 acc_q=-266
+#   2370.00ns INFO     cocotb.pe_int8                     rand[82]: product_q=720 valid_q=1 acc_q=7922
+#   2380.00ns INFO     cocotb.pe_int8                     rand[83]: product_q=-3995 valid_q=1 acc_q=8642
+#   2390.00ns INFO     cocotb.pe_int8                     rand[84]: product_q=-62 valid_q=1 acc_q=4647
+#   2400.00ns INFO     cocotb.pe_int8                     rand[85]: product_q=13516 valid_q=1 acc_q=4585
+#   2410.00ns INFO     cocotb.pe_int8                     rand[86]: product_q=-1819 valid_q=1 acc_q=18101
+#   2420.00ns INFO     cocotb.pe_int8                     rand[87]: product_q=4469 valid_q=1 acc_q=16282
+#   2430.00ns INFO     cocotb.pe_int8                     rand[88]: product_q=-1690 valid_q=1 acc_q=20751
+#   2440.00ns INFO     cocotb.pe_int8                     rand[89]: product_q=-3822 valid_q=1 acc_q=19061
+#   2450.00ns INFO     cocotb.pe_int8                     rand[90]: product_q=-2139 valid_q=1 acc_q=15239
+#   2460.00ns INFO     cocotb.pe_int8                     rand[91]: product_q=-3596 valid_q=1 acc_q=13100
+#   2470.00ns INFO     cocotb.pe_int8                     rand[92]: product_q=-5325 valid_q=1 acc_q=9504
+#   2480.00ns INFO     cocotb.pe_int8                     rand[93]: product_q=2921 valid_q=1 acc_q=4179
+#   2490.00ns INFO     cocotb.pe_int8                     rand[94]: product_q=-4560 valid_q=1 acc_q=7100
+#   2500.00ns INFO     cocotb.pe_int8                     rand[95]: product_q=1232 valid_q=1 acc_q=2540
+#   2510.00ns INFO     cocotb.pe_int8                     rand[96]: product_q=5712 valid_q=1 acc_q=3772
+#   2520.00ns INFO     cocotb.pe_int8                     rand[97]: product_q=-1014 valid_q=1 acc_q=9484
+#   2530.00ns INFO     cocotb.pe_int8                     rand[98]: product_q=-2655 valid_q=1 acc_q=8470
+#   2540.00ns INFO     cocotb.pe_int8                     rand[99]: product_q=-1729 valid_q=1 acc_q=5815
+#   2550.00ns INFO     cocotb.pe_int8                     drain: product_q=0 valid_q=0 acc_q=4086
+#   2550.00ns INFO     cocotb.pe_int8                     Random MAC test passed; final acc = 4086
+#   2550.00ns INFO     cocotb.regression                  test_pe_int8.test_pe_random_mac passed
+#   2550.00ns INFO     cocotb.regression                  running test_pe_int8.test_pe_valid_gating_and_clear (3/3)
+#                                                             valid_in=0 must not accumulate; acc_clear must zero the accumulator.
+#   2550.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_int8.py:151: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#   2575.00ns INFO     cocotb.pe_int8                     clear: product_q=0 valid_q=0 acc_q=0
+#   2585.00ns INFO     cocotb.pe_int8                     mixed[0]: product_q=8200 valid_q=1 acc_q=0
+#   2595.00ns INFO     cocotb.pe_int8                     mixed[1]: product_q=0 valid_q=0 acc_q=8200
+#   2605.00ns INFO     cocotb.pe_int8                     mixed[2]: product_q=-4324 valid_q=0 acc_q=8200
+#   2615.00ns INFO     cocotb.pe_int8                     mixed[3]: product_q=6138 valid_q=1 acc_q=8200
+#   2625.00ns INFO     cocotb.pe_int8                     mixed[4]: product_q=-6612 valid_q=1 acc_q=14338
+#   2635.00ns INFO     cocotb.pe_int8                     mixed[5]: product_q=5808 valid_q=0 acc_q=7726
+#   2645.00ns INFO     cocotb.pe_int8                     mixed[6]: product_q=304 valid_q=1 acc_q=7726
+#   2655.00ns INFO     cocotb.pe_int8                     mixed[7]: product_q=2360 valid_q=1 acc_q=8030
+#   2665.00ns INFO     cocotb.pe_int8                     mixed[8]: product_q=-3500 valid_q=0 acc_q=10390
+#   2675.00ns INFO     cocotb.pe_int8                     mixed[9]: product_q=3074 valid_q=1 acc_q=10390
+#   2685.00ns INFO     cocotb.pe_int8                     mixed[10]: product_q=-4600 valid_q=0 acc_q=13464
+#   2695.00ns INFO     cocotb.pe_int8                     mixed[11]: product_q=-108 valid_q=1 acc_q=13464
+#   2705.00ns INFO     cocotb.pe_int8                     mixed[12]: product_q=5512 valid_q=0 acc_q=13356
+#   2715.00ns INFO     cocotb.pe_int8                     mixed[13]: product_q=12705 valid_q=0 acc_q=13356
+#   2725.00ns INFO     cocotb.pe_int8                     mixed[14]: product_q=-387 valid_q=0 acc_q=13356
+#   2735.00ns INFO     cocotb.pe_int8                     mixed[15]: product_q=2160 valid_q=1 acc_q=13356
+#   2745.00ns INFO     cocotb.pe_int8                     mixed[16]: product_q=-5310 valid_q=0 acc_q=15516
+#   2755.00ns INFO     cocotb.pe_int8                     mixed[17]: product_q=3844 valid_q=0 acc_q=15516
+#   2765.00ns INFO     cocotb.pe_int8                     mixed[18]: product_q=-1133 valid_q=1 acc_q=15516
+#   2775.00ns INFO     cocotb.pe_int8                     mixed[19]: product_q=4366 valid_q=0 acc_q=14383
+#   2785.00ns INFO     cocotb.pe_int8                     mixed[20]: product_q=2058 valid_q=1 acc_q=14383
+#   2795.00ns INFO     cocotb.pe_int8                     mixed[21]: product_q=11088 valid_q=1 acc_q=16441
+#   2805.00ns INFO     cocotb.pe_int8                     mixed[22]: product_q=9976 valid_q=1 acc_q=27529
+#   2815.00ns INFO     cocotb.pe_int8                     mixed[23]: product_q=12744 valid_q=1 acc_q=37505
+#   2825.00ns INFO     cocotb.pe_int8                     mixed[24]: product_q=1632 valid_q=1 acc_q=0
+#   2835.00ns INFO     cocotb.pe_int8                     mixed[25]: product_q=212 valid_q=1 acc_q=0
+#   2845.00ns INFO     cocotb.pe_int8                     mixed[26]: product_q=-3408 valid_q=1 acc_q=212
+#   2855.00ns INFO     cocotb.pe_int8                     mixed[27]: product_q=2929 valid_q=1 acc_q=-3196
+#   2865.00ns INFO     cocotb.pe_int8                     mixed[28]: product_q=-735 valid_q=0 acc_q=-267
+#   2875.00ns INFO     cocotb.pe_int8                     mixed[29]: product_q=-5700 valid_q=0 acc_q=-267
+#   2885.00ns INFO     cocotb.pe_int8                     mixed[30]: product_q=-2508 valid_q=1 acc_q=-267
+#   2895.00ns INFO     cocotb.pe_int8                     mixed[31]: product_q=-4599 valid_q=1 acc_q=-2775
+#   2905.00ns INFO     cocotb.pe_int8                     mixed[32]: product_q=184 valid_q=1 acc_q=-7374
+#   2915.00ns INFO     cocotb.pe_int8                     mixed[33]: product_q=6783 valid_q=0 acc_q=-7190
+#   2925.00ns INFO     cocotb.pe_int8                     mixed[34]: product_q=2806 valid_q=1 acc_q=-7190
+#   2935.00ns INFO     cocotb.pe_int8                     mixed[35]: product_q=1120 valid_q=0 acc_q=-4384
+#   2945.00ns INFO     cocotb.pe_int8                     mixed[36]: product_q=-9009 valid_q=1 acc_q=-4384
+#   2955.00ns INFO     cocotb.pe_int8                     mixed[37]: product_q=168 valid_q=0 acc_q=-13393
+#   2965.00ns INFO     cocotb.pe_int8                     mixed[38]: product_q=6426 valid_q=1 acc_q=-13393
+#   2975.00ns INFO     cocotb.pe_int8                     mixed[39]: product_q=6048 valid_q=1 acc_q=-6967
+#   2985.00ns INFO     cocotb.pe_int8                     mixed[40]: product_q=350 valid_q=1 acc_q=0
+#   2995.00ns INFO     cocotb.pe_int8                     mixed[41]: product_q=11336 valid_q=1 acc_q=350
+#   3005.00ns INFO     cocotb.pe_int8                     mixed[42]: product_q=420 valid_q=0 acc_q=11686
+#   3015.00ns INFO     cocotb.pe_int8                     mixed[43]: product_q=12036 valid_q=0 acc_q=11686
+#   3025.00ns INFO     cocotb.pe_int8                     mixed[44]: product_q=2880 valid_q=0 acc_q=11686
+#   3035.00ns INFO     cocotb.pe_int8                     mixed[45]: product_q=8092 valid_q=0 acc_q=11686
+#   3045.00ns INFO     cocotb.pe_int8                     mixed[46]: product_q=1798 valid_q=1 acc_q=11686
+#   3055.00ns INFO     cocotb.pe_int8                     mixed[47]: product_q=5775 valid_q=1 acc_q=13484
+#   3065.00ns INFO     cocotb.pe_int8                     mixed[48]: product_q=-12360 valid_q=1 acc_q=19259
+#   3075.00ns INFO     cocotb.pe_int8                     mixed[49]: product_q=-2398 valid_q=0 acc_q=6899
+#   3085.00ns INFO     cocotb.pe_int8                     mixed[50]: product_q=-2142 valid_q=1 acc_q=6899
+#   3095.00ns INFO     cocotb.pe_int8                     mixed[51]: product_q=1424 valid_q=0 acc_q=4757
+#   3105.00ns INFO     cocotb.pe_int8                     mixed[52]: product_q=4536 valid_q=0 acc_q=4757
+#   3115.00ns INFO     cocotb.pe_int8                     mixed[53]: product_q=3552 valid_q=0 acc_q=4757
+#   3125.00ns INFO     cocotb.pe_int8                     mixed[54]: product_q=5742 valid_q=0 acc_q=4757
+#   3135.00ns INFO     cocotb.pe_int8                     mixed[55]: product_q=-1440 valid_q=0 acc_q=0
+#   3145.00ns INFO     cocotb.pe_int8                     mixed[56]: product_q=-11872 valid_q=0 acc_q=0
+#   3155.00ns INFO     cocotb.pe_int8                     mixed[57]: product_q=5830 valid_q=1 acc_q=0
+#   3165.00ns INFO     cocotb.pe_int8                     mixed[58]: product_q=13804 valid_q=0 acc_q=5830
+#   3175.00ns INFO     cocotb.pe_int8                     mixed[59]: product_q=10578 valid_q=0 acc_q=5830
+#   3185.00ns INFO     cocotb.pe_int8                     mixed[60]: product_q=480 valid_q=1 acc_q=5830
+#   3195.00ns INFO     cocotb.pe_int8                     mixed[61]: product_q=-7650 valid_q=1 acc_q=6310
+#   3205.00ns INFO     cocotb.pe_int8                     mixed[62]: product_q=7268 valid_q=1 acc_q=-1340
+#   3215.00ns INFO     cocotb.pe_int8                     mixed[63]: product_q=-4505 valid_q=0 acc_q=5928
+#   3225.00ns INFO     cocotb.pe_int8                     mixed[64]: product_q=6867 valid_q=0 acc_q=5928
+#   3235.00ns INFO     cocotb.pe_int8                     mixed[65]: product_q=3840 valid_q=1 acc_q=5928
+#   3245.00ns INFO     cocotb.pe_int8                     mixed[66]: product_q=-4312 valid_q=1 acc_q=9768
+#   3255.00ns INFO     cocotb.pe_int8                     mixed[67]: product_q=-126 valid_q=0 acc_q=5456
+#   3265.00ns INFO     cocotb.pe_int8                     mixed[68]: product_q=-624 valid_q=0 acc_q=5456
+#   3275.00ns INFO     cocotb.pe_int8                     mixed[69]: product_q=-5940 valid_q=1 acc_q=0
+#   3285.00ns INFO     cocotb.pe_int8                     mixed[70]: product_q=-2448 valid_q=1 acc_q=-5940
+#   3295.00ns INFO     cocotb.pe_int8                     mixed[71]: product_q=948 valid_q=1 acc_q=-8388
+#   3305.00ns INFO     cocotb.pe_int8                     mixed[72]: product_q=9379 valid_q=1 acc_q=-7440
+#   3315.00ns INFO     cocotb.pe_int8                     mixed[73]: product_q=1131 valid_q=1 acc_q=1939
+#   3325.00ns INFO     cocotb.pe_int8                     mixed[74]: product_q=-8241 valid_q=1 acc_q=3070
+#   3335.00ns INFO     cocotb.pe_int8                     mixed[75]: product_q=-4180 valid_q=0 acc_q=0
+#   3345.00ns INFO     cocotb.pe_int8                     mixed[76]: product_q=-1242 valid_q=0 acc_q=0
+#   3355.00ns INFO     cocotb.pe_int8                     mixed[77]: product_q=-5467 valid_q=0 acc_q=0
+#   3365.00ns INFO     cocotb.pe_int8                     mixed[78]: product_q=-312 valid_q=0 acc_q=0
+#   3375.00ns INFO     cocotb.pe_int8                     mixed[79]: product_q=-3660 valid_q=0 acc_q=0
+#   3385.00ns INFO     cocotb.pe_int8                     mixed[80]: product_q=11092 valid_q=1 acc_q=0
+#   3395.00ns INFO     cocotb.pe_int8                     mixed[81]: product_q=-2664 valid_q=0 acc_q=11092
+#   3405.00ns INFO     cocotb.pe_int8                     mixed[82]: product_q=-6477 valid_q=0 acc_q=11092
+#   3415.00ns INFO     cocotb.pe_int8                     mixed[83]: product_q=-11400 valid_q=0 acc_q=11092
+#   3425.00ns INFO     cocotb.pe_int8                     mixed[84]: product_q=856 valid_q=0 acc_q=11092
+#   3435.00ns INFO     cocotb.pe_int8                     mixed[85]: product_q=-4312 valid_q=1 acc_q=11092
+#   3445.00ns INFO     cocotb.pe_int8                     mixed[86]: product_q=158 valid_q=0 acc_q=6780
+#   3455.00ns INFO     cocotb.pe_int8                     mixed[87]: product_q=5959 valid_q=1 acc_q=6780
+#   3465.00ns INFO     cocotb.pe_int8                     mixed[88]: product_q=2398 valid_q=1 acc_q=12739
+#   3475.00ns INFO     cocotb.pe_int8                     mixed[89]: product_q=-14208 valid_q=1 acc_q=15137
+#   3485.00ns INFO     cocotb.pe_int8                     mixed[90]: product_q=6566 valid_q=1 acc_q=929
+#   3495.00ns INFO     cocotb.pe_int8                     mixed[91]: product_q=-7620 valid_q=1 acc_q=7495
+#   3505.00ns INFO     cocotb.pe_int8                     mixed[92]: product_q=-2314 valid_q=1 acc_q=-125
+#   3515.00ns INFO     cocotb.pe_int8                     mixed[93]: product_q=1302 valid_q=0 acc_q=-2439
+#   3525.00ns INFO     cocotb.pe_int8                     mixed[94]: product_q=1701 valid_q=1 acc_q=-2439
+#   3535.00ns INFO     cocotb.pe_int8                     mixed[95]: product_q=4316 valid_q=1 acc_q=-738
+#   3545.00ns INFO     cocotb.pe_int8                     mixed[96]: product_q=-1060 valid_q=1 acc_q=3578
+#   3555.00ns INFO     cocotb.pe_int8                     mixed[97]: product_q=5041 valid_q=0 acc_q=2518
+#   3565.00ns INFO     cocotb.pe_int8                     mixed[98]: product_q=-1102 valid_q=1 acc_q=2518
+#   3575.00ns INFO     cocotb.pe_int8                     mixed[99]: product_q=6042 valid_q=1 acc_q=1416
+#   3585.00ns INFO     cocotb.pe_int8                     mixed[100]: product_q=2268 valid_q=0 acc_q=7458
+#   3595.00ns INFO     cocotb.pe_int8                     mixed[101]: product_q=-1764 valid_q=0 acc_q=7458
+#   3605.00ns INFO     cocotb.pe_int8                     mixed[102]: product_q=546 valid_q=1 acc_q=7458
+#   3615.00ns INFO     cocotb.pe_int8                     mixed[103]: product_q=-2142 valid_q=1 acc_q=8004
+#   3625.00ns INFO     cocotb.pe_int8                     mixed[104]: product_q=-81 valid_q=0 acc_q=5862
+#   3635.00ns INFO     cocotb.pe_int8                     mixed[105]: product_q=3572 valid_q=1 acc_q=5862
+#   3645.00ns INFO     cocotb.pe_int8                     mixed[106]: product_q=2736 valid_q=0 acc_q=9434
+#   3655.00ns INFO     cocotb.pe_int8                     mixed[107]: product_q=-1911 valid_q=1 acc_q=9434
+#   3665.00ns INFO     cocotb.pe_int8                     mixed[108]: product_q=-156 valid_q=0 acc_q=7523
+#   3675.00ns INFO     cocotb.pe_int8                     mixed[109]: product_q=-9744 valid_q=0 acc_q=7523
+#   3685.00ns INFO     cocotb.pe_int8                     mixed[110]: product_q=-4158 valid_q=0 acc_q=7523
+#   3695.00ns INFO     cocotb.pe_int8                     mixed[111]: product_q=-2365 valid_q=1 acc_q=7523
+#   3705.00ns INFO     cocotb.pe_int8                     mixed[112]: product_q=-11780 valid_q=1 acc_q=5158
+#   3715.00ns INFO     cocotb.pe_int8                     mixed[113]: product_q=1207 valid_q=1 acc_q=-6622
+#   3725.00ns INFO     cocotb.pe_int8                     mixed[114]: product_q=1848 valid_q=1 acc_q=-5415
+#   3735.00ns INFO     cocotb.pe_int8                     mixed[115]: product_q=1344 valid_q=1 acc_q=-3567
+#   3745.00ns INFO     cocotb.pe_int8                     mixed[116]: product_q=0 valid_q=1 acc_q=-2223
+#   3755.00ns INFO     cocotb.pe_int8                     mixed[117]: product_q=630 valid_q=1 acc_q=-2223
+#   3765.00ns INFO     cocotb.pe_int8                     mixed[118]: product_q=5335 valid_q=1 acc_q=-1593
+#   3775.00ns INFO     cocotb.pe_int8                     mixed[119]: product_q=1089 valid_q=1 acc_q=3742
+#   3785.00ns INFO     cocotb.pe_int8                     mixed[120]: product_q=-3105 valid_q=0 acc_q=4831
+#   3795.00ns INFO     cocotb.pe_int8                     mixed[121]: product_q=-888 valid_q=0 acc_q=4831
+#   3805.00ns INFO     cocotb.pe_int8                     mixed[122]: product_q=13908 valid_q=0 acc_q=4831
+#   3815.00ns INFO     cocotb.pe_int8                     mixed[123]: product_q=-10250 valid_q=0 acc_q=4831
+#   3825.00ns INFO     cocotb.pe_int8                     mixed[124]: product_q=-4368 valid_q=1 acc_q=4831
+#   3835.00ns INFO     cocotb.pe_int8                     mixed[125]: product_q=7665 valid_q=1 acc_q=463
+#   3845.00ns INFO     cocotb.pe_int8                     mixed[126]: product_q=2652 valid_q=1 acc_q=8128
+#   3855.00ns INFO     cocotb.pe_int8                     mixed[127]: product_q=-124 valid_q=1 acc_q=10780
+#   3865.00ns INFO     cocotb.pe_int8                     mixed[128]: product_q=4640 valid_q=1 acc_q=10656
+#   3875.00ns INFO     cocotb.pe_int8                     mixed[129]: product_q=-3564 valid_q=0 acc_q=15296
+#   3885.00ns INFO     cocotb.pe_int8                     mixed[130]: product_q=-11845 valid_q=1 acc_q=15296
+#   3895.00ns INFO     cocotb.pe_int8                     mixed[131]: product_q=6554 valid_q=0 acc_q=3451
+#   3905.00ns INFO     cocotb.pe_int8                     mixed[132]: product_q=2704 valid_q=1 acc_q=0
+#   3915.00ns INFO     cocotb.pe_int8                     mixed[133]: product_q=-264 valid_q=1 acc_q=2704
+#   3925.00ns INFO     cocotb.pe_int8                     mixed[134]: product_q=4209 valid_q=1 acc_q=2440
+#   3935.00ns INFO     cocotb.pe_int8                     mixed[135]: product_q=1818 valid_q=0 acc_q=6649
+#   3945.00ns INFO     cocotb.pe_int8                     mixed[136]: product_q=-3285 valid_q=1 acc_q=6649
+#   3955.00ns INFO     cocotb.pe_int8                     mixed[137]: product_q=1071 valid_q=1 acc_q=3364
+#   3965.00ns INFO     cocotb.pe_int8                     mixed[138]: product_q=4232 valid_q=1 acc_q=4435
+#   3975.00ns INFO     cocotb.pe_int8                     mixed[139]: product_q=800 valid_q=0 acc_q=8667
+#   3985.00ns INFO     cocotb.pe_int8                     mixed[140]: product_q=1254 valid_q=1 acc_q=8667
+#   3995.00ns INFO     cocotb.pe_int8                     mixed[141]: product_q=-165 valid_q=1 acc_q=9921
+#   4005.00ns INFO     cocotb.pe_int8                     mixed[142]: product_q=8475 valid_q=0 acc_q=9756
+#   4015.00ns INFO     cocotb.pe_int8                     mixed[143]: product_q=580 valid_q=1 acc_q=0
+#   4025.00ns INFO     cocotb.pe_int8                     mixed[144]: product_q=6728 valid_q=0 acc_q=580
+#   4035.00ns INFO     cocotb.pe_int8                     mixed[145]: product_q=-11960 valid_q=0 acc_q=580
+#   4045.00ns INFO     cocotb.pe_int8                     mixed[146]: product_q=770 valid_q=1 acc_q=0
+#   4055.00ns INFO     cocotb.pe_int8                     mixed[147]: product_q=2044 valid_q=1 acc_q=770
+#   4065.00ns INFO     cocotb.pe_int8                     mixed[148]: product_q=2673 valid_q=0 acc_q=2814
+#   4075.00ns INFO     cocotb.pe_int8                     mixed[149]: product_q=2289 valid_q=0 acc_q=2814
+#   4085.00ns INFO     cocotb.pe_int8                     mixed[150]: product_q=494 valid_q=0 acc_q=2814
+#   4095.00ns INFO     cocotb.pe_int8                     mixed[151]: product_q=-7802 valid_q=0 acc_q=2814
+#   4105.00ns INFO     cocotb.pe_int8                     mixed[152]: product_q=-11655 valid_q=1 acc_q=2814
+#   4115.00ns INFO     cocotb.pe_int8                     mixed[153]: product_q=-1320 valid_q=1 acc_q=-8841
+#   4125.00ns INFO     cocotb.pe_int8                     mixed[154]: product_q=-1872 valid_q=1 acc_q=-10161
+#   4135.00ns INFO     cocotb.pe_int8                     mixed[155]: product_q=-4141 valid_q=0 acc_q=-12033
+#   4145.00ns INFO     cocotb.pe_int8                     mixed[156]: product_q=7752 valid_q=0 acc_q=-12033
+#   4155.00ns INFO     cocotb.pe_int8                     mixed[157]: product_q=11385 valid_q=1 acc_q=-12033
+#   4165.00ns INFO     cocotb.pe_int8                     mixed[158]: product_q=1320 valid_q=1 acc_q=-648
+#   4175.00ns INFO     cocotb.pe_int8                     mixed[159]: product_q=-1695 valid_q=0 acc_q=672
+#   4185.00ns INFO     cocotb.pe_int8                     mixed[160]: product_q=-1827 valid_q=0 acc_q=672
+#   4195.00ns INFO     cocotb.pe_int8                     mixed[161]: product_q=-1950 valid_q=1 acc_q=672
+#   4205.00ns INFO     cocotb.pe_int8                     mixed[162]: product_q=-864 valid_q=1 acc_q=-1278
+#   4215.00ns INFO     cocotb.pe_int8                     mixed[163]: product_q=4559 valid_q=1 acc_q=-2142
+#   4225.00ns INFO     cocotb.pe_int8                     mixed[164]: product_q=-1904 valid_q=1 acc_q=2417
+#   4235.00ns INFO     cocotb.pe_int8                     mixed[165]: product_q=2295 valid_q=0 acc_q=513
+#   4245.00ns INFO     cocotb.pe_int8                     mixed[166]: product_q=-9500 valid_q=0 acc_q=513
+#   4255.00ns INFO     cocotb.pe_int8                     mixed[167]: product_q=14625 valid_q=0 acc_q=513
+#   4265.00ns INFO     cocotb.pe_int8                     mixed[168]: product_q=-1275 valid_q=0 acc_q=513
+#   4275.00ns INFO     cocotb.pe_int8                     mixed[169]: product_q=300 valid_q=0 acc_q=513
+#   4285.00ns INFO     cocotb.pe_int8                     mixed[170]: product_q=3096 valid_q=1 acc_q=513
+#   4295.00ns INFO     cocotb.pe_int8                     mixed[171]: product_q=1843 valid_q=1 acc_q=3609
+#   4305.00ns INFO     cocotb.pe_int8                     mixed[172]: product_q=6840 valid_q=1 acc_q=5452
+#   4315.00ns INFO     cocotb.pe_int8                     mixed[173]: product_q=8510 valid_q=0 acc_q=12292
+#   4325.00ns INFO     cocotb.pe_int8                     mixed[174]: product_q=70 valid_q=1 acc_q=12292
+#   4335.00ns INFO     cocotb.pe_int8                     mixed[175]: product_q=10414 valid_q=1 acc_q=12362
+#   4345.00ns INFO     cocotb.pe_int8                     mixed[176]: product_q=-770 valid_q=1 acc_q=22776
+#   4355.00ns INFO     cocotb.pe_int8                     mixed[177]: product_q=6944 valid_q=1 acc_q=22006
+#   4365.00ns INFO     cocotb.pe_int8                     mixed[178]: product_q=-225 valid_q=1 acc_q=28950
+#   4375.00ns INFO     cocotb.pe_int8                     mixed[179]: product_q=3472 valid_q=1 acc_q=28725
+#   4385.00ns INFO     cocotb.pe_int8                     mixed[180]: product_q=5616 valid_q=0 acc_q=32197
+#   4395.00ns INFO     cocotb.pe_int8                     mixed[181]: product_q=6384 valid_q=0 acc_q=32197
+#   4405.00ns INFO     cocotb.pe_int8                     mixed[182]: product_q=6327 valid_q=1 acc_q=32197
+#   4415.00ns INFO     cocotb.pe_int8                     mixed[183]: product_q=-11856 valid_q=0 acc_q=38524
+#   4425.00ns INFO     cocotb.pe_int8                     mixed[184]: product_q=-3634 valid_q=0 acc_q=38524
+#   4435.00ns INFO     cocotb.pe_int8                     mixed[185]: product_q=2900 valid_q=0 acc_q=38524
+#   4445.00ns INFO     cocotb.pe_int8                     mixed[186]: product_q=1508 valid_q=0 acc_q=38524
+#   4455.00ns INFO     cocotb.pe_int8                     mixed[187]: product_q=5980 valid_q=1 acc_q=38524
+#   4465.00ns INFO     cocotb.pe_int8                     mixed[188]: product_q=-6200 valid_q=0 acc_q=44504
+#   4475.00ns INFO     cocotb.pe_int8                     mixed[189]: product_q=9167 valid_q=0 acc_q=44504
+#   4485.00ns INFO     cocotb.pe_int8                     mixed[190]: product_q=8554 valid_q=1 acc_q=44504
+#   4495.00ns INFO     cocotb.pe_int8                     mixed[191]: product_q=4725 valid_q=1 acc_q=53058
+#   4505.00ns INFO     cocotb.pe_int8                     mixed[192]: product_q=-1872 valid_q=1 acc_q=57783
+#   4515.00ns INFO     cocotb.pe_int8                     mixed[193]: product_q=216 valid_q=1 acc_q=55911
+#   4525.00ns INFO     cocotb.pe_int8                     mixed[194]: product_q=-1248 valid_q=1 acc_q=56127
+#   4535.00ns INFO     cocotb.pe_int8                     mixed[195]: product_q=376 valid_q=1 acc_q=54879
+#   4545.00ns INFO     cocotb.pe_int8                     mixed[196]: product_q=-9875 valid_q=1 acc_q=55255
+#   4555.00ns INFO     cocotb.pe_int8                     mixed[197]: product_q=1530 valid_q=1 acc_q=45380
+#   4565.00ns INFO     cocotb.pe_int8                     mixed[198]: product_q=7020 valid_q=0 acc_q=46910
+#   4575.00ns INFO     cocotb.pe_int8                     mixed[199]: product_q=-5580 valid_q=1 acc_q=46910
+#   4585.00ns INFO     cocotb.pe_int8                     final clear: product_q=0 valid_q=0 acc_q=0
+#   4585.00ns INFO     cocotb.pe_int8                     valid gating / acc_clear test passed
+#   4585.00ns INFO     cocotb.regression                  test_pe_int8.test_pe_valid_gating_and_clear passed
+#   4585.00ns INFO     cocotb.regression                  *****************************************************************************************************
+#                                                         ** TEST                                         STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         *****************************************************************************************************
+#                                                         ** test_pe_int8.test_pe_directed_corners         PASS        1515.00           0.03      50244.18  **
+#                                                         ** test_pe_int8.test_pe_random_mac               PASS        1035.00           0.02      50250.87  **
+#                                                         ** test_pe_int8.test_pe_valid_gating_and_clear   PASS        2035.00           0.04      50766.28  **
+#                                                         *****************************************************************************************************
+#                                                         ** TESTS=3 PASS=3 FAIL=0 SKIP=0                              4585.00           0.09      49887.58  **
+#                                                         *****************************************************************************************************
+# ** Note: $finish
+#    Time: 4585002 ps  Iteration: 2  Instance: /pe_int8 File: /home/uday-teja/masters/my_dissertion/tb/../src/pe_int8.sv
+# End time: 21:52:56 on Oct 19,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0

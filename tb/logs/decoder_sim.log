@@ -1,0 +1,92 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_decoder.xml
+mkdir -p sim_build
+# Make sure all libs in SOURCES_VHDL_* are mentioned in VHDL_LIB_ORDER and vice versa
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_decoder.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_sparsity_decoder COCOTB_TESTCASE=  COCOTB_TOPLEVEL=sparsity_decoder TOPLEVEL_LANG=verilog       \
+     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 21:56:56 on Oct 19,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/masters/my_dissertion/tb/../src/sparsity_decoder.sv 
+# -- Compiling module sparsity_decoder
+# 
+# Top level modules:
+# 	sparsity_decoder
+# End time: 21:56:56 on Oct 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.sparsity_decoder 
+# Start time: 21:56:56 on Oct 19,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.sparsity_decoder(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792427217
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_sparsity_decoder.test_metadata_exhaustive (1/4)
+#                                                             All 16 metadata encodings x representative operand values.
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_sparsity_decoder.py:43: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           await Timer(SETTLE_NS, units="ns")
+#    784.00ns INFO     cocotb.sparsity_decoder            Exhaustive metadata sweep passed: 784 vectors, 16/16 encodings
+#    784.00ns INFO     cocotb.regression                  test_sparsity_decoder.test_metadata_exhaustive passed
+#    784.00ns INFO     cocotb.regression                  running test_sparsity_decoder.test_legal_2of4_placement (2/4)
+#                                                             For every legal group, exactly two slots are non-pruned and correctly placed.
+#   1024.00ns INFO     cocotb.sparsity_decoder            Legal 2:4 placement verified for all 12 index pairs
+#   1024.00ns INFO     cocotb.regression                  test_sparsity_decoder.test_legal_2of4_placement passed
+#   1024.00ns INFO     cocotb.regression                  running test_sparsity_decoder.test_illegal_metadata_flagged (3/4)
+#                                                             Colliding indices must assert meta_legal=0 and let nz0 win the slot.
+#   1028.00ns INFO     cocotb.sparsity_decoder            Illegal metadata correctly flagged for all 4 collisions
+#   1028.00ns INFO     cocotb.regression                  test_sparsity_decoder.test_illegal_metadata_flagged passed
+#   1028.00ns INFO     cocotb.regression                  running test_sparsity_decoder.test_sparsity_rate_is_exactly_two_of_four (4/4)
+#                                                             The 2:4 contract itself: legal metadata always yields exactly 2 survivors.
+#   1528.00ns INFO     cocotb.sparsity_decoder            2:4 density contract holds over 500 random legal groups
+#   1528.00ns INFO     cocotb.regression                  test_sparsity_decoder.test_sparsity_rate_is_exactly_two_of_four passed
+#   1528.00ns INFO     cocotb.regression                  *************************************************************************************************************************
+#                                                         ** TEST                                                             STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         *************************************************************************************************************************
+#                                                         ** test_sparsity_decoder.test_metadata_exhaustive                    PASS         784.00           0.05      17154.30  **
+#                                                         ** test_sparsity_decoder.test_legal_2of4_placement                   PASS         240.00           0.02      10415.27  **
+#                                                         ** test_sparsity_decoder.test_illegal_metadata_flagged               PASS           4.00           0.00      12049.25  **
+#                                                         ** test_sparsity_decoder.test_sparsity_rate_is_exactly_two_of_four   PASS         500.00           0.04      11869.38  **
+#                                                         *************************************************************************************************************************
+#                                                         ** TESTS=4 PASS=4 FAIL=0 SKIP=0                                                  1528.00           0.11      13564.14  **
+#                                                         *************************************************************************************************************************
+# ** Note: $finish
+#    Time: 1528003 ps  Iteration: 0  Instance: /sparsity_decoder
+# End time: 21:56:57 on Oct 19,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
