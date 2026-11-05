@@ -1,0 +1,132 @@
+PENDING TASKS - Dissertation: Runtime-Adaptive Precision and Sparsity-Aware Systolic Array
+Last updated: 2026-11-05
+Scope: INT8 + INT4x2 + 2:4 sparsity + per-PE clock gating (ICG). FP8 is out of scope (future work).
+
+Run all commands from the project root unless stated. Run simulation/synthesis on the
+machine that has Questa, Yosys, OpenSTA and the full netlists.
+
+======================================================================
+A. ASIC FLOW (the 5 items)
+======================================================================
+
+[ ] A0. Environment
+      export FREEPDK45_LIB=/path/to/NangateOpenCellLibrary_typical.lib
+      export GL_VERILOG=/path/to/NangateOpenCellLibrary.v     # gscl45nm.v cell sim models
+      export NETD=$PWD/synth/asic/reports
+      (tcsh: use setenv.) Activate the cocotb venv; yosys, vsim, sta on PATH.
+      NOTE: do NOT use synth/asic/asic_power_sweep.sh as-is. It calls
+      synth_pe_mixed.tcl (aborts on check -assert) and builds SAIF from a finished
+      .wlf (produces nothing). Use the steps below, or rewrite the script.
+
+[ ] A1. Regenerate pe_mixed netlists (only if needed)
+      cd synth/asic && yosys -c synth_pe_mixed_abcfix.tcl && cd ../..
+      -> reports/pe_mixed_{nogate,gated}_abcfix.v and *_abcfix_stat.txt
+
+[ ] A2. SAIF per sparsity point (0/25/50/75%), both netlists, live POWER=1 run
+      cd tb
+      for s in 0.00 0.25 0.50 0.75; do
+        tag=sp$(printf '%02d' $(echo "$s*100/1" | bc))
+        for cfg in nogate gated; do
+          make clean
+          SAIF_OUT=$NETD/activity_${cfg}_${tag}.saif \
+          make SIM=questa TEST=pe_mixed_gl POWER=1 \
+               GL_NETLIST=$NETD/pe_mixed_${cfg}_abcfix.v GL_LIB_V=$GL_VERILOG \
+               TESTCASE=test_power_stimulus COCOTB_TESTCASE=test_power_stimulus \
+               TB_SPARSITY=$s TB_POWER_CYCLES=4000 \
+            | tee logs/gl_power_${cfg}_${tag}.log
+          [ -s $NETD/activity_${cfg}_${tag}.saif ] || echo "!! EMPTY SAIF: $cfg $tag"
+        done
+      done
+      cd ..
+      Check: each log ran only test_power_stimulus; "measured zero-operand" ~ target.
+      Optional: repeat with TB_POWER_MODE=int4x2 for an INT4x2 curve.
+
+[ ] A3. Power per SAIF
+      OpenSTA (timing + power):
+        cd synth/asic
+        for s in 00 25 50 75; do for cfg in nogate gated; do
+          NETLIST=$NETD/pe_mixed_${cfg}_abcfix.v SAIF=$NETD/activity_${cfg}_sp${s}.saif \
+          TOP=pe_mixed CLK_NS=4.0 sta -exit -f sta_pe.tcl | tee logs/sta_${cfg}_sp${s}.log
+        done; done
+        (If read_saif warns on scope, set SAIF_SCOPE=pe_mixed or tb/pe_mixed.)
+      gl_power.py fallback (ratio only, load-cap model):
+        for s in 00 25 50 75; do for cfg in nogate gated; do
+          ./gl_power.py --liberty $FREEPDK45_LIB --netlist $NETD/pe_mixed_${cfg}_abcfix.v \
+             --saif $NETD/activity_${cfg}_sp${s}.saif --json $NETD/power_${cfg}_sp${s}.json
+        done
+        ./gl_power.py --compare $NETD/power_nogate_sp${s}.json $NETD/power_gated_sp${s}.json
+        done
+
+[ ] A4. pe_int8 gate-level check (never run)
+      cd tb && make clean && make SIM=questa TEST=pe_int8_gl \
+         GL_NETLIST=$NETD/pe_netlist_freepdk45.v GL_LIB_V=$GL_VERILOG \
+         | tee logs/gl_pe_int8_questa_$(date +%Y%m%d).log
+      Follow-up: pe_int8 has no test_power_stimulus, so no SAIF power for it yet.
+      Add one (copy the pe_mixed version) to get an INT8 baseline vs mixed PE.
+
+[ ] A5. Other open ASIC items
+      [ ] ICG latch area: get latch/ICG cell area from the Liberty, add to gated area
+          (current gated 4807.5 vs nogate 4438.6 um2 excludes the 3 ICG latches).
+          grep -n -A3 'cell (.*\(DLL\|DLH\|LATCH\|ICG\)' $FREEPDK45_LIB | head -30
+          grep -iE 'latch|DLL|DLH|\$_DLATCH' $NETD/pe_mixed_gated_abcfix_stat.txt
+      [ ] Copy the FULL pe_mixed_{nogate,gated}_abcfix.v from your machine into
+          synth/asic/reports/ (copies in /proj are trimmed, ~112 of ~1300 cells).
+      [ ] Collect setup timing at 4 ns for pe_mixed
+          (sta_pe.tcl writes reports/sta_<netlist>_setup.rpt).
+
+======================================================================
+B. ANALYSIS / EVALUATION
+======================================================================
+
+[ ] B1. ResNet-18 / MobileNetV2 accuracy validation (PyTorch/NumPy vs INT8 / INT4x2
+        / 2:4 sparse). Nothing exists yet.
+[ ] B2. pJ/MAC comparison table: this design (FPGA + FreePDK45, node noted) vs
+        BitFusion, SCNN, dense INT8 baseline, A100 reference (312 TOPS @ 400 W
+        = 1.28 pJ/MAC). State process-node differences explicitly.
+[ ] B3. Functional coverage: run `make TEST=pe COVERAGE=1` (and TEST=array), record the
+        percentage, fill the placeholder in docs/09_verification.md section 6.2.
+        Target > 90% (plan) / > 95% (outline). Coverage exists only for pe_int8.
+[ ] B4. INT4x2 throughput 1.53x vs 1.8-2.0x target: re-measure with a longer stream,
+        or keep the testbench-stream-length explanation (docs/04).
+[ ] B5. Caveats to state in the write-up:
+        - FPGA SAIF: only 11-12% of nets matched (RTL-sim SAIF vs routed netlist)
+        - FPGA gating saving is flat ~19-22% even at 0% sparsity because mac_active also
+          gates idle (valid_in=0) cycles
+        - "full" config run at 4.05 ns vs 4.0 ns for the others
+        - FPGA power = operand isolation + clock enable, NOT true ICG
+
+======================================================================
+C. DOCUMENTS
+======================================================================
+
+[ ] C1. Update mid_term_progress_report.md and mid_sem_review_presentation.html
+        (stale: say ASIC flow not run, pe_mixed parked, array_sparse rerun pending,
+        FPGA power is the uniform-toggle placeholder).
+[ ] C2. Fill dissertation_outline_abstract.md placeholders (course no., name, ID,
+        organization, dates, supervisor/examiner details, supervisor remarks).
+[ ] C3. Mark dissertation_expert_plan_v2.md as superseded (still FP8-centred).
+[ ] C4. Write the dissertation/paper: architecture, implementation, evaluation, design
+        insights; limitations (FPGA vs ASIC power, FP8 scoped out per plan B.5);
+        figures (power vs sparsity, area breakdown, pJ/MAC table); IEEE template;
+        advisor review.
+[ ] C5. README.md + open-source release (RTL cleanup, module headers, repo setup).
+        Project folder is not a git repo.
+
+======================================================================
+D. HOUSEKEEPING
+======================================================================
+
+[ ] D1. Clean synth/fpga/: .Xil/, .crashReporter/, featurestore*.json,
+        hs_mangled_err*.log, backup/sweep logs.
+[ ] D2. .copilotignore is 26 KB of Vivado globs unrelated to this project - remove/trim.
+
+======================================================================
+DONE (for reference)
+======================================================================
+- All 8 RTL modules + docs/01-09
+- RTL cocotb: pe_int8, pe_mixed (exhaustive), array, array_mixed, decoder, array_sparse (6/6)
+- pe_mixed gate-level cocotb 8/8 on gated and nogate netlists (2026-11-04)
+- FPGA: 4 configs timing-closed (~250 MHz), SAIF power sweep at 0/25/50/75% done
+- ASIC pe_int8: sky130 4930.98 um2, FreePDK45 2417.83 um2, timing closed
+- ASIC pe_mixed netlists usable (Yosys CHECK warning is a false alarm)
+- FP8 formally dropped (2026-10-29)
