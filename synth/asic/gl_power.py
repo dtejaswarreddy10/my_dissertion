@@ -208,11 +208,19 @@ def parse_saif(path):
     )
     for m in net_re.finditer(text):
         name = m.group(1)
+
+        # Normalize escaped Verilog bus brackets.
+        name = name.replace(r"\[", "[").replace(r"\]", "]")
+
+        # Normalize escaped hierarchy separators.
+        name = name.replace(r"\.", ".")
+
+        # Remove optional Verilog escaped-identifier prefix.
         if name.startswith("\\"):
             name = name[1:]
-        # Leaf name: the PE netlist is flattened, so hierarchy is not needed.
-        leaf = name.split("/")[-1]
-        toggles[leaf] = toggles.get(leaf, 0) + int(m.group(2))
+
+        # Preserve full hierarchical signal name.
+        toggles[name] = toggles.get(name, 0) + int(m.group(2)) 
 
     if not toggles:
         raise RuntimeError(f"no net toggle records parsed from SAIF {path}")

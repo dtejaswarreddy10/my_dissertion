@@ -1,0 +1,28 @@
+Startpoint: _2482_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _2481_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _2482_/CLK (DFFPOSX1)
+   0.0699    0.0699 ^ _2482_/Q (DFFPOSX1)
+   0.0319    0.1018 ^ _2109_/Y (AND2X2)
+   0.0000    0.1018 ^ _2481_/D (DFFPOSX1)
+             0.1018   data arrival time
+
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000   clock reconvergence pessimism
+             0.0000 ^ _2481_/CLK (DFFPOSX1)
+  -0.0198   -0.0198   library hold time
+            -0.0198   data required time
+-------------------------------------------------------------
+            -0.0198   data required time
+            -0.1018   data arrival time
+-------------------------------------------------------------
+             0.1216   slack (MET)
+
+

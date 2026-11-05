@@ -1,0 +1,157 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_pe_mixed_gl.xml
+mkdir -p sim_build
+# Make sure all libs in SOURCES_VHDL_* are mentioned in VHDL_LIB_ORDER and vice versa
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_pe_mixed_gl.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_pe_mixed COCOTB_TESTCASE=test_power_stimulus  COCOTB_TOPLEVEL=pe_mixed TOPLEVEL_LANG=verilog       \
+/home/uday-teja/masters/my_dissertion/tb/power_vsim_wrapper.sh     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+INFO: Updated runsim.do:
+  vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf +notimingchecks -do /home/uday-teja/masters/my_dissertion/tb/power.do -onfinish stop -pli /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so   work.pe_mixed
+  run -all
+  power report -all -bsaif $env(SAIF_OUT)
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 00:15:53 on Nov 06,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.v /home/uday-teja/masters/my_dissertion/synth/asic/reports/pe_mixed_gated_abcfix.v 
+# -- Compiling module AND2X1
+# -- Compiling module AND2X2
+# -- Compiling module AOI21X1
+# -- Compiling module AOI22X1
+# -- Compiling module BUFX2
+# -- Compiling module BUFX4
+# -- Compiling module CLKBUF1
+# -- Compiling module CLKBUF2
+# -- Compiling module CLKBUF3
+# -- Compiling module DFFNEGX1
+# -- Compiling module DFFPOSX1
+# -- Compiling module DFFSR
+# -- Compiling module FAX1
+# -- Compiling module HAX1
+# -- Compiling module INVX1
+# -- Compiling module INVX2
+# -- Compiling module INVX4
+# -- Compiling module INVX8
+# -- Compiling module LATCH
+# -- Compiling module MUX2X1
+# -- Compiling module NAND2X1
+# -- Compiling module NAND3X1
+# -- Compiling module NOR2X1
+# -- Compiling module NOR3X1
+# -- Compiling module OAI21X1
+# -- Compiling module OAI22X1
+# -- Compiling module OR2X1
+# -- Compiling module OR2X2
+# -- Compiling module TBUFX1
+# -- Compiling module TBUFX2
+# -- Compiling module XNOR2X1
+# -- Compiling module XOR2X1
+# -- Compiling UDP udp_dff
+# -- Compiling UDP udp_tlat
+# -- Compiling UDP udp_rslat
+# -- Compiling UDP udp_mux2
+# -- Compiling module pe_mixed
+# 
+# Top level modules:
+# 	AND2X1
+# 	BUFX2
+# 	BUFX4
+# 	CLKBUF1
+# 	CLKBUF2
+# 	CLKBUF3
+# 	DFFNEGX1
+# 	DFFSR
+# 	FAX1
+# 	HAX1
+# 	INVX2
+# 	INVX4
+# 	INVX8
+# 	LATCH
+# 	OAI22X1
+# 	OR2X1
+# 	TBUFX1
+# 	TBUFX2
+# 	pe_mixed
+# End time: 00:15:53 on Nov 06,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf "+notimingchecks" -do "/home/uday-teja/masters/my_dissertion/tb/power.do" -onfinish stop -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.pe_mixed 
+# Start time: 00:15:53 on Nov 06,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.pe_mixed(fast)
+# Loading work.OR2X2(fast)
+# Loading work.AND2X2(fast)
+# Loading work.NOR3X1(fast)
+# Loading work.NOR2X1(fast)
+# Loading work.XOR2X1(fast)
+# Loading work.XNOR2X1(fast)
+# Loading work.AOI21X1(fast)
+# Loading work.NAND3X1(fast)
+# Loading work.NAND2X1(fast)
+# Loading work.OAI21X1(fast)
+# Loading work.INVX1(fast)
+# Loading work.MUX2X1(fast)
+# Loading work.AOI22X1(fast)
+# Loading work.DFFPOSX1(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+# do /home/uday-teja/masters/my_dissertion/tb/power.do
+# /home/uday-teja/masters/my_dissertion/synth/asic/reports/activity_gated_sp00.saif
+INFO: SAIF output path: /home/uday-teja/masters/my_dissertion/synth/asic/reports/activity_gated_sp00.saif
+INFO: Questa power tracking enabled
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1793904355
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/regression.py:1190: DeprecationWarning: COCOTB_TESTCASE is deprecated in favor of COCOTB_TEST_FILTER
+#                                                           _setup_regression_manager()
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_pe_mixed.test_power_stimulus (1/1)
+#                                                             Long run with a controlled zero-operand fraction (TB_SPARSITY) and
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:345: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#     15.00ns INFO     cocotb.pe_mixed                    Power stimulus: mode=int8 sparsity=0% idle=0% cycles=4000
+#  40015.00ns INFO     cocotb.pe_mixed                    Power stimulus complete: 4000 valid cycles, measured zero-operand 0.0% (target 0%)
+#  40015.00ns INFO     cocotb.regression                  test_pe_mixed.test_power_stimulus passed
+#  40015.00ns INFO     cocotb.regression                  *******************************************************************************************
+#                                                         ** TEST                               STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         *******************************************************************************************
+#                                                         ** test_pe_mixed.test_power_stimulus   PASS       40015.00           1.45      27540.49  **
+#                                                         *******************************************************************************************
+#                                                         ** TESTS=1 PASS=1 FAIL=0 SKIP=0                   40015.00           1.45      27532.39  **
+#                                                         *******************************************************************************************
+# ** Note: $finish
+#    Time: 40015 ns  Iteration: 2  Instance: /pe_mixed File: /home/uday-teja/masters/my_dissertion/synth/asic/reports/pe_mixed_gated_abcfix.v
+# Simulation stop requested.
+# End time: 00:15:56 on Nov 06,2026, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0

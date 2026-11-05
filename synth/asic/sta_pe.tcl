@@ -31,6 +31,7 @@ proc env_or {name default} {
 }
 
 set here    [file normalize [file dirname [info script]]]
+set report_dir [env_or REPORT_DIR [file join [pwd] synth/asic/reports]]
 set lib     [env_or FREEPDK45_LIB "/path/to/FreePDK45/stdcells.lib"]
 set top     [env_or TOP           pe_mixed]
 set netlist [env_or NETLIST       $here/reports/pe_mixed_gated.v]
@@ -48,7 +49,7 @@ if {![file exists $netlist]} {
 
 set saif_scope [env_or SAIF_SCOPE $top]
 set tag [file rootname [file tail $netlist]]
-file mkdir $here/reports
+file mkdir $report_dir
 
 puts "INFO: lib=$lib"
 puts "INFO: netlist=$netlist  top=$top  clk=${clk_ns}ns"
@@ -85,10 +86,10 @@ set_output_delay -clock clk [expr {$clk_ns * 0.2}] [all_outputs]
 catch { set_load 0.005 [all_outputs] }
 
 # --- Timing -------------------------------------------------------------------
-report_checks -path_delay max -digits 4 > $here/reports/sta_${tag}_setup.rpt
-report_checks -path_delay min -digits 4 > $here/reports/sta_${tag}_hold.rpt
+report_checks -path_delay max -digits 4 > $report_dir/sta_${tag}_setup.rpt
+report_checks -path_delay min -digits 4 > $report_dir/sta_${tag}_hold.rpt
 report_check_types -max_slew -max_capacitance -violators \
-    > $here/reports/sta_${tag}_drc.rpt
+    > $report_dir/sta_${tag}_drc.rpt
 
 puts "INFO: setup/hold reports -> reports/sta_${tag}_*.rpt"
 report_checks -path_delay max -digits 4
@@ -100,11 +101,11 @@ if {$saif ne "" && [file exists $saif]} {
         puts "WARN: read_saif failed ($msg)"
         puts "WARN: falling back to gl_power.py for the dynamic-power estimate"
     }
-    set pwr_file $here/reports/power_${tag}_saif.rpt
+    set pwr_file $report_dir/power_${tag}_saif.rpt
 } else {
     puts "WARN: no SAIF supplied - power below uses default activity and is NOT"
     puts "WARN: the number to quote. Produce a SAIF via asic_power_sweep.sh."
-    set pwr_file $here/reports/power_${tag}_default.rpt
+    set pwr_file $report_dir/power_${tag}_default.rpt
 }
 
 if {[catch {
