@@ -1,9 +1,9 @@
 """
-cocotb testbench for rtl/pe_mixed.sv (precision-adaptive INT8 / INT4x2 PE).
+cocotb testbench for src/pe_mixed.sv (precision-adaptive INT8 / INT4x2 PE).
 
 Checks the PE against golden/golden_model.py using a cycle-accurate shadow of
 the 3-stage pipeline (a stage was added post-baseline for FPGA timing closure
-- see rtl/pe_mixed.sv header). The product for a given (a, b, mode) is formed
+- see src/pe_mixed.sv header). The product for a given (a, b, mode) is formed
 one cycle after they are captured, and accumulated one cycle after that, so
 acc_result is now visible 2 cycles after the operands arrive (was 1). The
 model captures mode alongside the operands at every stage - this is what
@@ -43,7 +43,7 @@ class PEMixedModel:
     """Cycle-accurate shadow of pe_mixed.sv (one call == one posedge).
 
     3-stage MAC pipeline (stage A was added post-baseline for FPGA timing
-    closure - see rtl/pe_mixed.sv header):
+    closure - see src/pe_mixed.sv header):
         stage A : (a, b, mode) for this cycle captured -> stage_a/valid_a
         stage B : product_q formed from the PREVIOUS cycle's stage_a,
                   valid_b tracks whether that product is real
@@ -324,3 +324,49 @@ async def test_mode_change_does_not_corrupt_inflight(dut):
         await drive_and_check(dut, model, mode, a, b, valid, clear, ctx=f"churn[{n}]")
 
     dut._log.info("In-flight mode-change test passed")
+
+
+# ---------------------------------------------------------------------------
+# Power stimulus - controlled operand sparsity for SAIF-based power
+# ---------------------------------------------------------------------------
+
+POWER_SPARSITY = float(os.environ.get("TB_SPARSITY", "0.50"))
+POWER_IDLE = float(os.environ.get("TB_IDLE", "0.0"))
+POWER_CYCLES = int(os.environ.get("TB_POWER_CYCLES", "4000"))
+POWER_MODE = MODE_INT4X2 if os.environ.get("TB_POWER_MODE", "int8") == "int4x2" else MODE_INT8
+
+
+@cocotb.test()
+async def test_power_stimulus(dut):
+    """Long run with a controlled zero-operand fraction (TB_SPARSITY) and
+    idle-cycle fraction (TB_IDLE). Defaults to TB_IDLE=0 so that gating
+    savings are due to zero operands only, not idle cycles. Still checks every
+    cycle against the golden model."""
+    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+    model = PEMixedModel()
+    await reset_dut(dut, model, POWER_MODE)
+    rng = random.Random(SEED + 100)
+
+    dut._log.info(
+        "Power stimulus: mode=%s sparsity=%.0f%% idle=%.0f%% cycles=%d",
+        "int4x2" if POWER_MODE == MODE_INT4X2 else "int8",
+        POWER_SPARSITY * 100, POWER_IDLE * 100, POWER_CYCLES,
+    )
+
+    a, b = 0, 0
+    n_valid = n_zero = 0
+    for cyc in range(POWER_CYCLES):
+        clear = 1 if cyc % 32 == 31 else 0
+        if rng.random() < POWER_IDLE:
+            await drive_and_check(dut, model, POWER_MODE, a, b, 0, clear, ctx="pwr idle")
+            continue
+        a = 0 if rng.random() < POWER_SPARSITY else rng.randint(1, 255)
+        b = rng.randint(1, 255)
+        n_valid += 1
+        n_zero += (a == 0)
+        await drive_and_check(dut, model, POWER_MODE, a, b, 1, clear, ctx="pwr")
+
+    dut._log.info(
+        "Power stimulus complete: %d valid cycles, measured zero-operand %.1f%% (target %.0f%%)",
+        n_valid, 100.0 * n_zero / max(n_valid, 1), POWER_SPARSITY * 100,
+    )
