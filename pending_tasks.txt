@@ -130,3 +130,60 @@ DONE (for reference)
 - ASIC pe_int8: sky130 4930.98 um2, FreePDK45 2417.83 um2, timing closed
 - ASIC pe_mixed netlists usable (Yosys CHECK warning is a false alarm)
 - FP8 formally dropped (2026-10-29)
+
+
+
+------------------------------------------------------------------------------
+Run these in synth/asic/ on the machine that has sta and the SAIF files.
+
+0. Environment
+
+cd /home/uday-teja/masters/my_dissertion/synth/asic
+export FREEPDK45_LIB=/path/to/the_same_liberty_you_used_for_yosys.lib
+export NETD=$PWD/reports
+mkdir -p logs
+
+1. Check the SAIF scope first
+
+A wrong scope silently annotates nothing, so look before running:
+
+head -30 $NETD/activity_gated_sp50.saif
+
+Find the first (INSTANCE ...) line. For a run with work.pe_mixed as top, the name should be pe_mixed. If it is something else, such as tb/pe_mixed, use that as SAIF_SCOPE below.
+
+2. One trial run (gated, 50%) before the loop
+
+NETLIST=$NETD/pe_mixed_gated_abcfix.v SAIF=$NETD/activity_gated_sp50.saif \
+SAIF_SCOPE=pe_mixed TOP=pe_mixed CLK_NS=4.0 \
+  sta -exit -f sta_pe.tcl | tee logs/sta_gated_sp50.log
+
+Check the log for three things:
+- SAIF annotation: no read_saif failed warning. If you see one, fix the scope before continuing.
+- Power report: no report_power unavailable.
+- Internal power: the Internal column is not zero. If it is zero for everything, the Liberty file has no power tables, so OpenSTA can only give leakage and you should stay with the gl_power.py numbers. In that case, send me the log and I'll confirm.
+
+3. All eight power runs
+
+for cfg in nogate gated; do
+  for s in 00 25 50 75; do
+    NETLIST=$NETD/pe_mixed_${cfg}_abcfix.v SAIF=$NETD/activity_${cfg}_sp${s}.saif \
+    SAIF_SCOPE=pe_mixed TOP=pe_mixed CLK_NS=4.0 \
+      sta -exit -f sta_pe.tcl | tee logs/sta_${cfg}_sp${s}.log
+    cp $NETD/power_pe_mixed_${cfg}_abcfix_saif.rpt $NETD/power_${cfg}_sp${s}_opensta.rpt
+  done
+done
+
+The cp is needed because the script overwrites the power report each time. Check the real file name in reports/ after the first run. It is named after the netlist.
+
+4. What to send back
+
+for f in logs/sta_*_sp*.log; do
+  echo "=== $f"
+  grep -iE "read_saif|annotat|WARN|ERROR|Internal|Switching|Leakage|Total|Sequential|Combinational|Clock|slack" $f
+done
+
+plus reports/sta_pe_mixed_nogate_abcfix_setup.rpt and sta_pe_mixed_gated_abcfix_setup.rpt.
+
+A sanity check for you
+
+The gl_power.py result for the clk net was about 106 µW (no-gate). Compare it with the clock-net switching power in the OpenSTA report. They should be roughly the same order. If OpenSTA's is about 2.5× higher, it has scaled the activity to the 4 ns clock instead of the 10 ns simulation clock. That matters for the pJ/MAC row (energy per cycle uses the matching period), so tell me what you see.
