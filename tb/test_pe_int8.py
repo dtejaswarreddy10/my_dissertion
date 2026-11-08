@@ -164,3 +164,131 @@ async def test_pe_valid_gating_and_clear(dut):
     await drive_and_check(dut, model, 0, 0, 0, 1, ctx="final clear")
     assert model.acc == 0, "acc_clear did not zero the accumulator"
     dut._log.info("valid gating / acc_clear test passed")
+
+# ---------------------------------------------------------------------------
+# Power stimulus - controlled INT8 operand sparsity for SAIF estimation
+# ---------------------------------------------------------------------------
+
+POWER_SPARSITY = float(os.environ.get("TB_SPARSITY", "0.50"))
+POWER_IDLE = float(os.environ.get("TB_IDLE", "0.0"))
+POWER_CYCLES = int(os.environ.get("TB_POWER_CYCLES", "4000"))
+
+
+@cocotb.test()
+async def test_power_stimulus(dut):
+    """
+    INT8 power workload with controlled A-input zero sparsity.
+
+    Defaults:
+      TB_SPARSITY      = 0.50
+      TB_IDLE          = 0.0
+      TB_POWER_CYCLES  = 4000
+    """
+    cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+
+    model = PEModel()
+    await reset_dut(dut, model)
+
+    rng = random.Random(SEED + 100)
+
+    dut._log.info(
+        "INT8 power stimulus: sparsity=%.0f%% idle=%.0f%% cycles=%d",
+        POWER_SPARSITY * 100,
+        POWER_IDLE * 100,
+        POWER_CYCLES,
+    )
+
+    n_valid = 0
+    n_zero = 0
+
+    for cyc in range(POWER_CYCLES):
+        clear = 1 if cyc % 32 == 31 else 0
+
+        if rng.random() < POWER_IDLE:
+            await drive_and_check(
+                dut, model, 0, 0, 0, clear, ctx="power idle"
+            )
+            continue
+
+        a = 0 if rng.random() < POWER_SPARSITY else rng.randint(1, 255)
+        b = rng.randint(1, 255)
+
+        n_valid += 1
+        n_zero += int(a == 0)
+
+        await drive_and_check(
+            dut, model, a, b, 1, clear, ctx="power"
+        )
+
+    measured = 100.0 * n_zero / max(n_valid, 1)
+
+    dut._log.info(
+        "INT8 power stimulus complete: %d valid cycles, "
+        "measured A-zero sparsity %.1f%% (target %.0f%%)",
+        n_valid,
+        measured,
+        POWER_SPARSITY * 100,
+    )
+
+
+@cocotb.test()
+async def test_power_capture(dut):
+    """INT8 gate-level power capture without functional assertions."""
+
+    cocotb.start_soon(
+        Clock(dut.clk, CLK_PERIOD_NS, unit="ns").start()
+    )
+
+    dut.rst.value = 1
+    dut.valid_in.value = 0
+    dut.acc_clear.value = 0
+    dut.a_in.value = 0
+    dut.b_in.value = 0
+
+    for _ in range(2):
+        await RisingEdge(dut.clk)
+
+    await FallingEdge(dut.clk)
+    dut.rst.value = 0
+
+    rng = random.Random(SEED + 100)
+
+    n_valid = 0
+    n_zero = 0
+    n_idle = 0
+
+    dut._log.info(
+        "INT8 power capture: sparsity=%.0f%% idle=%.0f%% cycles=%d",
+        POWER_SPARSITY * 100,
+        POWER_IDLE * 100,
+        POWER_CYCLES,
+    )
+
+    for cyc in range(POWER_CYCLES):
+        clear = 1 if cyc % 32 == 31 else 0
+
+        if rng.random() < POWER_IDLE:
+            a, b, valid = 0, 0, 0
+            n_idle += 1
+        else:
+            a = 0 if rng.random() < POWER_SPARSITY else rng.randint(1, 255)
+            b = rng.randint(1, 255)
+            valid = 1
+            n_valid += 1
+            n_zero += int(a == 0)
+
+        dut.a_in.value = a
+        dut.b_in.value = b
+        dut.valid_in.value = valid
+        dut.acc_clear.value = clear
+
+        await RisingEdge(dut.clk)
+        await FallingEdge(dut.clk)
+
+    measured = 100.0 * n_zero / max(n_valid, 1)
+
+    dut._log.info(
+        "INT8 power capture complete: cycles=%d valid=%d idle=%d "
+        "zero_operands=%d measured_sparsity=%.2f%%",
+        POWER_CYCLES, n_valid, n_idle, n_zero, measured,
+    )

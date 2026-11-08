@@ -1,0 +1,105 @@
+{
+  "netlist": "synth/asic/reports/pe_mixed_nogate_abcfix.v",
+  "saif": "synth/asic/reports/activity_mixed_nogate_int4x2_sp000.saif",
+  "vdd_v": 1.1,
+  "duration_s": 4.0014999999999996e-05,
+  "instances": 1312,
+  "nets_in_netlist": 1333,
+  "nets_matched_in_saif": 1333,
+  "nets_unmatched": 0,
+  "unknown_pin_caps": 0,
+  "dynamic_power_w": 0.0002532725969185442,
+  "clock_net_power_w": 0.00010646952502999975,
+  "top_nets": [
+    {
+      "net": "clk",
+      "cap_f": 8.799134299999978e-13,
+      "toggles": 8003,
+      "power_w": 0.00010646952502999975
+    },
+    {
+      "net": "product_q[17]",
+      "cap_f": 9.693038000000003e-14,
+      "toggles": 1941,
+      "power_w": 2.8445790300112475e-06
+    },
+    {
+      "net": "b_in[7]",
+      "cap_f": 5.018808000000001e-14,
+      "toggles": 2010,
+      "power_w": 1.5252084139447712e-06
+    },
+    {
+      "net": "_0348_",
+      "cap_f": 3.9867559999999996e-14,
+      "toggles": 1927,
+      "power_w": 1.161539343061352e-06
+    },
+    {
+      "net": "_0869_",
+      "cap_f": 1.905987e-14,
+      "toggles": 3940,
+      "power_w": 1.1353995281519433e-06
+    },
+    {
+      "net": "_0782_",
+      "cap_f": 3.053294e-14,
+      "toggles": 2010,
+      "power_w": 9.278915828314384e-07
+    },
+    {
+      "net": "a_in[7]",
+      "cap_f": 2.703481e-14,
+      "toggles": 1981,
+      "power_w": 8.097302251418221e-07
+    },
+    {
+      "net": "a_in[3]",
+      "cap_f": 2.44143e-14,
+      "toggles": 2009,
+      "power_w": 7.415778798825442e-07
+    },
+    {
+      "net": "a_in[6]",
+      "cap_f": 2.4411880000000003e-14,
+      "toggles": 1937,
+      "power_w": 7.149298011695617e-07
+    },
+    {
+      "net": "b_in[5]",
+      "cap_f": 2.322904e-14,
+      "toggles": 1940,
+      "power_w": 6.813426027239786e-07
+    },
+    {
+      "net": "_0795_",
+      "cap_f": 2.215089e-14,
+      "toggles": 2009,
+      "power_w": 6.728274021254531e-07
+    },
+    {
+      "net": "_0778_",
+      "cap_f": 2.21228e-14,
+      "toggles": 2010,
+      "power_w": 6.723086577533427e-07
+    },
+    {
+      "net": "b_in[0]",
+      "cap_f": 2.217235e-14,
+      "toggles": 1981,
+      "power_w": 6.640927736286394e-07
+    },
+    {
+      "net": "b_in[1]",
+      "cap_f": 2.157975e-14,
+      "toggles": 2009,
+      "power_w": 6.55479176277646e-07
+    },
+    {
+      "net": "_0175_",
+      "cap_f": 7.93147e-15,
+      "toggles": 5337,
+      "power_w": 6.400051108571786e-07
+    }
+  ]
+}

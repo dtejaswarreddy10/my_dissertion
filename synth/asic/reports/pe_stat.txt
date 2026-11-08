@@ -1,30 +1,30 @@
 
-7. Printing statistics.
+13. Printing statistics.
 
 === pe_int8 ===
 
-   Number of wires:                682
-   Number of wire bits:            803
+   Number of wires:                718
+   Number of wire bits:            839
    Number of public wires:          13
    Number of public wire bits:     134
    Number of memories:               0
    Number of memory bits:            0
    Number of processes:              0
-   Number of cells:                734
-     AND2X1                         69
-     AOI21X1                        49
+   Number of cells:                770
+     AND2X1                         71
+     AOI21X1                        57
      AOI22X1                         9
      DFFPOSX1                       65
-     INVX1                          31
-     MUX2X1                         14
-     NAND2X1                       159
-     NAND3X1                        21
-     NOR2X1                         53
-     NOR3X1                          8
-     OAI21X1                        71
-     OR2X1                          38
-     XNOR2X1                        58
-     XOR2X1                         89
+     INVX1                          40
+     MUX2X1                         16
+     NAND2X1                       187
+     NAND3X1                        25
+     NOR2X1                         49
+     NOR3X1                         12
+     OAI21X1                        64
+     OR2X1                          43
+     XNOR2X1                        57
+     XOR2X1                         75
 
-   Chip area for module '\pe_int8': 2417.833600
+   Chip area for module '\pe_int8': 2450.684600
 

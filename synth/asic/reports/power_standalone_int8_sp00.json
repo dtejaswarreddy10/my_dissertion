@@ -1,0 +1,105 @@
+{
+  "netlist": "synth/asic/reports/pe_netlist_freepdk45.v",
+  "saif": "synth/asic/reports/activity_int8_sp00_poweronly.saif",
+  "vdd_v": 1.1,
+  "duration_s": 4.0014999999999996e-05,
+  "instances": 770,
+  "nets_in_netlist": 790,
+  "nets_matched_in_saif": 790,
+  "nets_unmatched": 0,
+  "unknown_pin_caps": 0,
+  "dynamic_power_w": 0.000213298694119935,
+  "clock_net_power_w": 6.467774884999999e-05,
+  "top_nets": [
+    {
+      "net": "clk",
+      "cap_f": 5.345268499999997e-13,
+      "toggles": 8003,
+      "power_w": 6.467774884999999e-05
+    },
+    {
+      "net": "product_q[15]",
+      "cap_f": 1.1405503000000002e-13,
+      "toggles": 1920,
+      "power_w": 3.310916477520931e-06
+    },
+    {
+      "net": "a_in[7]",
+      "cap_f": 3.235267999999999e-14,
+      "toggles": 1981,
+      "power_w": 9.690078406447583e-07
+    },
+    {
+      "net": "b_in[7]",
+      "cap_f": 3.0637080000000004e-14,
+      "toggles": 2010,
+      "power_w": 9.310563822066728e-07
+    },
+    {
+      "net": "_0318_",
+      "cap_f": 2.645706e-14,
+      "toggles": 2276,
+      "power_w": 9.104296508509312e-07
+    },
+    {
+      "net": "b_in[1]",
+      "cap_f": 2.7154760000000004e-14,
+      "toggles": 2009,
+      "power_w": 8.248186247207301e-07
+    },
+    {
+      "net": "a_in[3]",
+      "cap_f": 2.6582739999999998e-14,
+      "toggles": 2009,
+      "power_w": 8.07443669106585e-07
+    },
+    {
+      "net": "b_in[5]",
+      "cap_f": 2.741298e-14,
+      "toggles": 1940,
+      "power_w": 8.040638417093594e-07
+    },
+    {
+      "net": "b_in[6]",
+      "cap_f": 2.7120610000000003e-14,
+      "toggles": 1952,
+      "power_w": 8.004087363638638e-07
+    },
+    {
+      "net": "_0306_",
+      "cap_f": 8.00889e-15,
+      "toggles": 6381,
+      "power_w": 7.726692462688994e-07
+    },
+    {
+      "net": "_0223_",
+      "cap_f": 8.49826e-15,
+      "toggles": 5999,
+      "power_w": 7.707995090016245e-07
+    },
+    {
+      "net": "_0224_",
+      "cap_f": 7.69349e-15,
+      "toggles": 6513,
+      "power_w": 7.575948700199926e-07
+    },
+    {
+      "net": "b_in[2]",
+      "cap_f": 2.486539e-14,
+      "toggles": 1999,
+      "power_w": 7.515201384243412e-07
+    },
+    {
+      "net": "_0266_",
+      "cap_f": 8.49826e-15,
+      "toggles": 5847,
+      "power_w": 7.512693330775961e-07
+    },
+    {
+      "net": "_0269_",
+      "cap_f": 7.58394e-15,
+      "toggles": 6545,
+      "power_w": 7.504764917281021e-07
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "netlist": "synth/asic/reports/pe_netlist_freepdk45.v",
+  "saif": "synth/asic/reports/activity_int8_sp25_poweronly.saif",
+  "vdd_v": 1.1,
+  "duration_s": 4.0014999999999996e-05,
+  "instances": 770,
+  "nets_in_netlist": 790,
+  "nets_matched_in_saif": 790,
+  "nets_unmatched": 0,
+  "unknown_pin_caps": 0,
+  "dynamic_power_w": 0.00019600143712450444,
+  "clock_net_power_w": 6.467774884999999e-05,
+  "top_nets": [
+    {
+      "net": "clk",
+      "cap_f": 5.345268499999997e-13,
+      "toggles": 8003,
+      "power_w": 6.467774884999999e-05
+    },
+    {
+      "net": "product_q[15]",
+      "cap_f": 1.1405503000000002e-13,
+      "toggles": 1984,
+      "power_w": 3.4212803601049623e-06
+    },
+    {
+      "net": "a_in[7]",
+      "cap_f": 3.235267999999999e-14,
+      "toggles": 1872,
+      "power_w": 9.156903976208923e-07
+    },
+    {
+      "net": "b_in[7]",
+      "cap_f": 3.0637080000000004e-14,
+      "toggles": 1976,
+      "power_w": 9.153071697713361e-07
+    },
+    {
+      "net": "b_in[1]",
+      "cap_f": 2.7154760000000004e-14,
+      "toggles": 2059,
+      "power_w": 8.453467139372738e-07
+    },
+    {
+      "net": "b_in[5]",
+      "cap_f": 2.741298e-14,
+      "toggles": 2022,
+      "power_w": 8.380500453280023e-07
+    },
+    {
+      "net": "b_in[6]",
+      "cap_f": 2.7120610000000003e-14,
+      "toggles": 1972,
+      "power_w": 8.086096455479198e-07
+    },
+    {
+      "net": "b_in[2]",
+      "cap_f": 2.486539e-14,
+      "toggles": 2036,
+      "power_w": 7.654302160239912e-07
+    },
+    {
+      "net": "b_in[4]",
+      "cap_f": 2.5328860000000004e-14,
+      "toggles": 1995,
+      "power_w": 7.63996021454455e-07
+    },
+    {
+      "net": "a_in[3]",
+      "cap_f": 2.6582739999999998e-14,
+      "toggles": 1885,
+      "power_w": 7.576064292015495e-07
+    },
+    {
+      "net": "_0318_",
+      "cap_f": 2.645706e-14,
+      "toggles": 1886,
+      "power_w": 7.544245700812198e-07
+    },
+    {
+      "net": "_0223_",
+      "cap_f": 8.49826e-15,
+      "toggles": 5602,
+      "power_w": 7.197897732000502e-07
+    },
+    {
+      "net": "b_in[3]",
+      "cap_f": 2.4517260000000003e-14,
+      "toggles": 1929,
+      "power_w": 7.150504984805701e-07
+    },
+    {
+      "net": "_0691_",
+      "cap_f": 1.125044e-14,
+      "toggles": 4118,
+      "power_w": 7.0046816722729e-07
+    },
+    {
+      "net": "_0224_",
+      "cap_f": 7.69349e-15,
+      "toggles": 5988,
+      "power_w": 6.965266515706612e-07
+    }
+  ]
+}

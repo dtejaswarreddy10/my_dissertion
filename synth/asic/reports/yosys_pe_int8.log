@@ -1,0 +1,797 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.30+48 (git sha1 14d50a176d5, gcc 8.3.1 -fPIC -Os)
+
+
+-- Running command `
+      read_verilog -sv /work/src/pe_int8.sv;
+      hierarchy -check -top pe_int8;
+      proc;
+      flatten;
+      opt;
+      check;
+      synth -top pe_int8 -flatten -noabc;
+      dfflibmap -liberty /PDK/FreePDK45/osu_soc/lib/files/gscl45nm.lib;
+      abc -liberty /PDK/FreePDK45/osu_soc/lib/files/gscl45nm.lib;
+      clean;
+      check;
+      stat -liberty /PDK/FreePDK45/osu_soc/lib/files/gscl45nm.lib;
+      write_verilog -noattr -noexpr /work/synth/asic/reports/pe_netlist_freepdk45.v;
+      tee -o /work/synth/asic/reports/pe_stat.txt stat -liberty /PDK/FreePDK45/osu_soc/lib/files/gscl45nm.lib;
+    ' --
+
+1. Executing Verilog-2005 frontend: /work/src/pe_int8.sv
+Parsing SystemVerilog input from `/work/src/pe_int8.sv' to AST representation.
+Generating RTLIL representation for module `\pe_int8'.
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \pe_int8
+
+2.2. Analyzing design hierarchy..
+Top module:  \pe_int8
+Removed 0 unused modules.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$/work/src/pe_int8.sv:48$1 in module pe_int8.
+Removed a total of 0 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 5 redundant assignments.
+Promoted 0 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~3 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+     1/6: $0\valid_q[0:0]
+     2/6: $0\product_q[31:0]
+     3/6: $0\valid_out[0:0]
+     4/6: $0\b_out[7:0]
+     5/6: $0\a_out[7:0]
+     6/6: $0\acc_q[31:0]
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\pe_int8.\a_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$27' with positive edge clock.
+Creating register for signal `\pe_int8.\b_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$28' with positive edge clock.
+Creating register for signal `\pe_int8.\valid_out' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$29' with positive edge clock.
+Creating register for signal `\pe_int8.\product_q' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$30' with positive edge clock.
+Creating register for signal `\pe_int8.\valid_q' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$31' with positive edge clock.
+Creating register for signal `\pe_int8.\acc_q' using process `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+  created $dff cell `$procdff$32' with positive edge clock.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `\pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+Removing empty process `pe_int8.$proc$/work/src/pe_int8.sv:48$1'.
+Cleaned up 3 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+4. Executing FLATTEN pass (flatten design).
+
+5. Executing OPT pass (performing simple optimizations).
+
+5.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+5.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+5.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~6 debug messages>
+
+5.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+5.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+5.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$32 ($dff) from module pe_int8 (D = $procmux$19_Y, Q = \acc_q, rval = 0).
+Adding EN signal on $auto$ff.cc:266:slice$33 ($sdff) from module pe_int8 (D = $add$/work/src/pe_int8.sv:70$3_Y, Q = \acc_q).
+Adding SRST signal on $procdff$27 ($dff) from module pe_int8 (D = \a_in, Q = \a_out, rval = 8'00000000).
+Adding SRST signal on $procdff$28 ($dff) from module pe_int8 (D = \b_in, Q = \b_out, rval = 8'00000000).
+Adding SRST signal on $procdff$30 ($dff) from module pe_int8 (D = $mul$/work/src/pe_int8.sv:63$2_Y, Q = \product_q, rval = 0).
+
+5.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+Removed 6 unused cells and 21 unused wires.
+<suppressed ~7 debug messages>
+
+5.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+5.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+5.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~1 debug messages>
+
+5.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+5.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+5.13. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$31 ($dff) from module pe_int8 (D = \valid_in, Q = \valid_q, rval = 1'0).
+
+5.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+Removed 1 unused cells and 1 unused wires.
+<suppressed ~2 debug messages>
+
+5.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+5.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+5.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+5.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+5.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+5.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+5.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+5.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+5.23. Finished OPT passes. (There is nothing left to do.)
+
+6. Executing CHECK pass (checking for obvious problems).
+Checking module pe_int8...
+Found and reported 0 problems.
+
+7. Executing SYNTH pass.
+
+7.1. Executing HIERARCHY pass (managing design hierarchy).
+
+7.1.1. Analyzing design hierarchy..
+Top module:  \pe_int8
+
+7.1.2. Analyzing design hierarchy..
+Top module:  \pe_int8
+Removed 0 unused modules.
+
+7.2. Executing PROC pass (convert processes to netlists).
+
+7.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+7.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+7.2.4. Executing PROC_INIT pass (extract init attributes).
+
+7.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+7.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+7.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+7.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+7.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+7.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+7.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.3. Executing FLATTEN pass (flatten design).
+
+7.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.6. Executing CHECK pass (checking for obvious problems).
+Checking module pe_int8...
+Found and reported 0 problems.
+
+7.7. Executing OPT pass (performing simple optimizations).
+
+7.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+7.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.7.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.7.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.7.9. Finished OPT passes. (There is nothing left to do.)
+
+7.8. Executing FSM pass (extract and optimize FSM).
+
+7.8.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+7.8.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+7.8.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+7.8.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.8.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+7.8.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+7.8.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+7.8.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+7.9. Executing OPT pass (performing simple optimizations).
+
+7.9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+7.9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.9.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.9.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.9.9. Finished OPT passes. (There is nothing left to do.)
+
+7.10. Executing WREDUCE pass (reducing word size of cells).
+Removed top 24 bits (of 32) from port A of cell pe_int8.$mul$/work/src/pe_int8.sv:63$2 ($mul).
+Removed top 24 bits (of 32) from port B of cell pe_int8.$mul$/work/src/pe_int8.sv:63$2 ($mul).
+Removed top 16 bits (of 32) from port Y of cell pe_int8.$mul$/work/src/pe_int8.sv:63$2 ($mul).
+Removed top 16 bits (of 32) from FF cell pe_int8.$auto$ff.cc:266:slice$39 ($sdff).
+Removed top 16 bits (of 32) from port B of cell pe_int8.$add$/work/src/pe_int8.sv:70$3 ($add).
+
+7.11. Executing PEEPOPT pass (run peephole optimizers).
+
+7.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.13. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module pe_int8:
+  creating $macc model for $add$/work/src/pe_int8.sv:70$3 ($add).
+  creating $macc model for $mul$/work/src/pe_int8.sv:63$2 ($mul).
+  creating $alu model for $macc $add$/work/src/pe_int8.sv:70$3.
+  creating $macc cell for $mul$/work/src/pe_int8.sv:63$2: $auto$alumacc.cc:365:replace_macc$41
+  creating $alu cell for $add$/work/src/pe_int8.sv:70$3: $auto$alumacc.cc:485:replace_alu$42
+  created 1 $alu and 1 $macc cells.
+
+7.14. Executing SHARE pass (SAT-based resource sharing).
+
+7.15. Executing OPT pass (performing simple optimizations).
+
+7.15.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.15.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.15.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.15.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+7.15.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.15.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.15.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.15.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.15.9. Finished OPT passes. (There is nothing left to do.)
+
+7.16. Executing MEMORY pass.
+
+7.16.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+7.16.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+7.16.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+7.16.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+7.16.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+7.16.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.16.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+7.16.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+7.16.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.16.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+7.17. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.18. Executing OPT pass (performing simple optimizations).
+
+7.18.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.18.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.18.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.18.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.18.5. Finished fast OPT passes.
+
+7.19. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+7.20. Executing OPT pass (performing simple optimizations).
+
+7.20.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.20.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.20.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pe_int8..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.20.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pe_int8.
+Performed a total of 0 changes.
+
+7.20.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+Removed a total of 0 cells.
+
+7.20.6. Executing OPT_SHARE pass.
+
+7.20.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.20.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+
+7.20.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+
+7.20.10. Finished OPT passes. (There is nothing left to do.)
+
+7.21. Executing TECHMAP pass (map to technology primitives).
+
+7.21.1. Executing Verilog-2005 frontend: /build/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/build/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+7.21.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper maccmap for cells of type $macc.
+  add \a_in * \b_in (8x8 bits, signed)
+Using template $paramod$bee2d9b174e5d569acba3e70eed4e815564102b5\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $sdff.
+Using extmapper simplemap for cells of type $sdffe.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $not.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000010000 for cells of type $fa.
+Using template $paramod$6df0329addda9228fcc2546de2aaf14ad26c98e1\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $or.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000010000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~663 debug messages>
+
+7.22. Executing OPT pass (performing simple optimizations).
+
+7.22.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pe_int8.
+<suppressed ~309 debug messages>
+
+7.22.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pe_int8'.
+<suppressed ~339 debug messages>
+Removed a total of 113 cells.
+
+7.22.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.22.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pe_int8..
+Removed 80 unused cells and 158 unused wires.
+<suppressed ~81 debug messages>
+
+7.22.5. Finished fast OPT passes.
+
+7.23. Executing HIERARCHY pass (managing design hierarchy).
+
+7.23.1. Analyzing design hierarchy..
+Top module:  \pe_int8
+
+7.23.2. Analyzing design hierarchy..
+Top module:  \pe_int8
+Removed 0 unused modules.
+
+7.24. Printing statistics.
+
+=== pe_int8 ===
+
+   Number of wires:                187
+   Number of wire bits:           1160
+   Number of public wires:          13
+   Number of public wire bits:     134
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                710
+     $_AND_                        314
+     $_NOT_                          8
+     $_OR_                         119
+     $_SDFFE_PP0P_                  32
+     $_SDFF_PP0_                    33
+     $_XOR_                        204
+
+7.25. Executing CHECK pass (checking for obvious problems).
+Checking module pe_int8...
+Found and reported 0 problems.
+
+8. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell DFFNEGX1 (noninv, pins=3, area=7.98) is a direct match for cell type $_DFF_N_.
+  cell DFFPOSX1 (noninv, pins=3, area=7.98) is a direct match for cell type $_DFF_P_.
+  cell DFFSR (noninv, pins=5, area=10.32) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    \DFFNEGX1 _DFF_N_ (.CLK( C), .D( D), .Q( Q));
+    \DFFPOSX1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    unmapped dff cell: $_DFF_PN0_
+    unmapped dff cell: $_DFF_PN1_
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \DFFSR _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .R( R), .S( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+8.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\pe_int8':
+  mapped 65 $_DFF_P_ cells to \DFFPOSX1 cells.
+
+9. Executing ABC pass (technology mapping using ABC).
+
+9.1. Extracting gate netlist of module `\pe_int8' to `<abc-temp-dir>/input.blif'..
+Extracted 742 gates and 811 wires to a netlist network with 68 inputs and 65 outputs.
+
+9.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /PDK/FreePDK45/osu_soc/lib/files/gscl45nm.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFNEGX1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFPOSX1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFSR".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "LATCH".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUFX1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUFX2".
+ABC: Library "gscl45nm" from "/PDK/FreePDK45/osu_soc/lib/files/gscl45nm.lib" has 25 cells (6 skipped: 4 seq; 2 tri-state; 0 no func; 0 dont_use).  Time =     0.01 sec
+ABC: Memory =    0.48 MB. Time =     0.01 sec
+ABC: Warning: Detected 2 multi-output gates (for example, "FAX1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+9.1.2. Re-integrating ABC results.
+ABC RESULTS:             INVX1 cells:       40
+ABC RESULTS:             OR2X1 cells:       43
+ABC RESULTS:           AOI22X1 cells:        9
+ABC RESULTS:            NOR2X1 cells:       49
+ABC RESULTS:           NAND2X1 cells:      187
+ABC RESULTS:            XOR2X1 cells:       75
+ABC RESULTS:           XNOR2X1 cells:       57
+ABC RESULTS:            AND2X1 cells:       71
+ABC RESULTS:            NOR3X1 cells:       12
+ABC RESULTS:            MUX2X1 cells:       16
+ABC RESULTS:           OAI21X1 cells:       64
+ABC RESULTS:           NAND3X1 cells:       25
+ABC RESULTS:           AOI21X1 cells:       57
+ABC RESULTS:        internal signals:      678
+ABC RESULTS:           input signals:       68
+ABC RESULTS:          output signals:       65
+Removing temp directory.
+Removed 0 unused cells and 339 unused wires.
+
+10. Executing CHECK pass (checking for obvious problems).
+Checking module pe_int8...
+Warning: Wire pe_int8.\valid_q is used but has no driver.
+Warning: Wire pe_int8.\b_out [7] is used but has no driver.
+Warning: Wire pe_int8.\b_out [6] is used but has no driver.
+Warning: Wire pe_int8.\b_out [5] is used but has no driver.
+Warning: Wire pe_int8.\b_out [4] is used but has no driver.
+Warning: Wire pe_int8.\b_out [3] is used but has no driver.
+Warning: Wire pe_int8.\b_out [2] is used but has no driver.
+Warning: Wire pe_int8.\b_out [1] is used but has no driver.
+Warning: Wire pe_int8.\b_out [0] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [31] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [30] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [29] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [28] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [27] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [26] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [25] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [24] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [23] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [22] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [21] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [20] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [19] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [18] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [17] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [16] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [15] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [14] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [13] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [12] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [11] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [10] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [9] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [8] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [7] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [6] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [5] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [4] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [3] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [2] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [1] is used but has no driver.
+Warning: Wire pe_int8.\acc_q [0] is used but has no driver.
+Warning: Wire pe_int8.\a_out [7] is used but has no driver.
+Warning: Wire pe_int8.\a_out [6] is used but has no driver.
+Warning: Wire pe_int8.\a_out [5] is used but has no driver.
+Warning: Wire pe_int8.\a_out [4] is used but has no driver.
+Warning: Wire pe_int8.\a_out [3] is used but has no driver.
+Warning: Wire pe_int8.\a_out [2] is used but has no driver.
+Warning: Wire pe_int8.\a_out [1] is used but has no driver.
+Warning: Wire pe_int8.\a_out [0] is used but has no driver.
+Found and reported 49 problems.
+
+11. Printing statistics.
+
+=== pe_int8 ===
+
+   Number of wires:                718
+   Number of wire bits:            839
+   Number of public wires:          13
+   Number of public wire bits:     134
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                770
+     AND2X1                         71
+     AOI21X1                        57
+     AOI22X1                         9
+     DFFPOSX1                       65
+     INVX1                          40
+     MUX2X1                         16
+     NAND2X1                       187
+     NAND3X1                        25
+     NOR2X1                         49
+     NOR3X1                         12
+     OAI21X1                        64
+     OR2X1                          43
+     XNOR2X1                        57
+     XOR2X1                         75
+
+   Chip area for module '\pe_int8': 2450.684600
+
+12. Executing Verilog backend.
+Dumping module `\pe_int8'.
+
+13. Printing statistics.
+
+=== pe_int8 ===
+
+   Number of wires:                718
+   Number of wire bits:            839
+   Number of public wires:          13
+   Number of public wire bits:     134
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                770
+     AND2X1                         71
+     AOI21X1                        57
+     AOI22X1                         9
+     DFFPOSX1                       65
+     INVX1                          40
+     MUX2X1                         16
+     NAND2X1                       187
+     NAND3X1                        25
+     NOR2X1                         49
+     NOR3X1                         12
+     OAI21X1                        64
+     OR2X1                          43
+     XNOR2X1                        57
+     XOR2X1                         75
+
+   Chip area for module '\pe_int8': 2450.684600
+
+Warnings: 49 unique messages, 49 total
+End of script. Logfile hash: 305be1760f, CPU: user 0.63s system 0.02s, MEM: 16.06 MB peak
+Yosys 0.30+48 (git sha1 14d50a176d5, gcc 8.3.1 -fPIC -Os)
+Time spent: 33% 1x abc (0 sec), 17% 2x write_verilog (0 sec), ...
