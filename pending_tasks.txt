@@ -187,3 +187,55 @@ plus reports/sta_pe_mixed_nogate_abcfix_setup.rpt and sta_pe_mixed_gated_abcfix_
 A sanity check for you
 
 The gl_power.py result for the clk net was about 106 µW (no-gate). Compare it with the clock-net switching power in the OpenSTA report. They should be roughly the same order. If OpenSTA's is about 2.5× higher, it has scaled the activity to the 4 ns clock instead of the 10 ns simulation clock. That matters for the pJ/MAC row (energy per cycle uses the matching period), so tell me what you see.
+
+
+
+
+
+--------------------------------------------------------------------------------------
+Pending tasks after the ASIC STA and power results
+
+1. Finish the ASIC side
+
+1. pe_int8 baseline power.
+   - Run pe_int8_gl (never run).
+   - Add a test_power_stimulus for pe_int8, then SAIF and gl_power.py.
+   - Without it there is no power comparison with the baseline, and no baseline row for the pJ/MAC table.
+2. INT4×2 power run (TB_POWER_MODE=int4x2, both netlists). This gives the INT4×2 rows for pJ/MAC.
+3. Attribute the extra non-clock power in the gated netlist at 0–50% sparsity. A per-net diff between the two netlists would do it. This is the only unexplained result.
+
+
+2. Accuracy
+
+7. Run the smoke test, then ResNet-18 and MobileNetV2 (golden/accuracy_study.py), and fix any torch-side bugs. Record the tables.
+
+3. pJ/MAC comparison
+
+8. Fill the BitFusion and SCNN rows from the papers, including their process nodes. Verify the A100 row against its datasheet.
+9. Add the INT4×2 and pe_int8 rows once items 2 and 3 are done.
+10. Decide nominal versus effective MAC counting, and write the caveats next to the table.
+
+4. Open numbers
+
+11. Functional coverage. Run COVERAGE=1, record the percentage and fill the placeholder in docs/09.
+12. INT4×2 throughput. It measures 1.53× against the 1.8–2.0× target. Either re-measure with a longer stream or keep the explanation.
+
+5. Documents
+
+13. Refresh the mid-term report and the mid-sem slides. Both still say the ASIC flow wasn't run.
+14. Fill the outline placeholders, and mark the plan as superseded.
+15. Write the dissertation chapters, figures and limitations, including FP8 scoped out. The results text above can be reused.
+16. Write the README and open-source release, and clean up synth/fpga/ and .copilotignore.
+
+6. Parked or optional
+
+- 250 MHz gate-level simulation violation (parked by you).
+- Array-level ASIC run (optional).
+
+Suggested order
+
+- Next: items 1, 2 and 3, because the pJ/MAC table and the area-versus-baseline claim depend on them.
+- In parallel: the accuracy runs, since they need no ASIC data.
+- Then: the pJ/MAC table, coverage and the documents.
+
+I've also updated pending_tasks.txt to match the sections above.
