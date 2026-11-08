@@ -57,6 +57,16 @@ COCOTB_TEST_MODULES := test_pe_mixed
 VERILOG_SOURCES := \
     $(RTL)/pe_mixed.sv
 
+else ifeq ($(TEST),pe_mixed_250)
+
+TOPLEVEL := pe_mixed
+COCOTB_TOPLEVEL := pe_mixed
+MODULE := test_pe_mixed_250mhz
+COCOTB_TEST_MODULES := test_pe_mixed_250mhz
+
+VERILOG_SOURCES := \
+    $(RTL)/pe_mixed.sv
+
 else ifeq ($(TEST),array_mixed)
 
 TOPLEVEL := systolic_array_mixed
@@ -105,6 +115,25 @@ endif
 
 ifndef GL_LIB_V
 $(error TEST=pe_mixed_gl requires GL_LIB_V=<stdcell_lib.v>)
+endif
+
+VERILOG_SOURCES := \
+    $(GL_LIB_V) \
+    $(GL_NETLIST)
+
+else ifeq ($(TEST),pe_mixed_250_gl)
+
+TOPLEVEL := pe_mixed
+COCOTB_TOPLEVEL := pe_mixed
+MODULE := test_pe_mixed_250mhz
+COCOTB_TEST_MODULES := test_pe_mixed_250mhz
+
+ifndef GL_NETLIST
+$(error TEST=pe_mixed_250_gl requires GL_NETLIST=<netlist.v>)
+endif
+
+ifndef GL_LIB_V
+$(error TEST=pe_mixed_250_gl requires GL_LIB_V=<stdcell_lib.v>)
 endif
 
 VERILOG_SOURCES := \

@@ -1,0 +1,56 @@
+Startpoint: u_icg_acc_latch (positive level-sensitive latch clocked by clk')
+Endpoint: _2439_ (rising clock gating-check end-point clocked by clk)
+Path Group: gated clock
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   2.0000    2.0000   clock clk' (rise edge)
+   0.0000    2.0000   clock network delay (ideal)
+   0.0000    2.0000 ^ u_icg_acc_latch/CLK (LATCH)
+   0.0447    2.0447 ^ u_icg_acc_latch/Q (LATCH)
+   0.0000    2.0447 ^ _2439_/A (AND2X2)
+             2.0447   data arrival time
+
+   2.0000    2.0000   clock clk (fall edge)
+   0.0000    2.0000   clock network delay (ideal)
+   0.0000    2.0000   clock reconvergence pessimism
+             2.0000 v _2439_/B (AND2X2)
+   0.0000    2.0000   clock gating hold time
+             2.0000   data required time
+-------------------------------------------------------------
+             2.0000   data required time
+            -2.0447   data arrival time
+-------------------------------------------------------------
+             0.0447   slack (MET)
+
+
+Startpoint: _2707_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: u_icg_mac_latch (positive level-sensitive latch clocked by clk')
+Path Group: clk
+Path Type: min
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000 ^ _2707_/CLK (DFFPOSX1)
+   0.0618    0.0618 ^ _2707_/Q (DFFPOSX1)
+   0.0198    0.0816 v _2456_/Y (INVX1)
+   0.0124    0.0940 ^ _2457_/Y (NAND2X1)
+   0.0000    0.0940 ^ u_icg_mac_latch/D (LATCH)
+             0.0940   data arrival time
+
+   0.0000    0.0000   clock clk' (fall edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.0000    0.0000   clock reconvergence pessimism
+             0.0000 v u_icg_mac_latch/CLK (LATCH)
+   0.0108    0.0108   library hold time
+             0.0108   data required time
+-------------------------------------------------------------
+             0.0108   data required time
+            -0.0940   data arrival time
+-------------------------------------------------------------
+             0.0833   slack (MET)
+
+

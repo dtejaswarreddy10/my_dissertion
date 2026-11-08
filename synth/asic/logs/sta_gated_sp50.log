@@ -1,0 +1,91 @@
+OpenSTA 2.4.0 41a51eaf4c Copyright (c) 2021, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+INFO: lib=/work/FreePDK45/osu_soc/lib/files/gscl45nm.lib
+INFO: netlist=/work/my_dissertion/synth/asic/reports/pe_mixed_gated_abcfix_sta.v  top=pe_mixed  clk=4.0ns
+INFO: setup/hold reports -> reports/sta_pe_mixed_gated_abcfix_sta_*.rpt
+Startpoint: u_icg_mac_latch (positive level-sensitive latch clocked by clk')
+Endpoint: _2458_ (rising clock gating-check end-point clocked by clk)
+Path Group: gated clock
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   2.0000    2.0000   clock clk' (rise edge)
+   0.0000    2.0000   clock network delay (ideal)
+   0.0000    2.0000 ^ u_icg_mac_latch/CLK (LATCH)
+   0.0686    2.0686 v u_icg_mac_latch/Q (LATCH)
+   0.0000    2.0686 v _2458_/B (AND2X2)
+             2.0686   data arrival time
+
+   4.0000    4.0000   clock clk (rise edge)
+   0.0000    4.0000   clock network delay (ideal)
+   0.0000    4.0000   clock reconvergence pessimism
+             4.0000 ^ _2458_/A (AND2X2)
+   0.0000    4.0000   clock gating setup time
+             4.0000   data required time
+-------------------------------------------------------------
+             4.0000   data required time
+            -2.0686   data arrival time
+-------------------------------------------------------------
+             1.9314   slack (MET)
+
+
+Startpoint: b_in[4] (input port clocked by clk)
+Endpoint: u_icg_sub_latch (positive level-sensitive latch clocked by clk')
+Path Group: clk
+Path Type: max
+
+    Delay      Time   Description
+-------------------------------------------------------------
+   0.0000    0.0000   clock clk (rise edge)
+   0.0000    0.0000   clock network delay (ideal)
+   0.8000    0.8000 ^ input external delay
+   0.0000    0.8000 ^ b_in[4] (in)
+   0.0422    0.8422 ^ _2444_/Y (OR2X2)
+   0.0429    0.8851 ^ _2445_/Y (OR2X2)
+   0.0462    0.9312 ^ _2446_/Y (OR2X2)
+   0.0878    1.0190 v _2454_/Y (NAND3X1)
+   0.0435    1.0626 ^ _2455_/Y (NAND2X1)
+   0.0000    1.0626 ^ u_icg_sub_latch/D (LATCH)
+             1.0626   data arrival time
+
+   2.0000    2.0000   clock clk' (rise edge)
+   0.0000    2.0000   clock network delay (ideal)
+   0.0000    2.0000   clock reconvergence pessimism
+             2.0000 ^ u_icg_sub_latch/CLK (LATCH)
+   0.0000    2.0000   time borrowed from endpoint
+             2.0000   data required time
+-------------------------------------------------------------
+             2.0000   data required time
+            -1.0626   data arrival time
+-------------------------------------------------------------
+             0.9374   slack (MET)
+
+Time Borrowing Information
+----------------------------------------------
+clk' pulse width                        2.0000
+library setup time                     -0.1769
+----------------------------------------------
+max time borrow                         1.8231
+actual time borrow                      0.0000
+----------------------------------------------
+
+
+INFO: annotating activity from /work/my_dissertion/synth/asic/reports/activity_gated_sp50.saif (scope pe_mixed)
+WARN: read_saif failed (invalid command name "read_saif")
+WARN: falling back to gl_power.py for the dynamic-power estimate
+Group                    Internal    Switching      Leakage        Total
+                            Power        Power        Power        Power (Watts)
+------------------------------------------------------------------------
+Sequential           4.102557e-04 4.527304e-05 6.011074e-06 4.615398e-04  28.8%
+Combinational        6.254318e-04 4.929095e-04 2.405185e-05 1.142393e-03  71.2%
+Macro                0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00   0.0%
+Pad                  0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00   0.0%
+------------------------------------------------------------------------
+Total                1.035687e-03 5.381822e-04 3.006289e-05 1.603932e-03 100.0%
+                            64.6%        33.6%         1.9%
+INFO: power report -> /work/my_dissertion/synth/asic/reports/power_pe_mixed_gated_abcfix_sta_saif.rpt

@@ -1,0 +1,202 @@
+Using the Questa compat flow for Questa version 2021.2 < 2025.2. Run make with SIM=questa-qisqrun to force the newer QIS/Qrun flow.
+rm -f results_pe_mixed_gl.xml
+mkdir -p sim_build
+# Make sure all libs in SOURCES_VHDL_* are mentioned in VHDL_LIB_ORDER and vice versa
+/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.questa-compat:131: Using TOPLEVEL is deprecated, please use COCOTB_TOPLEVEL instead.
+rm -f results_pe_mixed_gl.xml
+set -o pipefail; \
+  GPI_EXTRA= \
+  VHDL_GPI_INTERFACE=fli \
+  COCOTB__QUESTA_MODE=compat \
+  COCOTB_TEST_MODULES=test_pe_mixed COCOTB_TESTCASE=  COCOTB_TOPLEVEL=pe_mixed TOPLEVEL_LANG=verilog       \
+     /tools/mentor_questa_2021/questasim/linux_x86_64/vsim -c -64  -do sim_build/runsim.do  
+Reading pref.tcl
+
+# 2021.2_1
+
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2021.2_1 Lib Mapping Utility 2021.05 May 15 2021
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vlog 2021.2_1 Compiler 2021.05 May 15 2021
+# Start time: 10:54:05 on Nov 08,2026
+# vlog -work work -sv -timescale 1ns/1ps -mfcu -sv "+acc" /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm_debug.v ../synth/asic/reports/pe_mixed_gated_abcfix.v 
+# -- Compiling module AND2X1
+# -- Compiling module AND2X2
+# -- Compiling module AOI21X1
+# -- Compiling module AOI22X1
+# -- Compiling module BUFX2
+# -- Compiling module BUFX4
+# -- Compiling module CLKBUF1
+# -- Compiling module CLKBUF2
+# -- Compiling module CLKBUF3
+# -- Compiling module DFFNEGX1
+# -- Compiling module DFFPOSX1
+# -- Compiling module DFFSR
+# -- Compiling module FAX1
+# -- Compiling module HAX1
+# -- Compiling module INVX1
+# -- Compiling module INVX2
+# -- Compiling module INVX4
+# -- Compiling module INVX8
+# -- Compiling module LATCH
+# -- Compiling module MUX2X1
+# -- Compiling module NAND2X1
+# -- Compiling module NAND3X1
+# -- Compiling module NOR2X1
+# -- Compiling module NOR3X1
+# -- Compiling module OAI21X1
+# -- Compiling module OAI22X1
+# -- Compiling module OR2X1
+# -- Compiling module OR2X2
+# -- Compiling module TBUFX1
+# -- Compiling module TBUFX2
+# -- Compiling module XNOR2X1
+# -- Compiling module XOR2X1
+# -- Compiling UDP udp_dff
+# -- Compiling UDP udp_tlat
+# -- Compiling UDP udp_rslat
+# -- Compiling UDP udp_mux2
+# -- Compiling module pe_mixed
+# 
+# Top level modules:
+# 	AND2X1
+# 	BUFX2
+# 	BUFX4
+# 	CLKBUF1
+# 	CLKBUF2
+# 	CLKBUF3
+# 	DFFNEGX1
+# 	DFFSR
+# 	FAX1
+# 	HAX1
+# 	INVX2
+# 	INVX4
+# 	INVX8
+# 	LATCH
+# 	OAI22X1
+# 	OR2X1
+# 	TBUFX1
+# 	TBUFX2
+# 	pe_mixed
+# End time: 10:54:05 on Nov 08,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -64 -c -no_autoacc -wlf sim_build/vsim.wlf "+notimingchecks" -do "/home/uday-teja/masters/my_dissertion/tb/power.do" -onfinish exit -pli "/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so" work.pe_mixed 
+# Start time: 10:54:05 on Nov 08,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.pe_mixed(fast)
+# Loading work.OR2X2(fast)
+# Loading work.AND2X2(fast)
+# Loading work.NOR3X1(fast)
+# Loading work.NOR2X1(fast)
+# Loading work.XOR2X1(fast)
+# Loading work.XNOR2X1(fast)
+# Loading work.AOI21X1(fast)
+# Loading work.NAND3X1(fast)
+# Loading work.NAND2X1(fast)
+# Loading work.OAI21X1(fast)
+# Loading work.INVX1(fast)
+# Loading work.MUX2X1(fast)
+# Loading work.AOI22X1(fast)
+# Loading work.DFFPOSX1(fast)
+# Loading /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_modelsim.so
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+#      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/uday-teja/masters/my_dissertion/.venv/bin/python3
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+# do /home/uday-teja/masters/my_dissertion/tb/power.do
+# /home/uday-teja/masters/my_dissertion/tb/../synth/asic/reports/activity_gated_sp75_test.saif
+INFO: SAIF output path: /home/uday-teja/masters/my_dissertion/tb/../synth/asic/reports/activity_gated_sp75_test.saif
+INFO: Questa power tracking enabled
+#      0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794115448
+#      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/uday-teja/masters/my_dissertion/.venv/lib/python3.12/site-packages/cocotb
+#      0.00ns INFO     cocotb.initialize                  Running on ModelSim for Questa-64 version 2021.2_1 2021.05
+#      0.00ns INFO     cocotb.regression                  Running tests
+#      0.00ns INFO     cocotb.regression                  running test_pe_mixed.test_int8_corners (1/9)
+#                                                             INT8 boundary operands: 0, +-1, +127, -128 in every combination.
+#      0.00ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:136: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#   1515.00ns INFO     cocotb.pe_mixed                    INT8 corner test passed (25 combinations)
+#   1515.00ns INFO     cocotb.regression                  test_pe_mixed.test_int8_corners passed
+#   1515.00ns INFO     cocotb.regression                  running test_pe_mixed.test_int8_exhaustive (2/9)
+#                                                             All 256x256 INT8 operand pairs against the golden model.
+#   1515.01ns WARNING  cocotb.pe_mixed                    TB_EXHAUSTIVE=0 - skipping INT8 exhaustive sweep
+#   1515.01ns INFO     cocotb.regression                  test_pe_mixed.test_int8_exhaustive passed
+#   1515.01ns INFO     cocotb.regression                  running test_pe_mixed.test_int8_random_accumulate (3/9)
+#                                                             Long random INT8 accumulation (exercises accumulator wraparound).
+#   1515.02ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:173: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#   6540.02ns INFO     cocotb.pe_mixed                    INT8 random accumulate passed; final acc = 84807
+#   6540.02ns INFO     cocotb.regression                  test_pe_mixed.test_int8_random_accumulate passed
+#   6540.02ns INFO     cocotb.regression                  running test_pe_mixed.test_int4x2_corners (4/9)
+#                                                             INT4 lane extremes: -8 and +7 in both lanes, plus zero lanes.
+#   6540.03ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:195: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  25305.03ns INFO     cocotb.pe_mixed                    INT4x2 corner test passed (625 combinations)
+#  25305.03ns INFO     cocotb.regression                  test_pe_mixed.test_int4x2_corners passed
+#  25305.03ns INFO     cocotb.regression                  running test_pe_mixed.test_int4x2_exhaustive (5/9)
+#                                                             All 256x256 packed byte pairs == every (a_hi,a_lo,b_hi,b_lo) lane combo.
+#  25305.04ns WARNING  cocotb.pe_mixed                    TB_EXHAUSTIVE=0 - skipping INT4x2 exhaustive sweep
+#  25305.04ns INFO     cocotb.regression                  test_pe_mixed.test_int4x2_exhaustive passed
+#  25305.04ns INFO     cocotb.regression                  running test_pe_mixed.test_int4x2_lane_independence (6/9)
+#                                                             A zero lane must contribute nothing - proves the lanes do not bleed.
+#  25305.05ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:238: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  33320.05ns INFO     cocotb.pe_mixed                    INT4x2 lane independence passed
+#  33320.05ns INFO     cocotb.regression                  test_pe_mixed.test_int4x2_lane_independence passed
+#  33320.05ns INFO     cocotb.regression                  running test_pe_mixed.test_mode_transition_with_clear (7/9)
+#                                                             Tile-granular mode switching: acc_clear at every precision change.
+#  33320.06ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:273: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  37735.06ns INFO     cocotb.pe_mixed                    Mode-transition test passed over 40 alternating tiles
+#  37735.06ns INFO     cocotb.regression                  test_pe_mixed.test_mode_transition_with_clear passed
+#  37735.06ns INFO     cocotb.regression                  running test_pe_mixed.test_mode_change_does_not_corrupt_inflight (8/9)
+#                                                             A mode change must apply to new operands only, not to the in-flight product.
+#  37735.07ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:311: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  40760.07ns INFO     cocotb.pe_mixed                    In-flight mode-change test passed
+#  40760.07ns INFO     cocotb.regression                  test_pe_mixed.test_mode_change_does_not_corrupt_inflight passed
+#  40760.07ns INFO     cocotb.regression                  running test_pe_mixed.test_power_stimulus (9/9)
+#                                                             Long run with a controlled zero-operand fraction (TB_SPARSITY) and
+#  40760.08ns WARNING  py.warnings                        /home/uday-teja/masters/my_dissertion/tb/test_pe_mixed.py:345: DeprecationWarning: The 'units' argument has been renamed to 'unit'.
+#                                                           cocotb.start_soon(Clock(dut.clk, CLK_PERIOD_NS, units="ns").start())
+#  40775.08ns INFO     cocotb.pe_mixed                    Power stimulus: mode=int8 sparsity=75% idle=0% cycles=4000
+#  80775.08ns INFO     cocotb.pe_mixed                    Power stimulus complete: 4000 valid cycles, measured zero-operand 75.3% (target 75%)
+#  80775.08ns INFO     cocotb.regression                  test_pe_mixed.test_power_stimulus passed
+#  80775.08ns INFO     cocotb.regression                  ******************************************************************************************************************
+#                                                         ** TEST                                                      STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         ******************************************************************************************************************
+#                                                         ** test_pe_mixed.test_int8_corners                            PASS        1515.00           0.11      14220.71  **
+#                                                         ** test_pe_mixed.test_int8_exhaustive                         PASS           0.00           0.00          0.00  **
+#                                                         ** test_pe_mixed.test_int8_random_accumulate                  PASS        5025.00           0.23      21534.32  **
+#                                                         ** test_pe_mixed.test_int4x2_corners                          PASS       18765.00           0.38      49781.41  **
+#                                                         ** test_pe_mixed.test_int4x2_exhaustive                       PASS           0.00           0.00          0.00  **
+#                                                         ** test_pe_mixed.test_int4x2_lane_independence                PASS        8015.00           0.16      50480.31  **
+#                                                         ** test_pe_mixed.test_mode_transition_with_clear              PASS        4415.00           0.17      26477.92  **
+#                                                         ** test_pe_mixed.test_mode_change_does_not_corrupt_inflight   PASS        3025.00           0.13      23339.79  **
+#                                                         ** test_pe_mixed.test_power_stimulus                          PASS       40015.00           0.99      40472.22  **
+#                                                         ******************************************************************************************************************
+#                                                         ** TESTS=9 PASS=9 FAIL=0 SKIP=0                                          80775.08           2.17      37297.94  **
+#                                                         ******************************************************************************************************************
+# ** Note: $finish    : /home/uday-teja/PDK/FreePDK45/osu_soc/lib/files/gscl45nm_debug.v(287)
+#    Time: 80775080 ps  Iteration: 2  Instance: /pe_mixed File: ../synth/asic/reports/pe_mixed_gated_abcfix.v
+# End time: 10:54:11 on Nov 08,2026, Elapsed time: 0:00:06
+# Errors: 0, Warnings: 0

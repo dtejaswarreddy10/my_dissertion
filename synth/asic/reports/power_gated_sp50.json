@@ -1,6 +1,6 @@
 {
-  "netlist": "/home/uday-teja/masters/my_dissertion/synth/asic/reports/pe_mixed_gated_abcfix.v",
-  "saif": "/home/uday-teja/masters/my_dissertion/synth/asic/reports/activity_gated_sp50.saif",
+  "netlist": "synth/asic/reports/pe_mixed_gated_abcfix.v",
+  "saif": "synth/asic/reports/activity_gated_sp50.saif",
   "vdd_v": 1.1,
   "duration_s": 4.0014999999999996e-05,
   "instances": 1424,
