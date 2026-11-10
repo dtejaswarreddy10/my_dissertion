@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mid-Semester Review — Mixed-Precision Sparsity-Aware Systolic Array</title>
+<style>
+  :root{
+    --bg:#0d1b2a; --bg2:#1b263b; --card:#22314a; --accent:#4cc9f0;
+    --accent2:#f72585; --accent3:#80ffdb; --text:#e6edf3; --muted:#9fb3c8;
+    --good:#52b788; --warn:#ffb703; --line:#33415c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#000;color:var(--text)}
+  #deck{width:100vw;height:100vh;overflow:hidden;position:relative}
+  .slide{
+    position:absolute;inset:0;display:none;flex-direction:column;
+    padding:5vh 7vw;background:linear-gradient(135deg,var(--bg),var(--bg2));
+    animation:fade .4s ease}
+  .slide.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  h1{font-size:2.8vw;line-height:1.15;margin-bottom:2vh}
+  h2{font-size:2.2vw;color:var(--accent);margin-bottom:2vh;border-left:6px solid var(--accent2);padding-left:16px}
+  h3{font-size:1.3vw;color:var(--accent3);margin:1.2vh 0 .7vh}
+  p,li{font-size:1.15vw;line-height:1.5;color:var(--text)}
+  ul{margin-left:1.4em;margin-top:.5vh}
+  li{margin-bottom:.8vh}
+  li b{color:var(--accent)}
+  .muted{color:var(--muted)}
+  .accent{color:var(--accent2)}
+  .good{color:var(--good)}
+  .warn{color:var(--warn)}
+  .center{justify-content:center;align-items:center;text-align:center}
+  .tag{display:inline-block;background:var(--card);border:1px solid var(--line);
+    color:var(--accent3);padding:.5vh 1.1vw;border-radius:999px;font-size:.95vw;margin:.3vh}
+  .tag.ok{border-color:var(--good);color:var(--good)}
+  .tag.warnt{border-color:var(--warn);color:var(--warn)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.4vw}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1vw}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.8vh 1.4vw}
+  .card h3{margin-top:0}
+  table{border-collapse:collapse;width:100%;font-size:.98vw;margin-top:1vh}
+  th,td{border:1px solid var(--line);padding:.8vh .9vw;text-align:left}
+  th{background:var(--card);color:var(--accent)}
+  td b{color:var(--accent3)}
+  .kpi{font-size:2.3vw;color:var(--accent3);font-weight:700}
+  .kpi small{display:block;font-size:.95vw;color:var(--muted);font-weight:400;margin-top:.4vh}
+  .footer{position:absolute;bottom:2.2vh;left:7vw;right:7vw;display:flex;
+    justify-content:space-between;font-size:.85vw;color:var(--muted);border-top:1px solid var(--line);padding-top:1.1vh}
+  .pill{background:var(--accent2);color:#fff;padding:.4vh 1vw;border-radius:8px;font-size:1vw}
+  .flowrow{display:flex;align-items:center;justify-content:center;gap:1vw;margin-top:3vh}
+  .flowcard{background:var(--card);border:1px solid var(--accent);border-radius:12px;
+    padding:1.8vh 1.2vw;text-align:center;flex:1}
+  .flowcard h3{margin:0 0 .6vh}
+  .flowcard p{font-size:.95vw;color:var(--muted)}
+  .arrow{font-size:1.6vw;color:var(--accent2)}
+  .nav{position:fixed;bottom:14px;right:18px;z-index:10;display:flex;gap:8px}
+  .nav button{background:var(--card);color:var(--text);border:1px solid var(--line);
+    border-radius:8px;padding:6px 12px;cursor:pointer;font-size:14px}
+  .nav button:hover{border-color:var(--accent)}
+  .progress{position:fixed;top:0;left:0;height:4px;background:var(--accent2);z-index:10;transition:width .3s}
+  .titlewrap .tag{font-size:1.05vw}
+  .lead{font-size:1.4vw;color:var(--muted);margin-top:2vh;max-width:62vw}
+  .contrib{display:flex;align-items:flex-start;gap:1vw;margin-bottom:1.3vh}
+  .num{flex:0 0 auto;width:2.4vw;height:2.4vw;border-radius:50%;background:var(--accent2);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1vw}
+  .pathviz{font-family:monospace;font-size:.95vw;background:#0a1420;border:1px solid var(--line);
+    border-radius:10px;padding:1.5vh 1.2vw;color:var(--accent3);line-height:1.6;margin-top:1.5vh}
+  .pathviz .hop{color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div id="deck">
+
+  <!-- 1 TITLE -->
+  <section class="slide active center titlewrap">
+    <div class="tag">BITS Pilani · WILP · M.Tech VLSI Design & Microelectronics</div>
+    <h1 style="margin-top:3vh;max-width:80vw">Runtime-Adaptive Precision &amp; Sparsity-Aware Systolic Array<br>with Per-PE Power Gating</h1>
+    <p class="lead">A Unified RTL Architecture for Energy-Efficient DNN Inference</p>
+    <div style="margin-top:3vh">
+      <span class="tag">SystemVerilog RTL</span>
+      <span class="tag">INT8 / INT4×2</span>
+      <span class="tag">2:4 Sparsity</span>
+      <span class="tag">Per-PE Clock Gating</span>
+      <span class="tag">FPGA + ASIC (sky130)</span>
+    </div>
+    <p class="muted" style="margin-top:5vh;font-size:1.05vw">Mid-Semester Review &nbsp;•&nbsp; <b style="color:var(--accent3)">Dudyala Tejeswara Reddy</b> &nbsp;·&nbsp; BITS ID: 2024HT08699</p>
+  </section>
+
+  <!-- 2 AGENDA -->
+  <section class="slide">
+    <h2>What I'll Cover Today</h2>
+    <div class="grid3">
+      <div class="card"><h3>Recap</h3><p>The problem and the five objectives, in brief.</p></div>
+      <div class="card"><h3>What's Built</h3><p>All four contributions implemented in RTL — architecture and module summary.</p></div>
+      <div class="card"><h3>Verification</h3><p>Golden-model methodology and current pass status.</p></div>
+      <div class="card"><h3>FPGA Results</h3><p>All four configurations synthesized and timing-closed on Kintex-7.</p></div>
+      <div class="card"><h3>ASIC Results</h3><p>First real sky130 silicon-process numbers for the baseline PE.</p></div>
+      <div class="card"><h3>What's Next</h3><p>A clear, honest punch list of remaining work.</p></div>
+    </div>
+    <div class="footer"><span>Mid-Semester Review</span><span>2</span></div>
+  </section>
+
+  <!-- 3 PROBLEM RECAP -->
+  <section class="slide">
+    <h2>Recap — The Problem</h2>
+    <p class="lead" style="margin-top:0">Production AI silicon needs three efficiency techniques together — precision flexibility, structured sparsity, and per-PE power gating — but no open, characterized RTL combines all three.</p>
+    <div class="grid3" style="margin-top:2.5vh">
+      <div class="card"><div class="kpi">3+ <small>precision lanes</small></div><p style="margin-top:1vh">No single fixed-precision array is optimal across a whole model.</p></div>
+      <div class="card"><div class="kpi">40–80% <small>activations ≈ zero</small></div><p style="margin-top:1vh">2:4 structured sparsity gives a compact, hardware-friendly way to skip them.</p></div>
+      <div class="card"><div class="kpi">60–70% <small>power in the MAC datapath</small></div><p style="margin-top:1vh">Operand isolation + clock gating must live in the RTL, not be bolted on.</p></div>
+    </div>
+    <p style="margin-top:2.5vh"><b class="accent">My contribution:</b> one unified array combining all three, plus a quantified study of how precision mode, sparsity rate, and gating effectiveness interact.</p>
+    <div class="footer"><span>Recap</span><span>3</span></div>
+  </section>
+
+  <!-- 4 OBJECTIVES -->
+  <section class="slide">
+    <h2>Recap — Objectives (O1–O5)</h2>
+    <div class="contrib"><div class="num">O1</div><p><b>Baseline engine.</b> Verified parameterized INT8 8×8 systolic array vs a Python GEMM golden model. <span class="tag ok">RTL + FPGA done</span></p></div>
+    <div class="contrib"><div class="num">O2</div><p><b>Precision-adaptive PE.</b> Runtime switch between INT8 and packed INT4×2 on a shared reduction tree. <span class="tag ok">RTL + FPGA done</span></p></div>
+    <div class="contrib"><div class="num">O3</div><p><b>Sparsity front-end.</b> Purely combinational 2:4 metadata decoder. <span class="tag ok">RTL done</span></p></div>
+    <div class="contrib"><div class="num">O4</div><p><b>Per-PE power gating.</b> Operand isolation + ICG, single clock domain, no CDC. <span class="tag ok">RTL done</span></p></div>
+    <div class="contrib"><div class="num">O5</div><p><b>Characterize &amp; validate.</b> FPGA + ASIC PPA, pJ/MAC, accuracy validation. <span class="tag warnt">In progress</span></p></div>
+    <div class="footer"><span>Objectives</span><span>4</span></div>
+  </section>
+
+  <!-- 5 ARCHITECTURE BUILT -->
+  <section class="slide">
+    <h2>What Got Built — Four Configurations</h2>
+    <p class="lead" style="margin-top:0">Each contribution builds on the last, so every cost and benefit can be measured in isolation <i>and</i> in combination.</p>
+    <div class="flowrow">
+      <div class="flowcard"><h3>Baseline</h3><p><b>systolic_array</b><br>dense INT8, the reference point</p></div>
+      <div class="arrow">→</div>
+      <div class="flowcard"><h3>Mixed</h3><p><b>systolic_array_mixed</b><br>+ INT8 / INT4×2 at runtime</p></div>
+      <div class="arrow">→</div>
+      <div class="flowcard"><h3>Sparse</h3><p><b>systolic_array_sparse</b><br>+ 2:4 front-end, gating off</p></div>
+      <div class="arrow">→</div>
+      <div class="flowcard" style="border-color:var(--accent2)"><h3>Full Design</h3><p><b>systolic_array_sparse</b><br>+ per-PE clock gating</p></div>
+    </div>
+    <p class="muted" style="margin-top:3vh">Output-stationary 8×8 mesh: activations flow east, weights flow south, each PE accumulates C[i][j] in place.</p>
+    <div class="footer"><span>Architecture</span><span>5</span></div>
+  </section>
+
+  <!-- 6 MODULE SUMMARY -->
+  <section class="slide">
+    <h2>Module Summary</h2>
+    <table>
+      <tr><th>Module</th><th>Role</th></tr>
+      <tr><td><b>pe_int8</b></td><td>Baseline 2-stage INT8 MAC PE — product registered, then accumulated; fuses to 1 DSP48 on FPGA.</td></tr>
+      <tr><td><b>systolic_array</b></td><td>8×8 mesh of pe_int8, output-stationary dataflow with boundary skew.</td></tr>
+      <tr><td><b>pe_mixed</b></td><td>Precision-adaptive PE — INT8/INT4×2 share one reduction tree; 3-stage pipeline after timing closure.</td></tr>
+      <tr><td><b>systolic_array_mixed</b></td><td>8×8 mesh of pe_mixed with a broadcast runtime mode select.</td></tr>
+      <tr><td><b>sparsity_decoder</b></td><td>Purely combinational 2:4 metadata decoder — scatters compressed values, flags illegal metadata.</td></tr>
+      <tr><td><b>sparse_feeder</b></td><td>North-edge per-column expander: compressed weight stream → dense stream with explicit zeros.</td></tr>
+      <tr><td><b>icg_cell</b></td><td>Three selectable clock-gate implementations: ASIC latch, FPGA BUFGCE, FPGA passthrough.</td></tr>
+      <tr><td><b>systolic_array_sparse</b></td><td>Full design — precision + sparsity + gating combined; backs both "sparse" and "full" configs.</td></tr>
+    </table>
+    <div class="footer"><span>Modules</span><span>6</span></div>
+  </section>
+
+  <!-- 7 VERIFICATION APPROACH -->
+  <section class="slide">
+    <h2>Verification Approach</h2>
+    <p class="lead" style="margin-top:0">Every module is checked against a Python golden reference model, at two levels.</p>
+    <div class="grid2" style="margin-top:2.5vh">
+      <div class="card">
+        <h3>PE-level (cycle-accurate)</h3>
+        <p>Every intermediate cycle's output compared against the golden model, with <b>exhaustive</b> input coverage where the space is small enough to enumerate completely.</p>
+      </div>
+      <div class="card">
+        <h3>Array-level (GEMM)</h3>
+        <p>Full matrices streamed through the design; final settled result compared against a golden GEMM (or pruned-GEMM) reference — this is where dataflow, skew, and boundary conditions are actually exercised.</p>
+      </div>
+    </div>
+    <div class="footer"><span>Verification</span><span>7</span></div>
+  </section>
+
+  <!-- 8 VERIFICATION STATUS -->
+  <section class="slide">
+    <h2>Verification Status</h2>
+    <table>
+      <tr><th>Module</th><th>Status</th></tr>
+      <tr><td>systolic_array</td><td class="good">✔ Fully verified — identity, corners, 50 random matrices, back-to-back tiles</td></tr>
+      <tr><td>pe_mixed</td><td class="good">✔ Exhaustive 65,536/65,536 in both INT8 &amp; INT4×2</td></tr>
+      <tr><td>systolic_array_mixed</td><td class="good">✔ Fully verified, incl. precision-switch throughput measurement</td></tr>
+      <tr><td>sparsity_decoder</td><td class="good">✔ Fully verified — all 16 metadata encodings, 500 random legal groups</td></tr>
+      <tr><td>pe_int8 (standalone, per-cycle)</td><td class="good">✔ Resolved — original failure traced to a stale RTL copy in the test environment (same root cause independently confirmed on the ASIC flow); current RTL expected clean</td></tr>
+      <tr><td>systolic_array_sparse</td><td class="warnt">⚠ One test-harness fix applied (metadata masking); confirmation rerun pending</td></tr>
+      <tr><td>icg_cell (gating enabled)</td><td class="muted">— Gate-level, gating-enabled simulation not yet run</td></tr>
+    </table>
+    <div class="footer"><span>Verification Status</span><span>8</span></div>
+  </section>
+
+  <!-- 9 FPGA RESULTS -->
+  <section class="slide">
+    <h2>FPGA Results — All Four Configurations</h2>
+    <p class="muted" style="margin-top:0">Vivado, Kintex-7 (xc7k70tfbv676-1), 250 MHz target</p>
+    <table style="margin-top:1vh">
+      <tr><th>Config</th><th>LUTs</th><th>FFs</th><th>DSPs</th><th>Slack</th><th>Fmax</th><th>Dynamic Power</th></tr>
+      <tr><td>Baseline</td><td>2</td><td>344</td><td>64</td><td>+2.024 ns</td><td>~506 MHz</td><td>0.139 W</td></tr>
+      <tr><td>Mixed</td><td>9,549</td><td>6,716</td><td>0</td><td>+0.064 ns</td><td>~248 MHz</td><td>0.520 W</td></tr>
+      <tr><td>Sparse (gating off)</td><td>9,634</td><td>6,812</td><td>0</td><td>+0.120 ns</td><td>~248 MHz</td><td>0.575 W</td></tr>
+      <tr><td>Full design</td><td>10,747</td><td>6,932</td><td>0</td><td>+0.040 ns*</td><td>~249 MHz</td><td>0.546 W</td></tr>
+    </table>
+    <p class="muted" style="margin-top:1.2vh;font-size:.95vw">* Full design closed at a 4.05 ns clock (not the 4.0 ns used for the others) — stated explicitly, not hidden.</p>
+    <p style="margin-top:1.5vh"><b class="good">All four configurations close timing at essentially the 250 MHz target.</b></p>
+    <div class="footer"><span>FPGA Results</span><span>9</span></div>
+  </section>
+
+  <!-- 10 FPGA INTERPRETATION -->
+  <section class="slide">
+    <h2>FPGA Results — Interpretation</h2>
+    <ul>
+      <li><b>Area isn't apples-to-apples here:</b> baseline maps its MAC to a hardened DSP48; the precision-adaptive PE is deliberately kept in fabric. The ASIC flow (next) is the real source of the area-overhead number.</li>
+      <li><b>Power trend is directionally right:</b> "Full design" measures lower dynamic power than the otherwise-identical "sparse, gating off" — consistent with operand isolation working — but this is still under a uniform-toggle placeholder, not yet the activity-annotated (SAIF) result.</li>
+      <li><b>INT4×2 throughput measured at 1.53×</b>, against a 1.8–2.0× target — stated honestly, not smoothed over.</li>
+      <li><b>Getting here required real debugging:</b> added a pipeline stage to pe_mixed and a feeder output register during timing closure — both confirmed correct via full exhaustive and array-level re-verification afterward.</li>
+    </ul>
+    <div class="footer"><span>FPGA Interpretation</span><span>10</span></div>
+  </section>
+
+  <!-- 11 ASIC SKY130 -->
+  <section class="slide">
+    <h2>ASIC Characterization — sky130 (First Real Silicon-Process Numbers)</h2>
+    <p class="muted" style="margin-top:0">Yosys, sky130_fd_sc_hd, tt / 25°C / 1.8V corner — standalone baseline PE</p>
+    <div class="grid3" style="margin-top:2vh">
+      <div class="card center"><div class="kpi">4930.98 µm²<small>chip area, 649 cells, 65 flip-flops</small></div></div>
+      <div class="card center"><div class="kpi">+2.5 ns<small>setup slack at 10 ns target — MET</small></div></div>
+      <div class="card center"><div class="kpi">~133 MHz<small>achievable Fmax at this corner</small></div></div>
+    </div>
+    <p style="margin-top:2.5vh">No DSP/multiplier macro — sky130_fd_sc_hd has none, so this is a full, honest stdcell mapping. Every register is accounted for exactly (32 acc + 8+8 forwarding + 1 valid + 16 real product bits = 65).</p>
+    <div class="footer"><span>ASIC — sky130</span><span>11</span></div>
+  </section>
+
+  <!-- 12 DESIGN INSIGHT -->
+  <section class="slide">
+    <h2>Design Insight — The Bottleneck Isn't the Multiplier</h2>
+    <p class="lead" style="margin-top:0">The critical path on sky130 runs register-to-register through the 32-bit accumulator, not the multiply.</p>
+    <div class="pathviz">
+      acc_q[1] <span class="hop">→</span> xnor2 <span class="hop">→</span> o21ai <span class="hop">→</span>
+      <b>14× maj3_1</b> <span class="hop">(full-adder carry chain)</span> <span class="hop">→</span>
+      nand4b <span class="hop">→</span> ... <span class="hop">→</span> acc_q[31]
+    </div>
+    <p style="margin-top:2vh"><b>maj3_1</b> is the standard full-adder carry cell — 14 of them chained back to back is a textbook <b class="accent">ripple-carry adder</b>. Yosys/ABC mapped the 32-bit accumulate this way by default, so its delay scales roughly linearly with word width.</p>
+    <p style="margin-top:1.5vh" class="muted">Implication: if more speed is needed later, a faster adder structure for the accumulator — not the multiplier — is where the gain would come from.</p>
+    <div class="footer"><span>Design Insight</span><span>12</span></div>
+  </section>
+
+  <!-- 13 NOT YET DONE -->
+  <section class="slide">
+    <h2>What's Not Yet Done</h2>
+    <ul>
+      <li>Activity-annotated (SAIF) power — both flows currently report default-activity placeholders only, explicitly flagged as not the numbers to quote.</li>
+      <li>Gate-level power for <b>pe_int8</b> needs a new cocotb Makefile target (only pe_mixed has one today).</li>
+      <li><b>pe_mixed</b> on the ASIC flow hits a synthesis check-assert failure (gating-config netlist) — parked, not yet root-caused.</li>
+      <li>The earlier <b>FreePDK45</b> baseline-PE numbers need the same stale-file recheck that sky130 just went through.</li>
+      <li>ResNet-18 / MobileNetV2 accuracy validation and the BitFusion/SCNN pJ/MAC comparison — not started.</li>
+      <li><b>systolic_array_sparse</b> confirmation rerun with the applied test-harness fix — not yet executed.</li>
+    </ul>
+    <div class="footer"><span>Remaining Work</span><span>13</span></div>
+  </section>
+
+  <!-- 14 SUMMARY -->
+  <section class="slide center">
+    <h1>Summary</h1>
+    <p class="lead" style="max-width:70vw">All four contributions are implemented, synthesize cleanly, and close timing at ~250 MHz on real FPGA hardware. The ASIC flow has produced its first trustworthy silicon-process numbers, including a genuine architectural insight about the accumulator bottleneck. Functional verification is largely complete, with a small number of understood, scoped items remaining.</p>
+    <div style="margin-top:3vh">
+      <span class="tag ok">4/4 configs timing-closed ✔</span>
+      <span class="tag ok">65,536-exhaustive PE verification ✔</span>
+      <span class="tag ok">First sky130 silicon numbers ✔</span>
+      <span class="tag warnt">SAIF power + accuracy study pending</span>
+    </div>
+    <div class="footer"><span>Summary</span><span>14</span></div>
+  </section>
+
+  <!-- 15 CLOSE -->
+  <section class="slide center">
+    <h1>Thank You</h1>
+    <p class="muted" style="margin-top:2vh;font-size:1.3vw">Questions &amp; Feedback</p>
+    <div class="footer"><span>Mid-Semester Review</span><span>15</span></div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button onclick="go(-1)">◀ Prev</button>
+  <span id="counter" style="align-self:center;color:#9fb3c8;font-size:13px"></span>
+  <button onclick="go(1)">Next ▶</button>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function render(){
+    slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+    document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+    document.getElementById('counter').textContent=(i+1)+' / '+slides.length;
+  }
+  function go(d){i=Math.min(slides.length-1,Math.max(0,i+d));render();}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
+    else if(e.key==='Home'){i=0;render();}
+    else if(e.key==='End'){i=slides.length-1;render();}
+    else if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.();}
+  });
+  render();
+</script>
+</body>
+</html>
